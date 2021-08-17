@@ -1,0 +1,11 @@
+redo the css layout 
+
+upload on git
+
+match user to chatroom on click 
+
+render state data
+
+configuring root route
+    remove hyperlink
+    remove triling // and match the number of ".." with the number of "//"
