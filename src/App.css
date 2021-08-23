@@ -3,6 +3,136 @@
   display: grid; 
   height: 100vh;
   grid-template-columns: [col0] 40% [col1] 60% [col2];
+  grid-template-rows: [row0] 100% [row1];
+}
+
+.left {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  display: grid;
+  grid-template-columns: [col0] 100% [col1];
+  grid-template-rows: [row0] 10% [row1] 1fr [row2] 3rem [row3];
+}
+
+.left-row1 {
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+.left-row2 {
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+.left-row3 {
+  grid-row-start: 3;
+  grid-row-end: 4;  
+  justify-self: stretch;
+  align-self: stretch;
+}
+
+.right {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  border: 1px solid black;
+  display:grid;
+  grid-template-columns: [col0] 100% [col1];
+  grid-template-rows: [row0] 10% [row1] 1fr [row2] 3rem [row3];
+}
+
+.right:hover {
+  border: 2px solid blue;
+}
+
+
+.right-row1 {
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+.right-row2 {
+  grid-row-start: 2;
+  grid-row-end: 3;
+  display: flex;
+  flex-direction: column;
+}
+
+.right-row3 {
+  grid-row-start: 3;
+  grid-row-end: 4;  
+  /* justify-self: stretch;
+  align-self: stretch; */
+  padding:auto;
+}
+
+.Header {
+  text-align: center;
+}
+
+.message-block {
+  max-width: 70%;
+  min-width: 15%;
+  display: inline-block;
+}
+
+.message-block > * {
+  /* word-wrap: break-word; */
+  overflow-wrap: anywhere;
+  /* display: inline-block; */
+}
+
+.message-block > .content {
+  display: inline-block;
+}
+
+.message-block.self {
+  align-self: flex-end;
+}
+
+.message-block .content {
+  border-radius: 18px; 
+  padding: 0 0.8rem;
+}
+
+.message-block.other > .content {
+  background-color: #e4e6eb;
+}
+
+.message-block.self > .content {
+  background-color: rgb(0, 132, 255);
+  color: white;
+}
+
+.right-row3 {
+  padding: auto; 
+}
+
+.right-row3 > form{
+  width: 90%;
+  margin: auto auto;
+}
+
+.right-row3 input {
+  width: 100%;
+}
+/* .left.row3 {
+  position: relative; 
+} */
+
+/* .left.row3:hover {
+  background:chartreuse;
+} */
+
+
+
+
+/* .App {
+  border: dotted rgb(35, 4, 212) 1px; 
+  display: grid; 
+  height: 100vh;
+  grid-template-columns: [col0] 40% [col1] 60% [col2];
   grid-template-rows: [row0] 10% [row1] 1fr [row2] 3rem [row3];
 }
 
@@ -28,14 +158,6 @@
   align-self: stretch;
 }
 
-/* .left.row3 {
-  position: relative; 
-} */
-
-/* .left.row3:hover {
-  background:chartreuse;
-} */
-
 .right {
   grid-column-start: 2;
   grid-column-end: 3;
@@ -50,4 +172,4 @@
 
 .Header {
   text-align: center;
-}
+} */

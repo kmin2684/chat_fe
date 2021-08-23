@@ -1,3 +1,12 @@
+make a new room form 
+    on the left side (mobile friendly)
+    make group name mandatory for group chat
+        field that shows only when more than 1 person selected 
+        url: /new
+chat window css 
+
+current user state
+
 redo the css layout 
 
 upload on git
