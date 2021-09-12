@@ -1,8 +1,8 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
 import ChatPeopleList from "./components/ChatPeopleList";
 import ChatPeopleToggle from "./components/ChatPeopleToggle";
-import Login from "./components/Login";
+// import Login from "./components/Login";
 import NewChat from "./components/NewChat"
 import React, { useState, useEffect } from "react";
 import {
@@ -69,15 +69,15 @@ const room_list = [
   },
 ];
 
-const userInfo2 = {
-  isLoggedIn: true,
-  username: 'wwer',
-  token: 'sdpiofji',
-}
+// const userInfo2 = {
+//   isLoggedIn: true,
+//   username: 'wwer',
+//   token: 'sdpiofji',
+// }
 
 
 
-export default async function App() {
+export default function App() {
 
   const [myID, setMyID] = useState('1');
 
@@ -151,9 +151,6 @@ export default async function App() {
             rooms = {room_list}
             friends = {friend_list}/>
           </Route>
-          {/* <Route path='/login'>
-            <Login />
-          </Route> */}
         </Switch> 
       </Router>
     </div>
@@ -182,4 +179,3 @@ export default async function App() {
 //     </div>
 //   );
 // }
-
