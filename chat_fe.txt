@@ -1,3 +1,14 @@
+login
+    send request to server
+    if response is successful
+        save to local storage
+        update state in app.js 
+
+    if logged in is true, redirect to main page 
+
+    if userInfo already in local storage
+        check the token 
+
 make a new room form 
     on the left side (mobile friendly)
     make group name mandatory for group chat

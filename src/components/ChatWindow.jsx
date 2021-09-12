@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from "react";
 // import './Chat.css;'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    useParams
+  } from "react-router-dom";
 
-export default function ChatWindow({chatHistory, myID, room_id, inputOn}) {
+
+export default function ChatWindow({LoadChat, chatHistory, myID, inputOn}) {
+    let { room_id } = useParams();
+    room_id? LoadChat(room_id) : LoadChat(null);
+
     const messages = chatHistory?.messages?.map(message => {
         if (myID===message.sender) {
             return (
@@ -32,12 +43,14 @@ export default function ChatWindow({chatHistory, myID, room_id, inputOn}) {
     });
 
     return (
-        <>
+        <div className = 'right'>
             <div className = 'right-row1'>
                 {room_id}
             </div>
             <div className = 'right-row2'>
-                {messages?messages : 'no message'}
+                {messages?messages 
+                : inputOn? 'send a new message'
+                : 'no message'}
             </div>
             <div className = 'right-row3'>
                 {
@@ -52,7 +65,7 @@ export default function ChatWindow({chatHistory, myID, room_id, inputOn}) {
                     : null                   
                 }
             </div>
-        </>
+        </div>
     );
 
 
