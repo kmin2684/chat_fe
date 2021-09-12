@@ -1,8 +1,8 @@
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
 import ChatPeopleList from "./components/ChatPeopleList";
 import ChatPeopleToggle from "./components/ChatPeopleToggle";
-// import Login from "./components/Login";
+import Login from "./components/Login";
 import NewChat from "./components/NewChat"
 import React, { useState, useEffect } from "react";
 import {
@@ -77,7 +77,52 @@ const room_list = [
 
 
 
+
+function SaveUserInfo(userInfo) {
+  if (typeof(Storage) !== "undefined") {
+      localStorage.ChatUserInfo = JSON.stringify(userInfo);
+      console.log('user info save in local storage'); 
+  } else {
+      console.log('unable to use localStorage')
+  }
+}
+
 export default function App() {
+
+  const [userInfo, setUserInfo] = useState(1);
+  useEffect(() => {
+    async function GetUserInfo() {
+      if (typeof(Storage) !== "undefined") {
+          if (localStorage.ChatUserInfo) {
+
+            console.log('user info in local storage');
+            let userInfo = JSON.parse(localStorage.ChatUserInfo);
+            // check userInfo against server database
+            if (userInfo.token) {
+              let response = await fetch('http://127.0.0.1:8000/chat_app/user_check', {
+                method: 'GET',
+                headers: {'Authorization': 'token '+ userInfo.token},
+              });
+              let response_json = await response.json();
+              if (response_json.username) {
+                SaveUserInfo({username: response_json.username, token: userInfo.token});
+                setUserInfo({username: response_json.username, token: userInfo.token});
+                // return <Redirect to='/newchat'/>
+                // return {username: response_json.username, token: userInfo.token};
+              }
+            }
+          } else {
+            console.log('no user info in local storage');
+            setUserInfo(null);
+          }
+      } else {
+        console.log('storage undefined');
+        setUserInfo(null);
+        } 
+    }
+    
+    GetUserInfo(); 
+  }, [])
 
   const [myID, setMyID] = useState('1');
 
@@ -113,21 +158,35 @@ export default function App() {
     console.log(chatHistory);
   }
 
+  console.log('print userInfo:', userInfo)
 
   return (
     <div className = 'App'> 
       <Router>
         <Switch> 
           <Route exact path="/">
-            <Main 
-            width = {width} 
-            showChat = {showChat} 
-            LoadChat = {LoadChat} 
-            ChatPeopleSwitch = {ChatPeopleSwitch}
-            rooms = {room_list}
-            friends = {friend_list}
-            />
-            <ChatWindow chatHistory = {chatHistory} LoadChat={LoadChat} myID={myID}/>
+            {userInfo? <>
+              <Main 
+              width = {width} 
+              showChat = {showChat} 
+              LoadChat = {LoadChat} 
+              ChatPeopleSwitch = {ChatPeopleSwitch}
+              rooms = {room_list}
+              friends = {friend_list}
+              />
+              <ChatWindow chatHistory = {chatHistory} LoadChat={LoadChat} myID={myID}/>
+            </> : 
+            <Redirect to='/login' />
+            }
+              {/* <Main 
+              width = {width} 
+              showChat = {showChat} 
+              LoadChat = {LoadChat} 
+              ChatPeopleSwitch = {ChatPeopleSwitch}
+              rooms = {room_list}
+              friends = {friend_list}
+              />
+              <ChatWindow chatHistory = {chatHistory} LoadChat={LoadChat} myID={myID}/> */}
           </Route>
           <Route path="/room/:room_id">
             <Main 
@@ -150,6 +209,9 @@ export default function App() {
             ChatPeopleSwitch = {ChatPeopleSwitch}
             rooms = {room_list}
             friends = {friend_list}/>
+          </Route>
+          <Route path='/login'>
+            <Login userInfo = {null} />
           </Route>
         </Switch> 
       </Router>
