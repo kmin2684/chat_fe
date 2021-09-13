@@ -78,7 +78,7 @@ const room_list = [
 
 
 
-function SaveUserInfo(userInfo) {
+export function SaveUserInfo(userInfo) {
   if (typeof(Storage) !== "undefined") {
       localStorage.ChatUserInfo = JSON.stringify(userInfo);
       console.log('user info save in local storage'); 
@@ -89,39 +89,66 @@ function SaveUserInfo(userInfo) {
 
 export default function App() {
 
-  const [userInfo, setUserInfo] = useState(1);
+  // const [isLoading, setIsLoading] = useState(true);
+  const [userInfo, setUserInfo] = useState('loading');
+  function SetUserInfoProp(data) {
+    setUserInfo(data)
+  }
+
   useEffect(() => {
     async function GetUserInfo() {
       if (typeof(Storage) !== "undefined") {
-          if (localStorage.ChatUserInfo) {
-
-            console.log('user info in local storage');
-            let userInfo = JSON.parse(localStorage.ChatUserInfo);
-            // check userInfo against server database
-            if (userInfo.token) {
-              let response = await fetch('http://127.0.0.1:8000/chat_app/user_check', {
-                method: 'GET',
-                headers: {'Authorization': 'token '+ userInfo.token},
-              });
-              let response_json = await response.json();
-              if (response_json.username) {
-                SaveUserInfo({username: response_json.username, token: userInfo.token});
-                setUserInfo({username: response_json.username, token: userInfo.token});
-                // return <Redirect to='/newchat'/>
-                // return {username: response_json.username, token: userInfo.token};
-              }
+        if (localStorage.ChatUserInfo) {
+          let storedInfo = JSON.parse(localStorage.ChatUserInfo);
+          try {
+            let response = await fetch('http://127.0.0.1:8000/chat_app/user_check', {
+              method: 'GET',
+              headers: {'Authorization': 'token '+ storedInfo.token},
+            });
+            let response_json = await response.json();
+            if (response_json.username) {
+              SaveUserInfo({username: response_json.username, token: storedInfo.token});
+              setUserInfo({username: response_json.username, token: storedInfo.token});
+              return;
+              // return <Redirect to='/newchat'/>
+              // return {username: response_json.username, token: userInfo.token};
             }
-          } else {
-            console.log('no user info in local storage');
-            setUserInfo(null);
+          } catch (error) {
+            console.error(error);
+            // setUserInfo(null);
           }
+          // if (storedInfo.token) {
+          //   console.log('token in local storage');
+          //   // check userInfo against server database
+          //   if (storedInfo.token) {
+          //     let response = await fetch('http://127.0.0.1:8000/chat_app/user_check', {
+          //       method: 'GET',
+          //       headers: {'Authorization': 'token '+ storedInfo.token},
+          //     });
+          //     let response_json = await response.json();
+          //     if (response_json.username) {
+          //       SaveUserInfo({username: response_json.username, token: storedInfo.token});
+          //       setUserInfo({username: response_json.username, token: storedInfo.token});
+          //       // return <Redirect to='/newchat'/>
+          //       // return {username: response_json.username, token: userInfo.token};
+          //     }
+          //   } else console.log("localStorage.ChatUserInfo undefined")
+          // } else {
+          //   console.log('no token in local storage');
+          //   setUserInfo(null);
+          // }
+        } else {
+          console.log("localStorage.ChatUserInfo is undefined");
+        }
       } else {
         console.log('storage undefined');
-        setUserInfo(null);
-        } 
+      } 
+      setUserInfo(null);
     }
     
     GetUserInfo(); 
+    // setIsLoading(5);
+    // console.log('is loading?: ', isLoading);
   }, [])
 
   const [myID, setMyID] = useState('1');
@@ -158,7 +185,27 @@ export default function App() {
     console.log(chatHistory);
   }
 
-  console.log('print userInfo:', userInfo)
+  console.log('print userInfo:', userInfo);
+  // console.log('is Loading2 :',isLoading);
+
+  if (userInfo === 'loading') {
+    return null
+  } else if (!userInfo) {
+    return (
+      <div className = 'App'>
+        <Router>
+          <Switch>
+            <Route path='/login'>
+              <Login userInfo = {null} SetUserInfoProp = {SetUserInfoProp} />
+            </Route>
+            <Route path='/'>
+              <Redirect to='/login' />
+            </Route>
+          </Switch>
+        </Router>
+      </div>
+    );
+  }
 
   return (
     <div className = 'App'> 
@@ -211,7 +258,7 @@ export default function App() {
             friends = {friend_list}/>
           </Route>
           <Route path='/login'>
-            <Login userInfo = {null} />
+            <Login userInfo = {null} loggedIn = {true}/>
           </Route>
         </Switch> 
       </Router>
