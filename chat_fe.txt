@@ -1,3 +1,6 @@
+responsesive design
+    change class name (.left and .right)
+
 login
     send request to server
     if response is successful

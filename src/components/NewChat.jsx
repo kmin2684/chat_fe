@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Component } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -7,15 +7,19 @@ import {
   useParams
 } from "react-router-dom";
 import ChatWindow from "./ChatWindow";
+import { MobileViewSide } from "../App";
 
 export default function NewChat ({chatHistory, myID, width, showChat, LoadChat, ChatPeopleSwitch, rooms, friends}) {
     const [section, setSection] = useState('new_message');
+    const [fullyLoaded, setFullyLoaded] = useState(false);
     const [groupName, setGroupName] = useState(null);
     const [inputOn, setInputOn] = useState(null);
     function SwitchInputOn(value) {
       setInputOn(value);
     }
   
+    // console.log('NewChat mounted');
+
     function Change_section (current) {
       if (current === 'new_message') {
         setSection(new_message);
@@ -31,6 +35,23 @@ export default function NewChat ({chatHistory, myID, width, showChat, LoadChat, 
       }
     }
   
+    useEffect(() => {
+      if (section === 'send_message') {
+        MobileViewSide('right');
+        return;
+      }
+      MobileViewSide('left');
+    }, [section]);
+
+    // MobileViewSide('left');
+    // componentDidMount() {
+    //   if (section === 'send_message') {
+    //     MobileViewSide('right');
+    //     return;
+    //   }
+    //   MobileViewSide('left');
+    // };
+
     const [checkedUsers, setCheckedUsers] = useState([]);
     function ChangeCheck(id) {
       // let checkedUsersCopy = [...checkedUsers];
@@ -124,10 +145,16 @@ export default function NewChat ({chatHistory, myID, width, showChat, LoadChat, 
     //   rooms = {rooms}
     //   friends = {friend_list}
     //   />
-    "send a new message from the right window"
+    <div className = 'NewChat left'> send a new message from the right window </div>
     : null; 
   
-    return [page, <ChatWindow chatHistory = {chatHistory} LoadChat={LoadChat} myID={myID} inputOn={inputOn}/>]; 
+    return [page, <ChatWindow 
+      chatHistory = {chatHistory} 
+      LoadChat={LoadChat}
+      myID={myID} 
+      inputOn={inputOn} 
+      // mess = {console.log('ChatWindow mounted')}
+      />]; 
  
   }
   

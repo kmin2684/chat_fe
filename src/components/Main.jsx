@@ -8,26 +8,33 @@ import {
   Link,
   useParams
 } from "react-router-dom";
+import { MobileViewSide } from "../App";
 
-export default function Main ({width, showChat, LoadChat, ChatPeopleSwitch, rooms, friends}) {
-    return (
-      <div className = 'left'>
-        <div className='left-row1'>
-          <div className = "Header">
-            Header, width={width}
-            <button>
-              <Link to='/newchat'>
-              new chat
-              </Link>
-            </button>
-          </div>
+export default function Main ({width, showChat, LoadChat, ChatPeopleSwitch, rooms, friends, mobileViewSide}) {
+
+  useEffect(() => {
+    if (mobileViewSide) MobileViewSide(mobileViewSide);}
+    ,[mobileViewSide]
+    );  
+
+  return (
+    <div className = 'left'>
+      <div className='left-row1'>
+        <div className = "Header">
+          Header, width={width}
+          <button>
+            <Link to='/newchat'>
+            new chat
+            </Link>
+          </button>
         </div>
-          <div className='left-row2'>
-            <ChatPeopleList showChat={showChat} LoadChat={LoadChat} rooms={rooms} friends={friends}/> 
-          </div>
-          <div className='left-row3'>
-            <ChatPeopleToggle ChatPeopleSwitch={ChatPeopleSwitch}/>
-          </div>
       </div>
-    );
-  }
+        <div className='left-row2'>
+          <ChatPeopleList showChat={showChat} LoadChat={LoadChat} rooms={rooms} friends={friends}/> 
+        </div>
+        <div className='left-row3'>
+          <ChatPeopleToggle ChatPeopleSwitch={ChatPeopleSwitch}/>
+        </div>
+    </div>
+  );
+}

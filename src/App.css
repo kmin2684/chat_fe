@@ -4,6 +4,8 @@
   height: 100vh;
   grid-template-columns: [col0] 40% [col1] 60% [col2];
   grid-template-rows: [row0] 100% [row1];
+  max-width: 1400px;
+  margin: auto;
 }
 
 .left {
@@ -117,6 +119,29 @@
 .right-row3 input {
   width: 100%;
 }
+
+@media screen and (max-width: 900px) {
+  .App{
+    border: dotted rgb(35, 4, 212) 1px; 
+    display: grid; 
+    height: 100vh;
+    grid-template-columns: [col0] 100% [col1];
+    grid-template-rows: [row0] 100% [row1];
+    /* max-width: 1400px; */
+    margin: auto;
+  }
+
+  .HideIfMobile {
+    display: none;
+  }
+  .ShowIfMobile {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    display: grid; 
+  }
+}
+
+
 /* .left.row3 {
   position: relative; 
 } */
