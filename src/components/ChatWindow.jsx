@@ -5,17 +5,20 @@ import {
     Switch,
     Route,
     Link,
-    useParams
+    useParams,
+    useHistory,
   } from "react-router-dom";
 
 
-export default function ChatWindow({LoadChat, chatHistory, myID, inputOn}) {
+export default function ChatWindow({setCurrentChatProp, chatHistory, myID, inputOn, userInfo}) {
     let { room_id } = useParams();
     // room_id? LoadChat(room_id) : LoadChat(null);
-    if (room_id) LoadChat(room_id)
+    if (room_id) setCurrentChatProp(room_id)
+
+    let history = useHistory();
 
     const messages = chatHistory?.messages?.map(message => {
-        if (myID===message.sender) {
+        if (userInfo.username===message.sender) {
             return (
                 <div className='message-block self'>
                     <div className='content'>
@@ -47,6 +50,7 @@ export default function ChatWindow({LoadChat, chatHistory, myID, inputOn}) {
         <div className = 'right'>
             <div className = 'right-row1'>
                 {room_id}
+                {chatHistory?.messages && <div onClick={()=>history.push('/')}> home</div>}
             </div>
             <div className = 'right-row2'>
                 {messages?messages 

@@ -33,6 +33,7 @@ async function GetChat(id, token) {
     }
   );
   let response_json = await response.json();
+  return response_json;
 }
 
 export function MobileViewSide(viewSide) {
@@ -91,7 +92,7 @@ export function SaveUserInfo(userInfo) {
 export default function App() {
   // const [isLoading, setIsLoading] = useState(true);
   const [userInfo, setUserInfo] = useState("loading");
-  const [chat, setChats] = useState(undefined);
+  const [chats, setChats] = useState(undefined);
   const [friends, setFriends] = useState(undefined);
   function SetUserInfoProp(data) {
     setUserInfo(data);
@@ -177,9 +178,13 @@ export default function App() {
             headers: { Authorization: "token " + userInfo.token },
           }
         );
-        let response_json = await response.json();
+        let data = await response.json();
         console.log("\n\n\n general update \n\n\n");
-        console.log(response_json);
+        console.log(data);
+        setChats(data.rooms);
+        console.log("friends: ", data.friends, "chats: ", data.rooms);
+
+        setFriends(data.friends);
         // console.log("token used for general update:", userInfo);
       }
     }
@@ -205,21 +210,49 @@ export default function App() {
   // );
 
   // switching between chat and people list
-  const [showChat, setShowChat] = useState(true);
+  const [showChat, setShowChat] = useState(false);
   function ChatPeopleSwitch(state) {
     state ? setShowChat(true) : setShowChat(false);
   }
 
-  // displaying chat history
-  const [chatHistory, setChatHistory] = useState(null);
-  function LoadChat(chat) {
-    console.log("load " + chat);
-    let current = [room1, room2].find((room) => room.id === chat);
-    console.log("current is");
-    console.log("current");
-    setChatHistory(current);
-    console.log("chat history: ", chatHistory);
+  const [currentChat, setCurrentChat] = useState(undefined);
+  function setCurrentChatProp(current) {
+    setCurrentChat(current);
   }
+
+  // displaying chat history
+  const [chatHistory, setChatHistory] = useState(undefined);
+  useEffect(() => {
+    // let response = await fetch(
+    //   "http://127.0.0.1:8000/chat_app/chat_update/" + id,
+    //   {
+    //     headers: { authorization: "token " + token },
+    //   }
+    // );
+    // let response_json = await response.json();
+    // return response_json;
+    let current;
+    if (currentChat) {
+      fetch("http://127.0.0.1:8000/chat_app/chat_update/" + currentChat, {
+        headers: { authorization: "token " + userInfo.token },
+      })
+        .then((response) => response.json())
+        .then((data) => setChatHistory(data));
+      // current = await GetChat(chat_id, userInfo.token);
+      // setChatHistory(current);
+    }
+  }, [currentChat]);
+
+  // async function setChatHistoryProp(chat_id) {
+  //   // console.log("load " + chat_id);
+  //   // let current = [room1, room2].find((room) => room.id === chat_id);
+  //   // console.log("current is");
+  //   // console.log("current");
+
+  //   let current = await GetChat(chat_id, userInfo.token);
+  //   setChatHistory(current);
+  //   // console.log("chat history: ", chatHistory);
+  // }
 
   // console.log("print userInfo:", userInfo);
   // console.log('is Loading2 :',isLoading);
@@ -253,16 +286,18 @@ export default function App() {
                 <Main
                   width={width}
                   showChat={showChat}
-                  LoadChat={LoadChat}
+                  setChatHistoryProp={undefined}
                   ChatPeopleSwitch={ChatPeopleSwitch}
                   rooms={room_list}
-                  friends={friend_list}
+                  friends={friends}
                   mobileViewSide={"left"}
+                  chats={chats}
                 />
                 <ChatWindow
                   chatHistory={undefined}
-                  LoadChat={LoadChat}
+                  // setChatHistoryProp={setChatHistoryProp}
                   myID={myID}
+                  userInfo={userInfo}
                 />
               </>
             ) : (
@@ -273,28 +308,30 @@ export default function App() {
             <Main
               width={width}
               showChat={showChat}
-              LoadChat={LoadChat}
+              setChatHistoryProp={undefined}
               ChatPeopleSwitch={ChatPeopleSwitch}
               rooms={room_list}
-              friends={friend_list}
+              friends={friends}
               mobileViewSide={"right"}
+              chats={chats}
             />
             <ChatWindow
               chatHistory={chatHistory}
-              LoadChat={LoadChat}
+              setChatHistoryProp={undefined}
+              setCurrentChatProp={setCurrentChatProp}
               myID={myID}
+              userInfo={userInfo}
             />
           </Route>
           <Route path="/newchat">
             <NewChat
               friends={friend_list}
-              LoadChat={LoadChat}
+              // setChatHistoryProp={setChatHistoryProp}
               width={width}
               showChat={showChat}
-              LoadChat={LoadChat}
               ChatPeopleSwitch={ChatPeopleSwitch}
               rooms={room_list}
-              friends={friend_list}
+              friends={friends}
             />
           </Route>
           <Route path="/login">

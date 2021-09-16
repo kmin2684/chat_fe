@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import { MobileViewSide } from "../App";
 
-export default function Main ({width, showChat, LoadChat, ChatPeopleSwitch, rooms, friends, mobileViewSide}) {
+export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, mobileViewSide, chats}) {
 
   useEffect(() => {
     if (mobileViewSide) MobileViewSide(mobileViewSide);}
@@ -30,7 +30,7 @@ export default function Main ({width, showChat, LoadChat, ChatPeopleSwitch, room
         </div>
       </div>
         <div className='left-row2'>
-          <ChatPeopleList showChat={showChat} LoadChat={LoadChat} rooms={rooms} friends={friends}/> 
+          <ChatPeopleList showChat={showChat} setChatHistoryProp={setChatHistoryProp} rooms={rooms} friends={friends} chats={chats}/> 
         </div>
         <div className='left-row3'>
           <ChatPeopleToggle ChatPeopleSwitch={ChatPeopleSwitch}/>

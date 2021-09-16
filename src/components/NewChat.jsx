@@ -9,7 +9,7 @@ import {
 import ChatWindow from "./ChatWindow";
 import { MobileViewSide } from "../App";
 
-export default function NewChat ({chatHistory, myID, width, showChat, LoadChat, ChatPeopleSwitch, rooms, friends}) {
+export default function NewChat ({chatHistory, myID, width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends}) {
     const [section, setSection] = useState('new_message');
     const [fullyLoaded, setFullyLoaded] = useState(false);
     const [groupName, setGroupName] = useState(null);
@@ -150,7 +150,7 @@ export default function NewChat ({chatHistory, myID, width, showChat, LoadChat, 
   
     return [page, <ChatWindow 
       chatHistory = {chatHistory} 
-      LoadChat={LoadChat}
+      setChatHistoryProp={setChatHistoryProp}
       myID={myID} 
       inputOn={inputOn} 
       // mess = {console.log('ChatWindow mounted')}

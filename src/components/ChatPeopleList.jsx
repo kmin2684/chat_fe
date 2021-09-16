@@ -5,19 +5,36 @@ import Chat from "./Chat.jsx"
 
 
 
-export default function ChatPeopleList({showChat, LoadChat, rooms, friends}) {
+export default function ChatPeopleList({showChat, setChatHistoryProp, rooms, friends, chats}) {
    // chats = rooms.map(room => {
    //    return <Chat content = {'chat-'+room.id} LoadChat = {LoadChat}/>
    // });
 
-   return showChat?  
-      rooms.map(room => {
-         return <Chat room = {room} LoadChat = {LoadChat}/>
-      })
-       : 
-      friends.map(friend => {
+   if (showChat) {
+      if (chats) {
+         return chats.map(chat => {
+            return <Chat chat = {chat} setChatHistoryProp = {setChatHistoryProp}/>
+         });     
+      } 
+      return 'no chats';
+   } 
+   
+   if (friends) {
+      return friends.map(friend => {
          return <Friend friend = {friend}/>
       })
+   }
+   return 'no friends';
+   
+
+   // return showChat?  
+   //    chats?.map(chat => {
+   //       return <Chat chat = {chat} setChatHistoryProp = {setChatHistoryProp}/>
+   //    })
+   //     : 
+   //    friends.map(friend => {
+   //       return <Friend friend = {friend}/>
+   //    })
 
    //     (
    //    <>

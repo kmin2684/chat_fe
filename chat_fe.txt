@@ -1,3 +1,7 @@
+add friend 
+create a new group
+send a new message 
+
 (1st render completed) userInfo = loading, room = loading
     GettingUserInfo GeneralUpdating
 (2nd render completed) userInfo = updated, room = loading

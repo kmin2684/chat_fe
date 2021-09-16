@@ -9,9 +9,9 @@ import {
     useParams
   } from "react-router-dom";
 
-export default function Chat({room, LoadChat}) {
-    const path = "/room/" + room.id;
+export default function Chat({room, setChatHistoryProp, chat}) {
+    const path = "/room/" + chat.id;
     return <Link to={path}>
-        <div onClick = {() => LoadChat(room.id)}>Chat name: {room.id}</div>
+        <div>Chat name: {chat.name}</div>
     </Link>;
 }
