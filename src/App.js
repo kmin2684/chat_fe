@@ -25,6 +25,16 @@ function getWindowDimensions() {
   };
 }
 
+async function GetChat(id, token) {
+  let response = await fetch(
+    "http://127.0.0.1:8000/chat_app/chat_update/" + id,
+    {
+      headers: { authorization: "token " + token },
+    }
+  );
+  let response_json = await response.json();
+}
+
 export function MobileViewSide(viewSide) {
   let show;
   let hide;
@@ -81,6 +91,8 @@ export function SaveUserInfo(userInfo) {
 export default function App() {
   // const [isLoading, setIsLoading] = useState(true);
   const [userInfo, setUserInfo] = useState("loading");
+  const [chat, setChats] = useState(undefined);
+  const [friends, setFriends] = useState(undefined);
   function SetUserInfoProp(data) {
     setUserInfo(data);
   }
@@ -113,6 +125,7 @@ export default function App() {
               // return {username: response_json.username, token: userInfo.token};
             }
           } catch (error) {
+            localStorage.ChatUserInfo = null;
             console.error(error);
             // setUserInfo(null);
           }
@@ -145,17 +158,41 @@ export default function App() {
       setUserInfo(null);
     }
 
+    // console.log("getting user info");
     GetUserInfo();
-    // setIsLoading(5);
-    // console.log('is loading?: ', isLoading);
   }, []);
+
+  useEffect(() => {
+    async function GeneralUpdate() {
+      // console.log("token is", userInfo.token);
+      let token;
+      if (userInfo) token = Object.keys(userInfo)?.find((e) => e === "token");
+      else token = null;
+      // console.log("token: ", token);
+      if (token) {
+        let response = await fetch(
+          "http://127.0.0.1:8000/chat_app/general_update",
+          {
+            method: "GET",
+            headers: { Authorization: "token " + userInfo.token },
+          }
+        );
+        let response_json = await response.json();
+        console.log("\n\n\n general update \n\n\n");
+        console.log(response_json);
+        // console.log("token used for general update:", userInfo);
+      }
+    }
+
+    // console.log("general updating", userInfo, userInfo.token);
+    GeneralUpdate();
+  }, [userInfo]);
 
   const [myID, setMyID] = useState("1");
 
   // monitoring viewport width
   const [windowDimensions, setWindowDimensions] = useState({ width: null });
   const { width } = windowDimensions;
-
   // useEffect(() => {
   //   function handleResize() {
   //     setWindowDimensions(getWindowDimensions());
@@ -184,7 +221,7 @@ export default function App() {
     console.log("chat history: ", chatHistory);
   }
 
-  console.log("print userInfo:", userInfo);
+  // console.log("print userInfo:", userInfo);
   // console.log('is Loading2 :',isLoading);
 
   if (userInfo === "loading") {
@@ -223,7 +260,7 @@ export default function App() {
                   mobileViewSide={"left"}
                 />
                 <ChatWindow
-                  chatHistory={chatHistory}
+                  chatHistory={undefined}
                   LoadChat={LoadChat}
                   myID={myID}
                 />

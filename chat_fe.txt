@@ -1,3 +1,13 @@
+(1st render completed) userInfo = loading, room = loading
+    GettingUserInfo GeneralUpdating
+(2nd render completed) userInfo = updated, room = loading
+    General Updating
+
+
+fetch rooms and chats 
+    Fix General Update so that it only fires when user is logged in 
+        see if token exists in userInfo
+
 responsesive design
     change class name (.left and .right)
 

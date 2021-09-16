@@ -11,7 +11,8 @@ import {
 
 export default function ChatWindow({LoadChat, chatHistory, myID, inputOn}) {
     let { room_id } = useParams();
-    room_id? LoadChat(room_id) : LoadChat(null);
+    // room_id? LoadChat(room_id) : LoadChat(null);
+    if (room_id) LoadChat(room_id)
 
     const messages = chatHistory?.messages?.map(message => {
         if (myID===message.sender) {
@@ -55,7 +56,7 @@ export default function ChatWindow({LoadChat, chatHistory, myID, inputOn}) {
             <div className = 'right-row3'>
                 {
                     (messages||inputOn)? 
-                    <form>
+                    <form onSubmit = {e => e.preventDefault()}>
                         <input type='text' placeholder='Aa'/>
                     </form>
                     : inputOn?
