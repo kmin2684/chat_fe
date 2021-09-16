@@ -325,7 +325,7 @@ export default function App() {
           </Route>
           <Route path="/newchat">
             <NewChat
-              friends={friend_list}
+              // friends={friend_list}
               // setChatHistoryProp={setChatHistoryProp}
               width={width}
               showChat={showChat}

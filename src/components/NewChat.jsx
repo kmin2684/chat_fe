@@ -43,15 +43,6 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
       MobileViewSide('left');
     }, [section]);
 
-    // MobileViewSide('left');
-    // componentDidMount() {
-    //   if (section === 'send_message') {
-    //     MobileViewSide('right');
-    //     return;
-    //   }
-    //   MobileViewSide('left');
-    // };
-
     const [checkedUsers, setCheckedUsers] = useState([]);
     function ChangeCheck(id) {
       // let checkedUsersCopy = [...checkedUsers];
@@ -78,9 +69,9 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
           <div>
             Suggested:
           </div>
-          {friends.map(friend => { return (
+          {friends?.map(friend => { return (
             <div>
-              friend {friend.id}
+              {friend}
             </div>
           );})}
   
@@ -100,10 +91,11 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
           </button>
         </div>
         <div className='left-row2'>
-          {friends.map(friend => {
-            const label = 'friend' + friend.id;
+          {friends?.map(friend => {
+            // const label = 'friend' + friend.id;
+            // const label = friend;
             return (
-              <Checkbox label={label} value={checkedUsers.find(user => user === friend.id)} changeCheck={() => ChangeCheck(friend.id)} />
+              <Checkbox label={friend} value={checkedUsers.find(user => user === friend.id)} changeCheck={() => ChangeCheck(friend.id)} />
             );})}
         </div>
       </div>

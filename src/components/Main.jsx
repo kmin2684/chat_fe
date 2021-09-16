@@ -6,12 +6,14 @@ import {
   Switch,
   Route,
   Link,
-  useParams
+  useParams,
+  userHistory,
+  useHistory,
 } from "react-router-dom";
 import { MobileViewSide } from "../App";
 
 export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, mobileViewSide, chats}) {
-
+  let history = useHistory();
   useEffect(() => {
     if (mobileViewSide) MobileViewSide(mobileViewSide);}
     ,[mobileViewSide]
@@ -22,10 +24,11 @@ export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSw
       <div className='left-row1'>
         <div className = "Header">
           Header, width={width}
-          <button>
-            <Link to='/newchat'>
+          <button onClick={()=>history.push('/newchat')}>
             new chat
-            </Link>
+            {/* <Link to='/newchat'>
+            new chat
+            </Link> */}
           </button>
         </div>
       </div>

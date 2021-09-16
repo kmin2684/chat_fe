@@ -1,6 +1,6 @@
 .App {
-  border: dotted rgb(35, 4, 212) 1px; 
-  display: grid; 
+  border: dotted rgb(35, 4, 212) 1px;
+  display: grid;
   height: 100vh;
   grid-template-columns: [col0] 40% [col1] 60% [col2];
   grid-template-rows: [row0] 100% [row1];
@@ -28,7 +28,7 @@
 
 .left-row3 {
   grid-row-start: 3;
-  grid-row-end: 4;  
+  grid-row-end: 4;
   justify-self: stretch;
   align-self: stretch;
 }
@@ -39,7 +39,7 @@
   grid-row-start: 1;
   grid-row-end: 4;
   border: 1px solid black;
-  display:grid;
+  display: grid;
   grid-template-columns: [col0] 100% [col1];
   grid-template-rows: [row0] 10% [row1] 1fr [row2] 3rem [row3];
 }
@@ -47,7 +47,6 @@
 .right:hover {
   border: 2px solid blue;
 }
-
 
 .right-row1 {
   grid-row-start: 1;
@@ -63,10 +62,10 @@
 
 .right-row3 {
   grid-row-start: 3;
-  grid-row-end: 4;  
+  grid-row-end: 4;
   /* justify-self: stretch;
   align-self: stretch; */
-  padding:auto;
+  padding: auto;
 }
 
 .Header {
@@ -75,7 +74,7 @@
 
 .message-block {
   max-width: 70%;
-  min-width: 15%;
+  min-width: 5%;
   display: inline-block;
 }
 
@@ -85,16 +84,21 @@
   /* display: inline-block; */
 }
 
-.message-block > .content {
+/* .message-block .content {
   display: inline-block;
-}
+} */
 
 .message-block.self {
   align-self: flex-end;
 }
 
+/* .message-block.self .container::before {
+  content: "\00a0 ";
+} */
+
 .message-block .content {
-  border-radius: 18px; 
+  display: inline-block;
+  border-radius: 18px;
   padding: 0 0.8rem;
 }
 
@@ -102,16 +106,25 @@
   background-color: #e4e6eb;
 }
 
-.message-block.self > .content {
+.message-block.self .container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0;
+}
+
+.message-block.self .content {
   background-color: rgb(0, 132, 255);
   color: white;
+  /* justify-self: flex-end; */
+  /* position: absolute;
+  right: 0; */
 }
 
 .right-row3 {
-  padding: auto; 
+  padding: auto;
 }
 
-.right-row3 > form{
+.right-row3 > form {
   width: 90%;
   margin: auto auto;
 }
@@ -121,9 +134,9 @@
 }
 
 @media screen and (max-width: 900px) {
-  .App{
-    border: dotted rgb(35, 4, 212) 1px; 
-    display: grid; 
+  .App {
+    border: dotted rgb(35, 4, 212) 1px;
+    display: grid;
     height: 100vh;
     grid-template-columns: [col0] 100% [col1];
     grid-template-rows: [row0] 100% [row1];
@@ -137,10 +150,9 @@
   .ShowIfMobile {
     grid-column-start: 1;
     grid-column-end: 2;
-    display: grid; 
+    display: grid;
   }
 }
-
 
 /* .left.row3 {
   position: relative; 
@@ -149,9 +161,6 @@
 /* .left.row3:hover {
   background:chartreuse;
 } */
-
-
-
 
 /* .App {
   border: dotted rgb(35, 4, 212) 1px; 

@@ -12,20 +12,45 @@ import {
 
 export default function ChatWindow({setCurrentChatProp, chatHistory, myID, inputOn, userInfo}) {
     let { room_id } = useParams();
+    const [content, setContent] = useState('');
     // room_id? LoadChat(room_id) : LoadChat(null);
     if (room_id) setCurrentChatProp(room_id)
 
     let history = useHistory();
 
+    function onSubmit(e) {
+        e.preventDefault();
+        setContent('');
+        if (content.length) {
+            fetch('http://127.0.0.1:8000/chat_app/chat_update/' + room_id, {
+                method: 'POST',
+                headers: 
+                    {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'token '+ userInfo.token, 
+                    },
+                body: JSON.stringify({content}), 
+            })
+            .then(response => response.json())
+            .then(data => console.log(data)); 
+        }
+    }
+
+    function onChange(e) {
+        setContent(e.target.value);
+    }
+
     const messages = chatHistory?.messages?.map(message => {
         if (userInfo.username===message.sender) {
             return (
                 <div className='message-block self'>
-                    <div className='content'>
-                        content: {message.content}
+                    <div className = 'container'>
+                        <div className='content'>
+                            {message.content}
+                        </div>
                     </div>
                     <div className='time'>
-                        time: {message.time}
+                        {message.time}
                     </div>
                 </div>
             );
@@ -36,10 +61,10 @@ export default function ChatWindow({setCurrentChatProp, chatHistory, myID, input
                         sender: {message.sender}
                     </div>
                     <div className='content'>
-                        content: {message.content}
+                        {message.content}
                     </div>
                     <div className='time'>
-                        time: {message.time}
+                        {message.time}
                     </div>
                 </div>
             );
@@ -59,15 +84,21 @@ export default function ChatWindow({setCurrentChatProp, chatHistory, myID, input
             </div>
             <div className = 'right-row3'>
                 {
-                    (messages||inputOn)? 
-                    <form onSubmit = {e => e.preventDefault()}>
-                        <input type='text' placeholder='Aa'/>
+                    (messages||inputOn)&& 
+                    <form onSubmit = {e => onSubmit(e)}>
+                        <input type='text' placeholder='Aa' value={content} onChange={e => onChange(e)}/>
                     </form>
-                    : inputOn?
-                    <form>
-                        <input type='text' placeholder='Aa'/>
-                    </form> 
-                    : null                   
+       
+
+                    // (messages||inputOn)? 
+                    // <form onSubmit = {e => e.preventDefault()}>
+                    //     <input type='text' placeholder='Aa'/>
+                    // </form>
+                    // : inputOn?
+                    // <form>
+                    //     <input type='text' placeholder='Aa'/>
+                    // </form> 
+                    // : null                   
                 }
             </div>
         </div>
