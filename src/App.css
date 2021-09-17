@@ -58,6 +58,7 @@
   grid-row-end: 3;
   display: flex;
   flex-direction: column;
+  overflow: auto;
 }
 
 .right-row3 {

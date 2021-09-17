@@ -12,6 +12,7 @@ import {
   Link,
   useParams,
   Redirect,
+  useLocation,
 } from "react-router-dom";
 import ChatWindow from "./components/ChatWindow";
 import Main from "./components/Main";
@@ -209,8 +210,8 @@ export default function App() {
   // }, []
   // );
 
-  // switching between chat and people list
-  const [showChat, setShowChat] = useState(false);
+  // switching between chat and friend list
+  const [showChat, setShowChat] = useState(true);
   function ChatPeopleSwitch(state) {
     state ? setShowChat(true) : setShowChat(false);
   }
@@ -223,14 +224,6 @@ export default function App() {
   // displaying chat history
   const [chatHistory, setChatHistory] = useState(undefined);
   useEffect(() => {
-    // let response = await fetch(
-    //   "http://127.0.0.1:8000/chat_app/chat_update/" + id,
-    //   {
-    //     headers: { authorization: "token " + token },
-    //   }
-    // );
-    // let response_json = await response.json();
-    // return response_json;
     let current;
     if (currentChat) {
       fetch("http://127.0.0.1:8000/chat_app/chat_update/" + currentChat, {
@@ -238,10 +231,18 @@ export default function App() {
       })
         .then((response) => response.json())
         .then((data) => setChatHistory(data));
-      // current = await GetChat(chat_id, userInfo.token);
-      // setChatHistory(current);
     }
   }, [currentChat]);
+
+  let location = useLocation();
+
+  useEffect(() => {
+    location.pathname == ""
+      ? console.log(location.pathname)
+      : location.pathname == "newchat"
+      ? console.log(location.pathname)
+      : console.log(location.pathname);
+  }, [location.pathname]);
 
   // async function setChatHistoryProp(chat_id) {
   //   // console.log("load " + chat_id);
