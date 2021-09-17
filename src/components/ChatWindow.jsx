@@ -15,6 +15,7 @@ export default function ChatWindow({setCurrentChatProp, chatHistory, myID, input
     const [content, setContent] = useState('');
     // room_id? LoadChat(room_id) : LoadChat(null);
     if (room_id) setCurrentChatProp(room_id)
+    else setCurrentChatProp(undefined)
 
     let history = useHistory();
 

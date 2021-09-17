@@ -231,10 +231,10 @@ export default function App() {
       })
         .then((response) => response.json())
         .then((data) => setChatHistory(data));
-    }
+    } else setChatHistory(undefined);
   }, [currentChat]);
 
-  let location = useLocation();
+  // let location = useLocation();
 
   // useEffect(() => {
   //   location.pathname == ""
@@ -296,6 +296,7 @@ export default function App() {
                 // setChatHistoryProp={setChatHistoryProp}
                 myID={myID}
                 userInfo={userInfo}
+                setCurrentChatProp={setCurrentChatProp}
               />
             </>
           ) : (
@@ -330,6 +331,7 @@ export default function App() {
             ChatPeopleSwitch={ChatPeopleSwitch}
             rooms={room_list}
             friends={friends}
+            setCurrentChatProp={setCurrentChatProp}
           />
         </Route>
         <Route path="/login">

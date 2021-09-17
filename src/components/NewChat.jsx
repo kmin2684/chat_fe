@@ -9,7 +9,7 @@ import {
 import ChatWindow from "./ChatWindow";
 import { MobileViewSide } from "../App";
 
-export default function NewChat ({chatHistory, myID, width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends}) {
+export default function NewChat ({chatHistory, myID, width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, setCurrentChatProp}) {
     const [section, setSection] = useState('new_message');
     const [fullyLoaded, setFullyLoaded] = useState(false);
     const [groupName, setGroupName] = useState(null);
@@ -44,17 +44,26 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
     }, [section]);
 
     const [checkedUsers, setCheckedUsers] = useState([]);
-    function ChangeCheck(id) {
+    function ChangeCheck(user) {
       // let checkedUsersCopy = [...checkedUsers];
-      if (checkedUsers.find(user => user == id)) {
-        console.log(id, 'unchecking')
-        setCheckedUsers(checkedUsers.filter(user => user !== id));
+      if (checkedUsers.find(e => e == user)) {
+        console.log(user, 'unchecking')
+        setCheckedUsers(checkedUsers.filter(e => e !== user));
       } else {
-        console.log(id, 'checking')
-        setCheckedUsers(checkedUsers.concat([id]));
+        console.log(user, 'checking')
+        setCheckedUsers(checkedUsers.concat([user]));
       }
     }
-    
+    // function ChangeCheck(id) {
+    //   // let checkedUsersCopy = [...checkedUsers];
+    //   if (checkedUsers.find(user => user == id)) {
+    //     console.log(id, 'unchecking')
+    //     setCheckedUsers(checkedUsers.filter(user => user !== id));
+    //   } else {
+    //     console.log(id, 'checking')
+    //     setCheckedUsers(checkedUsers.concat([id]));
+    //   }
+    // }
     const new_message = (
       <div className='NewChat left'>
         <div className='left-row1'>
@@ -95,7 +104,7 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
             // const label = 'friend' + friend.id;
             // const label = friend;
             return (
-              <Checkbox label={friend} value={checkedUsers.find(user => user === friend.id)} changeCheck={() => ChangeCheck(friend.id)} />
+              <Checkbox label={friend} value={checkedUsers.find(user => user === friend)} changeCheck={() => ChangeCheck(friend)} />
             );})}
         </div>
       </div>
@@ -145,6 +154,7 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
       setChatHistoryProp={setChatHistoryProp}
       myID={myID} 
       inputOn={inputOn} 
+      setCurrentChatProp={setCurrentChatProp}
       // mess = {console.log('ChatWindow mounted')}
       />]; 
  

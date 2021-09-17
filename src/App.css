@@ -42,6 +42,7 @@
   display: grid;
   grid-template-columns: [col0] 100% [col1];
   grid-template-rows: [row0] 10% [row1] 1fr [row2] 3rem [row3];
+  overflow: hidden;
 }
 
 .right:hover {
