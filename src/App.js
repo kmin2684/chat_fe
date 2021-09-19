@@ -97,6 +97,7 @@ export default function App() {
   const [chats, setChats] = useState(undefined);
   const [friends, setFriends] = useState(undefined);
   const [socket, setSocket] = useState(undefined);
+
   function SetUserInfoProp(data) {
     setUserInfo(data);
   }
@@ -351,6 +352,7 @@ export default function App() {
             setCurrentChatProp={setCurrentChatProp}
             myID={myID}
             userInfo={userInfo}
+            socket={socket}
           />
         </Route>
         <Route path="/newchat">

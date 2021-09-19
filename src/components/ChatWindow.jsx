@@ -10,7 +10,7 @@ import {
   } from "react-router-dom";
 
 
-export default function ChatWindow({setCurrentChatProp, chatHistory, myID, inputOn, userInfo}) {
+export default function ChatWindow({setCurrentChatProp, chatHistory, myID, inputOn, userInfo, socket}) {
     let { room_id } = useParams();
     const [content, setContent] = useState('');
     const scroll = useRef(null);
@@ -23,10 +23,21 @@ export default function ChatWindow({setCurrentChatProp, chatHistory, myID, input
 
     let history = useHistory();
 
+    function sendMessage(e) {
+        e.preventDefault();
+        if(socket && room_id && content.trim().length) {
+            if(typeof socket === 'object'){
+                socket.send(JSON.stringify({message: content, roomId: room_id}));    
+            }
+        }
+        setContent('');
+    }
+
+
     function onSubmit(e) {
         e.preventDefault();
-        setContent('');
-        if (content.length) {
+        if (content.trim().length) {
+            console.log(content);
             fetch('http://127.0.0.1:8000/chat_app/chat_update/' + room_id, {
                 method: 'POST',
                 headers: 
@@ -37,8 +48,12 @@ export default function ChatWindow({setCurrentChatProp, chatHistory, myID, input
                 body: JSON.stringify({content}), 
             })
             .then(response => response.json())
-            .then(data => console.log(data)); 
+            .then((data) => {
+                console.log(data);
+                
+            }); 
         }
+        setContent('');
     }
 
     function onChange(e) {
