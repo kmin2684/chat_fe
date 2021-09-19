@@ -111,20 +111,12 @@ export default function App() {
         );
       }
     }
-    // typeof userInfo === "object" &&
-    // Object.keys(userInfo).find((key) => key === "token")
-    //   ? setSocket(
-    //       new W3CWebSocket(
-    //         "ws://127.0.0.1:8000/ws/chat/?token=" + userInfo.token
-    //       )
-    //     )
-    //   : null;
   }, [userInfo]);
 
   useEffect(() => {
     let data;
-    if (socket) {
-      console.log(socket, typeof socket);
+    if (typeof socket === "object") {
+      console.log(socket);
 
       socket.onopen = () => {
         console.log("connected to websocket");

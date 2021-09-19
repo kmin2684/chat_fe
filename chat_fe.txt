@@ -1,3 +1,11 @@
+scroll down to bottom with useref
+
+websocket 
+    emit
+    on message update chats
+
+
+
 add friend 
 create a new group
 send a new message 

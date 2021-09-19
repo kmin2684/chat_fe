@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 // import './Chat.css;'
 import {
     BrowserRouter as Router,
@@ -13,6 +13,10 @@ import {
 export default function ChatWindow({setCurrentChatProp, chatHistory, myID, inputOn, userInfo}) {
     let { room_id } = useParams();
     const [content, setContent] = useState('');
+    const scroll = useRef(null);
+    useEffect(()=> {
+        scroll.current.scrollTop = scroll.current.scrollHeight;
+    },[chatHistory])
     // room_id? LoadChat(room_id) : LoadChat(null);
     if (room_id) setCurrentChatProp(room_id)
     else setCurrentChatProp(undefined)
@@ -78,7 +82,7 @@ export default function ChatWindow({setCurrentChatProp, chatHistory, myID, input
                 {room_id}
                 {chatHistory?.messages && <div onClick={()=>history.push('/')}> home</div>}
             </div>
-            <div className = 'right-row2'>
+            <div className = 'right-row2' ref = {scroll}>
                 {messages?messages 
                 : inputOn? 'send a new message'
                 : 'no message'}
