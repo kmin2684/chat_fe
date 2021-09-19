@@ -17,6 +17,7 @@ import {
 import ChatWindow from "./components/ChatWindow";
 import Main from "./components/Main";
 import { room1, room2, friend_list, room_list, userInfo2 } from "./test_vars";
+import { w3cwebsocket as W3CWebSocket } from "websocket";
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -95,9 +96,47 @@ export default function App() {
   const [userInfo, setUserInfo] = useState("loading");
   const [chats, setChats] = useState(undefined);
   const [friends, setFriends] = useState(undefined);
+  const [socket, setSocket] = useState(undefined);
   function SetUserInfoProp(data) {
     setUserInfo(data);
   }
+
+  useEffect(() => {
+    if (typeof userInfo === "object") {
+      if (Object.keys(userInfo).find((key) => key === "token")) {
+        setSocket(
+          new W3CWebSocket(
+            "ws://127.0.0.1:8000/ws/chat/?token=" + userInfo.token
+          )
+        );
+      }
+    }
+    // typeof userInfo === "object" &&
+    // Object.keys(userInfo).find((key) => key === "token")
+    //   ? setSocket(
+    //       new W3CWebSocket(
+    //         "ws://127.0.0.1:8000/ws/chat/?token=" + userInfo.token
+    //       )
+    //     )
+    //   : null;
+  }, [userInfo]);
+
+  useEffect(() => {
+    let data;
+    if (socket) {
+      console.log(socket, typeof socket);
+
+      socket.onopen = () => {
+        console.log("connected to websocket");
+      };
+
+      socket.onmessage = (message) => {
+        console.log("message via websocket");
+        data = JSON.parse(message.data);
+        console.log(data);
+      };
+    }
+  }, [socket]);
 
   useEffect(() => {
     async function GetUserInfo() {
