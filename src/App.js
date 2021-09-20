@@ -103,7 +103,8 @@ export default function App() {
   }
 
   useEffect(() => {
-    if (typeof userInfo === "object") {
+    if (userInfo && typeof userInfo === "object") {
+      console.log("typeof userInfo", typeof userInfo);
       if (Object.keys(userInfo).find((key) => key === "token")) {
         setSocket(
           new W3CWebSocket(
@@ -113,23 +114,6 @@ export default function App() {
       }
     }
   }, [userInfo]);
-
-  useEffect(() => {
-    let data;
-    if (typeof socket === "object") {
-      console.log(socket);
-
-      socket.onopen = () => {
-        console.log("connected to websocket");
-      };
-
-      socket.onmessage = (message) => {
-        console.log("message via websocket");
-        data = JSON.parse(message.data);
-        console.log(data);
-      };
-    }
-  }, [socket]);
 
   useEffect(() => {
     async function GetUserInfo() {
@@ -289,6 +273,31 @@ export default function App() {
 
   // console.log("print userInfo:", userInfo);
   // console.log('is Loading2 :',isLoading);
+
+  useEffect(() => {
+    let data;
+    if (typeof socket === "object") {
+      console.log(socket);
+
+      socket.onopen = () => {
+        console.log("connected to websocket");
+      };
+
+      socket.onmessage = (e) => {
+        console.log("onmessage via websocket");
+        data = JSON.parse(e.data);
+        // console.log(data);
+        // console.log(data.message);
+        // setChatHistory({chatHistory.id, chatHistory.name, chatHistory.members, messages:[...messages, data.message]})
+        setChatHistory({
+          ...chatHistory,
+          messages: [...chatHistory.messages, data.message],
+        });
+        // console.log([...chatHistory.messages, data.message]);
+        // console.log([...chatHistory.messages]);
+      };
+    }
+  }, [socket, chatHistory]);
 
   if (userInfo === "loading") {
     return null;

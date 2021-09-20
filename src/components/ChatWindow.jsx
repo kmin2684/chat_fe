@@ -27,7 +27,7 @@ export default function ChatWindow({setCurrentChatProp, chatHistory, myID, input
         e.preventDefault();
         if(socket && room_id && content.trim().length) {
             if(typeof socket === 'object'){
-                socket.send(JSON.stringify({message: content, roomId: room_id}));    
+                socket.send(JSON.stringify({message: content, room_id}));    
             }
         }
         setContent('');
@@ -105,7 +105,7 @@ export default function ChatWindow({setCurrentChatProp, chatHistory, myID, input
             <div className = 'right-row3'>
                 {
                     (messages||inputOn)&& 
-                    <form onSubmit = {e => onSubmit(e)}>
+                    <form onSubmit = {e => sendMessage(e)}>
                         <input type='text' placeholder='Aa' value={content} onChange={e => onChange(e)}/>
                     </form>
        
