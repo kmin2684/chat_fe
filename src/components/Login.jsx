@@ -8,10 +8,12 @@ import {
     Route,
     Link,
     useParams,
-    Redirect
+    Redirect,
+    useHistory
   } from "react-router-dom";
 
 export default function Login({userInfo, loggedIn, SetUserInfoProp}) {
+    let history = useHistory();
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
     
@@ -44,11 +46,14 @@ export default function Login({userInfo, loggedIn, SetUserInfoProp}) {
 
     return  (loggedIn? <Redirect to='/' /> 
     :
-    <form onSubmit={onSubmit}>
-        <input type="text" placeholder="id" onChange={(event)=>onChange(event, 'username')} value={username} />
-        <input type="password" placeholder="password" onChange={(event)=>onChange(event, 'password')} value={password} />
-        <button type="submit">log in</button>
-    </form>
+    <>
+        <form onSubmit={onSubmit}>
+            <input type="text" placeholder="id" onChange={(event)=>onChange(event, 'username')} value={username} />
+            <input type="password" placeholder="password" onChange={(event)=>onChange(event, 'password')} value={password} />
+            <button type="submit">log in</button>
+        </form>
+        <div><button onClick={()=>history.push('/register')}>Create a New Account</button></div>
+    </>
     );
         // <form onSubmit={onSubmit}>
         //     <input type="text" placeholder="id" onChange={(event)=>onChange(event, 'username')} value={username} />

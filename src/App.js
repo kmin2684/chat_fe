@@ -3,6 +3,7 @@ import "./App.css";
 import ChatPeopleList from "./components/ChatPeopleList";
 import ChatPeopleToggle from "./components/ChatPeopleToggle";
 import Login from "./components/Login";
+import Registration from "./components/Registration";
 import NewChat from "./components/NewChat";
 import React, { useState, useEffect } from "react";
 import {
@@ -84,6 +85,7 @@ export function MobileViewSide(viewSide) {
 
 export function SaveUserInfo(userInfo) {
   if (typeof Storage !== "undefined") {
+    if (!userInfo) localStorage.ChatUserInfo = null;
     localStorage.ChatUserInfo = JSON.stringify(userInfo);
     console.log("user info save in local storage");
   } else {
@@ -94,6 +96,10 @@ export function SaveUserInfo(userInfo) {
 export default function App() {
   // const [isLoading, setIsLoading] = useState(true);
   const [userInfo, setUserInfo] = useState("loading");
+  function setUserInfoProp(data) {
+    setUserInfo(data);
+  }
+
   const [chats, setChats] = useState(undefined);
   const [friends, setFriends] = useState(undefined);
   const [socket, setSocket] = useState(undefined);
@@ -241,14 +247,16 @@ export default function App() {
   const [chatHistory, setChatHistory] = useState(undefined);
   useEffect(() => {
     let current;
-    if (currentChat) {
-      fetch("http://127.0.0.1:8000/chat_app/chat_update/" + currentChat, {
-        headers: { authorization: "token " + userInfo.token },
-      })
-        .then((response) => response.json())
-        .then((data) => setChatHistory(data));
+    if (currentChat && userInfo) {
+      if (Object.keys(userInfo).find((e) => e === "token")) {
+        fetch("http://127.0.0.1:8000/chat_app/chat_update/" + currentChat, {
+          headers: { authorization: "token " + userInfo.token },
+        })
+          .then((response) => response.json())
+          .then((data) => setChatHistory(data));
+      }
     } else setChatHistory(undefined);
-  }, [currentChat]);
+  }, [currentChat, userInfo]);
 
   // let location = useLocation();
 
@@ -276,7 +284,7 @@ export default function App() {
 
   useEffect(() => {
     let data;
-    if (typeof socket === "object") {
+    if (socket && typeof socket === "object") {
       console.log(socket);
 
       socket.onopen = () => {
@@ -286,18 +294,20 @@ export default function App() {
       socket.onmessage = (e) => {
         console.log("onmessage via websocket");
         data = JSON.parse(e.data);
-        // console.log(data);
+        console.log(data);
         // console.log(data.message);
         // setChatHistory({chatHistory.id, chatHistory.name, chatHistory.members, messages:[...messages, data.message]})
-        setChatHistory({
-          ...chatHistory,
-          messages: [...chatHistory.messages, data.message],
-        });
+
+        if (data.message.room_id == currentChat && chatHistory)
+          setChatHistory({
+            ...chatHistory,
+            messages: [...chatHistory.messages, data.message],
+          });
         // console.log([...chatHistory.messages, data.message]);
         // console.log([...chatHistory.messages]);
       };
     }
-  }, [socket, chatHistory]);
+  }, [socket, currentChat, chatHistory]);
 
   if (userInfo === "loading") {
     return null;
@@ -307,6 +317,9 @@ export default function App() {
         <Switch>
           <Route path="/login">
             <Login userInfo={null} SetUserInfoProp={SetUserInfoProp} />
+          </Route>
+          <Route path="/register">
+            <Registration userInfo={null} SetUserInfoProp={SetUserInfoProp} />
           </Route>
           <Route path="/">
             <Redirect to="/login" />
@@ -331,6 +344,8 @@ export default function App() {
                 friends={friends}
                 mobileViewSide={"left"}
                 chats={chats}
+                userInfo={userInfo}
+                setUserInfoProp={setUserInfoProp}
               />
               <ChatWindow
                 chatHistory={undefined}
@@ -354,6 +369,8 @@ export default function App() {
             friends={friends}
             mobileViewSide={"right"}
             chats={chats}
+            userInfo={userInfo}
+            setUserInfoProp={setUserInfoProp}
           />
           <ChatWindow
             chatHistory={chatHistory}
@@ -378,6 +395,9 @@ export default function App() {
         </Route>
         <Route path="/login">
           <Login userInfo={null} loggedIn={true} />
+        </Route>
+        <Route path="/register">
+          <Registration userInfo={null} loggedIn={true} />
         </Route>
       </Switch>
     </div>
