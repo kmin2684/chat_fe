@@ -56,10 +56,8 @@ export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSw
           <button onClick={async () => await logout()}> logout </button>
           <button onClick={()=>history.push('/newchat')}>
             new chat
-            {/* <Link to='/newchat'>
-            new chat
-            </Link> */}
           </button>
+          <button onClick={()=>history.push('/addfriend')}>add a new friend</button>
         </div>
       </div>
         <div className='left-row2'>

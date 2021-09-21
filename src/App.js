@@ -5,6 +5,7 @@ import ChatPeopleToggle from "./components/ChatPeopleToggle";
 import Login from "./components/Login";
 import Registration from "./components/Registration";
 import NewChat from "./components/NewChat";
+import AddFriend from "./components/AddFriend";
 import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
@@ -392,6 +393,21 @@ export default function App() {
             friends={friends}
             setCurrentChatProp={setCurrentChatProp}
           />
+        </Route>
+        <Route path="/addfriend">
+          <Main
+            width={width}
+            showChat={showChat}
+            setChatHistoryProp={undefined}
+            ChatPeopleSwitch={ChatPeopleSwitch}
+            rooms={room_list}
+            friends={friends}
+            mobileViewSide={"right"}
+            chats={chats}
+            userInfo={userInfo}
+            setUserInfoProp={setUserInfoProp}
+          />
+          <AddFriend />
         </Route>
         <Route path="/login">
           <Login userInfo={null} loggedIn={true} />
