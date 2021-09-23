@@ -4,8 +4,8 @@ import ChatPeopleList from "./components/ChatPeopleList";
 import ChatPeopleToggle from "./components/ChatPeopleToggle";
 import Login from "./components/Login";
 import Registration from "./components/Registration";
+import NewChat3 from "./components/NewChat3";
 import NewChat from "./components/NewChat";
-import NewChat2 from "./components/NewChat2";
 import AddFriend from "./components/AddFriend";
 import React, { useState, useEffect } from "react";
 import {
@@ -384,18 +384,6 @@ export default function App() {
           />
         </Route>
         <Route path="/newchat">
-          <NewChat
-            // friends={friend_list}
-            // setChatHistoryProp={setChatHistoryProp}
-            width={width}
-            showChat={showChat}
-            ChatPeopleSwitch={ChatPeopleSwitch}
-            rooms={room_list}
-            friends={friends}
-            setCurrentChatProp={setCurrentChatProp}
-          />
-        </Route>
-        <Route path="/newchat2">
           <Main
             width={width}
             showChat={showChat}
@@ -408,7 +396,19 @@ export default function App() {
             userInfo={userInfo}
             setUserInfoProp={setUserInfoProp}
           />
-          <NewChat2
+          <NewChat
+            // friends={friend_list}
+            // setChatHistoryProp={setChatHistoryProp}
+            width={width}
+            showChat={showChat}
+            ChatPeopleSwitch={ChatPeopleSwitch}
+            rooms={room_list}
+            friends={friends}
+            setCurrentChatProp={setCurrentChatProp}
+          />
+        </Route>
+        <Route path="/newchat2">
+          <NewChat3
             // friends={friend_list}
             // setChatHistoryProp={setChatHistoryProp}
             width={width}

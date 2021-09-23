@@ -4,12 +4,14 @@ import {
   Switch,
   Route,
   Link,
-  useParams
+  useParams,
+  useHistory
 } from "react-router-dom";
 import ChatWindow from "./ChatWindow";
 import { MobileViewSide } from "../App";
 
 export default function AddFriend ({chatHistory, myID, width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, setCurrentChatProp}) {
+    const history = useHistory();
     function onSubmit (e) {
         e.preventDefault();
     }
@@ -21,9 +23,12 @@ export default function AddFriend ({chatHistory, myID, width, showChat, setChatH
 
     return <>
     <div className="right">
-        <form className="right-row1" onSubmit={e => onSubmit(e)}>
-            <input type="text" placeholder="search by username" />
-        </form>
+        <div className="right-row1">
+            <div><button onClick={() => history.push('/')}>Home</button></div>
+            <form onSubmit={e => onSubmit(e)}>
+                <input type="text" placeholder="search by username" />
+            </form>
+        </div>
         {searchResult}
     </div>
     </>;
