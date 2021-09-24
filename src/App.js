@@ -432,7 +432,7 @@ export default function App() {
             userInfo={userInfo}
             setUserInfoProp={setUserInfoProp}
           />
-          <AddFriend />
+          <AddFriend userInfo={userInfo} />
         </Route>
         <Route path="/login">
           <Login userInfo={null} loggedIn={true} />

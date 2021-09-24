@@ -1,3 +1,18 @@
+make username lowercase
+    convert to lowercase from the client side
+    how can i make it lowercase when i am using serializer on the serverside when loggin in?
+
+add friend 
+    search friend
+        if already friend, do not show "add fried" button
+    no RESULT
+    after adding friend, add the new friend to the friend list on the front end 
+
+
+
+
+create a new group
+
 scroll down to bottom with useref
 
 websocket 

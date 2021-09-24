@@ -20,10 +20,10 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
     setInputOn(value);
   }
   const history = useHistory();
-  
+
   useEffect(()=>{
     MobileViewSide('right');
-  },[]);
+  },[section]);
 
     // console.log('NewChat mounted');
 
