@@ -1,3 +1,16 @@
+new chat
+    at least two members
+    make group title mandatory
+    socket send
+        if received message has redirect set to true, redirect to the chat 
+    {
+        newchat
+        members
+        title
+        content
+    }
+
+
 make username lowercase
     convert to lowercase from the client side
     how can i make it lowercase when i am using serializer on the serverside when loggin in?

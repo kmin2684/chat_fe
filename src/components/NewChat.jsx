@@ -16,6 +16,10 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
   const [fullyLoaded, setFullyLoaded] = useState(false);
   const [groupName, setGroupName] = useState(null);
   const [inputOn, setInputOn] = useState(null);
+  
+
+
+  
   function SwitchInputOn(value) {
     setInputOn(value);
   }
@@ -63,6 +67,20 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
     //     setCheckedUsers(checkedUsers.concat([id]));
     //   }
     // }
+
+    function onSubmit(e) {
+      e.preventDefault(); 
+      setSection('send_message'); 
+      setInputOn(true);
+    }
+
+    const newChatData = {
+      newChat: true,
+      groupName,
+      members: checkedUsers,
+    };
+
+
     const new_message = (
       <div className='NewChat right'>
         <div className='right-row1'>
@@ -95,7 +113,7 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
             back
           </button>
             Add Participants
-          <button onClick={()=>setSection('add_title')}>
+          <button onClick={()=>setSection('add_title')} disabled={checkedUsers.length < 2}>
             NEXT
           </button>
         </div>
@@ -115,10 +133,12 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
         <div className='right-row1'>
           <button onClick={()=>setSection('add_participants')}>back</button>
           Add Title
-          <button onClick={()=>{setSection('send_message'); setInputOn(true)}}> CREATE</button>
+          <button form='form1'> CREATE</button>
         </div>
-        <div className='right-row2'>
-          <input type='text' placeholder='Group Name (Required)'></input>
+        <div className='right-row2' onSubmit={(e)=>{onSubmit(e)}}>
+          <form id="form1">
+            <input type='text' placeholder='Group Name (Required)' required="required"></input>
+          </form>
         </div>
       </div>
     );
@@ -130,6 +150,7 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
     myID={myID} 
     inputOn={inputOn} 
     setCurrentChatProp={setCurrentChatProp}
+    newChatData={newChatData}
     />
   </>;
 
