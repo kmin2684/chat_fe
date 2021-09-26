@@ -11,8 +11,8 @@ import {
 
 
 export default function ChatWindow({setCurrentChatProp, chatHistory, myID, inputOn, userInfo, socket, newChatData}) {
-    let { room_id } = useParams();
-    let history = useHistory();
+    const { room_id } = useParams();
+    const history = useHistory();
     const [content, setContent] = useState('');
     const scroll = useRef(null);
     const [disabled, setDisabled] = useState(false);
@@ -104,6 +104,7 @@ export default function ChatWindow({setCurrentChatProp, chatHistory, myID, input
             <div className = 'right-row1'>
                 {room_id}
                 {chatHistory?.messages && <div onClick={()=>history.push('/')}> home</div>}
+                {newChatData && <div onClick={()=>history.push('/')}> home</div>}
             </div>
             <div className = 'right-row2' ref = {scroll}>
                 {messages?messages 
@@ -115,53 +116,9 @@ export default function ChatWindow({setCurrentChatProp, chatHistory, myID, input
                     (messages||inputOn)&& 
                     <form onSubmit = {e => sendMessage(e)}>
                         <input disabled={disabled} type='text' placeholder='Aa' value={content} onChange={e => onChange(e)}/>
-                    </form>
-       
-
-                    // (messages||inputOn)? 
-                    // <form onSubmit = {e => e.preventDefault()}>
-                    //     <input type='text' placeholder='Aa'/>
-                    // </form>
-                    // : inputOn?
-                    // <form>
-                    //     <input type='text' placeholder='Aa'/>
-                    // </form> 
-                    // : null                   
+                    </form>            
                 }
             </div>
         </div>
     );
-
-
-
-    // return messages? ([messages, 
-    //     ])
-    // : <div>no message</div>; 
 }
-
-
-// function a() {
-//     return (
-//         <>
-//             <div className = 'right-row1'>
-//                 {room_id?room_id : null}
-//             </div>
-//             <div className = 'right-row2'>
-//                 {messages?messages : 'no message'}
-//             </div>
-//             <div className = 'right-row3'>
-//                 {
-//                     messages? 
-//                     <form>
-//                         <input type='text' placeholder='Aa'/>
-//                     </form>
-//                     : inputOn?
-//                     <form>
-//                         <input type='text' placeholder='Aa'/>
-//                     </form> 
-//                     : null                   
-//                 }
-//             </div>
-//         </>
-//     );
-// }

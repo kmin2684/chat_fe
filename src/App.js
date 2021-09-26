@@ -98,11 +98,18 @@ export function SaveUserInfo(userInfo) {
 export default function App() {
   let history = useHistory();
   // const [isLoading, setIsLoading] = useState(true);
+  const [myID, setMyID] = useState("1");
   const [userInfo, setUserInfo] = useState("loading");
-
   const [chats, setChats] = useState(undefined);
   const [friends, setFriends] = useState(undefined);
+  const [currentChat, setCurrentChat] = useState(undefined);
   const [socket, setSocket] = useState(undefined);
+
+  // switching between chat and friend list
+  const [showChat, setShowChat] = useState(true);
+
+  // displaying chat history
+  const [chatHistory, setChatHistory] = useState(undefined);
 
   function setUserInfoProp(data) {
     setUserInfo(data);
@@ -201,8 +208,6 @@ export default function App() {
     GeneralUpdate();
   }, [userInfo]);
 
-  const [myID, setMyID] = useState("1");
-
   // monitoring viewport width
   const [windowDimensions, setWindowDimensions] = useState({ width: null });
   const { width } = windowDimensions;
@@ -217,19 +222,14 @@ export default function App() {
   // }, []
   // );
 
-  // switching between chat and friend list
-  const [showChat, setShowChat] = useState(true);
   function ChatPeopleSwitch(state) {
     state ? setShowChat(true) : setShowChat(false);
   }
 
-  const [currentChat, setCurrentChat] = useState(undefined);
   function setCurrentChatProp(current) {
     setCurrentChat(current);
   }
 
-  // displaying chat history
-  const [chatHistory, setChatHistory] = useState(undefined);
   useEffect(() => {
     let current;
     if (currentChat && userInfo) {
@@ -411,26 +411,3 @@ export default function App() {
     </div>
   );
 }
-
-// function LeftWindow ({width, showChat, LoadChat, ChatPeopleSwitch, rooms, friends}) {
-//   return (
-//     <div className = 'left'>
-//       <div className='left-row1'>
-//         <div className = "Header">
-//           Header, width={width}
-//           <button>
-//             <Link to='/newchat'>
-//             new chat
-//             </Link>
-//           </button>
-//         </div>
-//       </div>
-//         <div className='left-row2'>
-//           <ChatPeopleList showChat={showChat} LoadChat={LoadChat} rooms={rooms} friends={friends}/>
-//         </div>
-//         <div className='left-row3'>
-//           <ChatPeopleToggle ChatPeopleSwitch={ChatPeopleSwitch}/>
-//         </div>
-//     </div>
-//   );
-// }
