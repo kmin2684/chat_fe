@@ -12,19 +12,16 @@ import {
 
 export default function ChatWindow({setCurrentChatProp, chatHistory, myID, inputOn, userInfo, socket, newChatData}) {
     let { room_id } = useParams();
+    let history = useHistory();
     const [content, setContent] = useState('');
     const scroll = useRef(null);
+    const [disabled, setDisabled] = useState(false);
     useEffect(()=> {
         scroll.current.scrollTop = scroll.current.scrollHeight;
     },[chatHistory])
-    // room_id? LoadChat(room_id) : LoadChat(null);
+
     if (room_id) setCurrentChatProp(room_id)
     else setCurrentChatProp(undefined)
-
-    let history = useHistory();
-
-
-
 
     function sendMessage(e) {
         e.preventDefault();
@@ -34,7 +31,8 @@ export default function ChatWindow({setCurrentChatProp, chatHistory, myID, input
             }
         } else if(socket && newChatData && content.trim().length) {
             console.log("new chat sent: ", {...newChatData, message: content});
-            socket.send(JSON.stringify({...newChatData, message: content}));         
+            socket.send(JSON.stringify({...newChatData, message: content})); 
+            setDisabled(false);        
         }
         setContent('');
     }
@@ -43,7 +41,6 @@ export default function ChatWindow({setCurrentChatProp, chatHistory, myID, input
     //     groupName,
     //     members: checkedUsers,
     //   };
-  
 
     function onSubmit(e) {
         e.preventDefault();
@@ -117,7 +114,7 @@ export default function ChatWindow({setCurrentChatProp, chatHistory, myID, input
                 {
                     (messages||inputOn)&& 
                     <form onSubmit = {e => sendMessage(e)}>
-                        <input type='text' placeholder='Aa' value={content} onChange={e => onChange(e)}/>
+                        <input disabled={disabled} type='text' placeholder='Aa' value={content} onChange={e => onChange(e)}/>
                     </form>
        
 

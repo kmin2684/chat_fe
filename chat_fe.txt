@@ -1,8 +1,10 @@
+reconnect to websocket if disconnected
+    setTimeInterval may be needed 
+
 for non group chat remove member length and title requirement 
 
-update friend list after adding a new friend
-    rerender may be needed
-my own username should appear as well in search result
+
+add_friend: my own username should appear as well in search result
 
 disable newchat form once message sent 
 

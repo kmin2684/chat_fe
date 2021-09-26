@@ -10,9 +10,8 @@ import {
 import ChatWindow from "./ChatWindow";
 import { MobileViewSide } from "../App";
 
-export default function AddFriend ({chatHistory, myID, width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, setCurrentChatProp, userInfo}) {
+export default function AddFriend ({userInfo, friends, SetFriendsProp}) {
 
-    
     const [query, setQuery] = useState(undefined);
     const [suggestions, setSuggestions] = useState(undefined);
     const history = useHistory();
@@ -38,12 +37,6 @@ export default function AddFriend ({chatHistory, myID, width, showChat, setChatH
         .then(data => {
             console.log(data);
             setSuggestions(data);
-            // if (data.token) {
-            //     SaveUserInfo({username: data.username, token: data.token});
-            //     SetUserInfoProp({username: data.username, token: data.token});
-            // } else if (data.non_field_errors) {
-            //     console.log('error message', data.non_field_errors);
-            // }
         });
     }
 
@@ -63,12 +56,7 @@ export default function AddFriend ({chatHistory, myID, width, showChat, setChatH
                 return suggestion;
             })
             setSuggestions(new_suggestion);
-            // if (data.token) {
-            //     SaveUserInfo({username: data.username, token: data.token});
-            //     SetUserInfoProp({username: data.username, token: data.token});
-            // } else if (data.non_field_errors) {
-            //     console.log('error message', data.non_field_errors);
-            // }
+            SetFriendsProp([...friends, username]); 
         });
     } 
  

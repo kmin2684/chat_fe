@@ -68,7 +68,6 @@ export function MobileViewSide(viewSide) {
   );
   sideDisplayed.classList.remove(...originalClassList);
   sideDisplayed.classList.add(...[...modifiedClassList, "ShowIfMobile"]);
-  // console.log("ShowIfMobile, originalClassList: ", originalClassList, ", uniqueClassList: ", uniqueClassList);
 
   // add className of "HideIfMobile" to the element that will be displayed
   let sideHidden = document.querySelector(`.${hide}`);
@@ -100,13 +99,18 @@ export default function App() {
   let history = useHistory();
   // const [isLoading, setIsLoading] = useState(true);
   const [userInfo, setUserInfo] = useState("loading");
-  function setUserInfoProp(data) {
-    setUserInfo(data);
-  }
 
   const [chats, setChats] = useState(undefined);
   const [friends, setFriends] = useState(undefined);
   const [socket, setSocket] = useState(undefined);
+
+  function setUserInfoProp(data) {
+    setUserInfo(data);
+  }
+
+  function SetFriendsProp(data) {
+    setFriends(data);
+  }
 
   function SetUserInfoProp(data) {
     setUserInfo(data);
@@ -149,34 +153,11 @@ export default function App() {
                 token: storedInfo.token,
               });
               return;
-              // return <Redirect to='/newchat'/>
-              // return {username: response_json.username, token: userInfo.token};
             }
           } catch (error) {
             localStorage.ChatUserInfo = null;
             console.error(error);
-            // setUserInfo(null);
           }
-          // if (storedInfo.token) {
-          //   console.log('token in local storage');
-          //   // check userInfo against server database
-          //   if (storedInfo.token) {
-          //     let response = await fetch('http://127.0.0.1:8000/chat_app/user_check', {
-          //       method: 'GET',
-          //       headers: {'Authorization': 'token '+ storedInfo.token},
-          //     });
-          //     let response_json = await response.json();
-          //     if (response_json.username) {
-          //       SaveUserInfo({username: response_json.username, token: storedInfo.token});
-          //       setUserInfo({username: response_json.username, token: storedInfo.token});
-          //       // return <Redirect to='/newchat'/>
-          //       // return {username: response_json.username, token: userInfo.token};
-          //     }
-          //   } else console.log("localStorage.ChatUserInfo undefined")
-          // } else {
-          //   console.log('no token in local storage');
-          //   setUserInfo(null);
-          // }
         } else {
           console.log("localStorage.ChatUserInfo is undefined");
         }
@@ -262,30 +243,6 @@ export default function App() {
     } else setChatHistory(undefined);
   }, [currentChat, userInfo]);
 
-  // let location = useLocation();
-
-  // useEffect(() => {
-  //   location.pathname == ""
-  //     ? console.log(location.pathname)
-  //     : location.pathname == "newchat"
-  //     ? console.log(location.pathname)
-  //     : console.log(location.pathname);
-  // }, [location.pathname]);
-
-  // async function setChatHistoryProp(chat_id) {
-  //   // console.log("load " + chat_id);
-  //   // let current = [room1, room2].find((room) => room.id === chat_id);
-  //   // console.log("current is");
-  //   // console.log("current");
-
-  //   let current = await GetChat(chat_id, userInfo.token);
-  //   setChatHistory(current);
-  //   // console.log("chat history: ", chatHistory);
-  // }
-
-  // console.log("print userInfo:", userInfo);
-  // console.log('is Loading2 :',isLoading);
-
   useEffect(() => {
     let data;
     if (socket && typeof socket === "object") {
@@ -299,18 +256,9 @@ export default function App() {
         console.log("onmessage via websocket");
         data = JSON.parse(e.data);
         console.log(data);
-        // console.log(data.message);
-        // setChatHistory({chatHistory.id, chatHistory.name, chatHistory.members, messages:[...messages, data.message]})
 
         if (Object.keys(data).find((key) => key === "newChat")) {
           if (data.newChat && data.room) {
-            // 'newChat': True,
-            // 'sender': sender,
-            // 'message': message,
-            // 'roomId': room,
-            // add to chat list and redirect
-            // chat struecture {id, name, members, last_message'}, setChat
-            // setChat({id: data.roomId, name: data.chatName, members: ,last_message});
             console.log("chats", chats);
             setChats([...chats, data.room]);
             if (data.sender === userInfo.username)
@@ -321,8 +269,6 @@ export default function App() {
             ...chatHistory,
             messages: [...chatHistory.messages, data.message],
           });
-        // console.log([...chatHistory.messages, data.message]);
-        // console.log([...chatHistory.messages]);
       };
     }
   }, [socket, currentChat, chatHistory, chats]);
@@ -449,7 +395,11 @@ export default function App() {
             userInfo={userInfo}
             setUserInfoProp={setUserInfoProp}
           />
-          <AddFriend userInfo={userInfo} />
+          <AddFriend
+            userInfo={userInfo}
+            friends={friends}
+            SetFriendsProp={SetFriendsProp}
+          />
         </Route>
         <Route path="/login">
           <Login userInfo={null} loggedIn={true} />
