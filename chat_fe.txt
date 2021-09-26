@@ -1,3 +1,11 @@
+for non group chat remove member length and title requirement 
+
+update friend list after adding a new friend
+    rerender may be needed
+my own username should appear as well in search result
+
+disable newchat form once message sent 
+
 new chat
     at least two members
     make group title mandatory
@@ -10,6 +18,10 @@ new chat
         content
     }
 
+    socket side:
+        newChat: room.serialize(token.user, 'brief')
+        if sender === userInfo.username
+            redirect 
 
 make username lowercase
     convert to lowercase from the client side

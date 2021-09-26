@@ -16,6 +16,7 @@ import {
   useParams,
   Redirect,
   useLocation,
+  useHistory,
 } from "react-router-dom";
 import ChatWindow from "./components/ChatWindow";
 import Main from "./components/Main";
@@ -96,6 +97,7 @@ export function SaveUserInfo(userInfo) {
 }
 
 export default function App() {
+  let history = useHistory();
   // const [isLoading, setIsLoading] = useState(true);
   const [userInfo, setUserInfo] = useState("loading");
   function setUserInfoProp(data) {
@@ -300,7 +302,21 @@ export default function App() {
         // console.log(data.message);
         // setChatHistory({chatHistory.id, chatHistory.name, chatHistory.members, messages:[...messages, data.message]})
 
-        if (data.message.room_id == currentChat && chatHistory)
+        if (Object.keys(data).find((key) => key === "newChat")) {
+          if (data.newChat && data.room) {
+            // 'newChat': True,
+            // 'sender': sender,
+            // 'message': message,
+            // 'roomId': room,
+            // add to chat list and redirect
+            // chat struecture {id, name, members, last_message'}, setChat
+            // setChat({id: data.roomId, name: data.chatName, members: ,last_message});
+            console.log("chats", chats);
+            setChats([...chats, data.room]);
+            if (data.sender === userInfo.username)
+              history.push(`room/${data.room.id}`);
+          }
+        } else if (data.message.room_id == currentChat && chatHistory)
           setChatHistory({
             ...chatHistory,
             messages: [...chatHistory.messages, data.message],
@@ -309,7 +325,7 @@ export default function App() {
         // console.log([...chatHistory.messages]);
       };
     }
-  }, [socket, currentChat, chatHistory]);
+  }, [socket, currentChat, chatHistory, chats]);
 
   if (userInfo === "loading") {
     return null;
@@ -405,6 +421,7 @@ export default function App() {
             rooms={room_list}
             friends={friends}
             setCurrentChatProp={setCurrentChatProp}
+            socket={socket}
           />
         </Route>
         <Route path="/newchat2">

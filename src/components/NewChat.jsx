@@ -10,7 +10,7 @@ import {
 import ChatWindow from "./ChatWindow";
 import { MobileViewSide } from "../App";
 
-export default function NewChat ({chatHistory, myID, width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, setCurrentChatProp}) {
+export default function NewChat ({chatHistory, myID, width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, setCurrentChatProp, socket}) {
     
   const [section, setSection] = useState('new_message');
   const [fullyLoaded, setFullyLoaded] = useState(false);
@@ -137,7 +137,7 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
         </div>
         <div className='right-row2' onSubmit={(e)=>{onSubmit(e)}}>
           <form id="form1">
-            <input type='text' placeholder='Group Name (Required)' required="required"></input>
+            <input type='text' placeholder='Group Name (Required)' required="required" value={groupName} onChange={e=>setGroupName(e.target.value)}></input>
           </form>
         </div>
       </div>
@@ -151,6 +151,7 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
     inputOn={inputOn} 
     setCurrentChatProp={setCurrentChatProp}
     newChatData={newChatData}
+    socket={socket}
     />
   </>;
 

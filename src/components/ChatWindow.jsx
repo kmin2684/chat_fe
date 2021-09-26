@@ -10,7 +10,7 @@ import {
   } from "react-router-dom";
 
 
-export default function ChatWindow({setCurrentChatProp, chatHistory, myID, inputOn, userInfo, socket}) {
+export default function ChatWindow({setCurrentChatProp, chatHistory, myID, inputOn, userInfo, socket, newChatData}) {
     let { room_id } = useParams();
     const [content, setContent] = useState('');
     const scroll = useRef(null);
@@ -23,16 +23,27 @@ export default function ChatWindow({setCurrentChatProp, chatHistory, myID, input
 
     let history = useHistory();
 
+
+
+
     function sendMessage(e) {
         e.preventDefault();
         if(socket && room_id && content.trim().length) {
             if(typeof socket === 'object'){
-                socket.send(JSON.stringify({message: content, room_id}));    
+                socket.send(JSON.stringify({message: content, room_id}))   
             }
+        } else if(socket && newChatData && content.trim().length) {
+            console.log("new chat sent: ", {...newChatData, message: content});
+            socket.send(JSON.stringify({...newChatData, message: content}));         
         }
         setContent('');
     }
-
+    // const newChatData = {
+    //     newChat: true,
+    //     groupName,
+    //     members: checkedUsers,
+    //   };
+  
 
     function onSubmit(e) {
         e.preventDefault();
