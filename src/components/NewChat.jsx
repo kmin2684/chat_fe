@@ -5,31 +5,25 @@ import {
   Route,
   Link,
   useParams,
-  useHistory
+  useHistory,
+  useLocation
 } from "react-router-dom";
 import ChatWindow from "./ChatWindow";
 import { MobileViewSide } from "../App";
 
 export default function NewChat ({chatHistory, myID, width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, setCurrentChatProp, socket}) {
-    
+  const location = useLocation();
+  const history = useHistory();
   const [section, setSection] = useState('new_message');
   const [fullyLoaded, setFullyLoaded] = useState(false);
   const [groupName, setGroupName] = useState(null);
   const [inputOn, setInputOn] = useState(null);
-  
+  const [checkedUsers, setCheckedUsers] = useState([]);
 
 
-  
   function SwitchInputOn(value) {
     setInputOn(value);
   }
-  const history = useHistory();
-
-  useEffect(()=>{
-    MobileViewSide('right');
-  },[section]);
-
-    // console.log('NewChat mounted');
 
   function Change_section (current) {
     if (current === 'new_message') {
@@ -46,7 +40,6 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
     }
   }
   
-  const [checkedUsers, setCheckedUsers] = useState([]);
   function ChangeCheck(user) {
     // let checkedUsersCopy = [...checkedUsers];
     if (checkedUsers.find(e => e == user)) {
@@ -57,6 +50,14 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
       setCheckedUsers(checkedUsers.concat([user]));
     }
   }
+
+  useEffect(()=>{
+    MobileViewSide('right');
+  },[section]);
+
+    // console.log('NewChat mounted');
+
+
     // function ChangeCheck(id) {
     //   // let checkedUsersCopy = [...checkedUsers];
     //   if (checkedUsers.find(user => user == id)) {
@@ -68,80 +69,99 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
     //   }
     // }
 
-    function onSubmit(e) {
-      e.preventDefault(); 
-      setSection('send_message'); 
-      setInputOn(true);
-    }
+  function onSubmit(e) {
+    e.preventDefault(); 
+    setSection('send_message'); 
+    setInputOn(true);
+  }
 
-    const newChatData = {
-      newChat: true,
-      groupName,
-      members: checkedUsers,
-    };
+  const newChatData = {
+    newChat: true,
+    groupName,
+    members: checkedUsers,
+  };
 
 
-    const new_message = (
-      <div className='NewChat right'>
-        <div className='right-row1'>
-          <div>
-            New message
-          </div>
-          <div>
-            <button onClick={() => setSection('add_participants')}> Create a New Group </button>
-            <button onClick={() => history.push('/')}>home</button>
-          </div>
+
+  // useEffect(()=>{
+  //   if (location.state) {
+  //     console.log('location found');
+  //     setSection('send_message');
+  //     setCheckedUsers([location.state.user]);
+  //     setInputOn(true);
+  //   }
+  // }, []);  
+    // if (location.state?.user) {
+    //   console.log('location found');
+    //   if (section !== 'send_message') setSection('send_message');
+    //   if (!inputOn) setInputOn(true);
+    //   if ([location.state.user] !== checkedUsers) 
+    //   setCheckedUsers([location.state.user]);
+    // }
+  
+
+
+  const new_message = (
+    <div className='NewChat right'>
+      <div className='right-row1'>
+        <div>
+          New message
         </div>
-        <div className='right-row2'>
+        <div>
+          <button onClick={() => setSection('add_participants')}> Create a New Group </button>
+          <button onClick={() => history.push('/')}>home</button>
+        </div>
+      </div>
+      <div className='right-row2'>
+        <div>
+          Suggested:
+        </div>
+        {friends?.map(friend => { return (
           <div>
-            Suggested:
+            {friend}
           </div>
-          {friends?.map(friend => { return (
-            <div>
-              {friend}
-            </div>
+        );})}
+
+      </div>
+    </div>
+  );
+
+  const add_participants = (
+    <div className='AddParticipants right'>
+      <div className='right-row1'>
+        <button onClick={() => setSection('new_message')}>
+          back
+        </button>
+          Add Participants
+        <button onClick={()=>setSection('add_title')} disabled={checkedUsers.length < 2}>
+          NEXT
+        </button>
+      </div>
+      <div className='right-row2'>
+        {friends?.map(friend => {
+          // const label = 'friend' + friend.id;
+          // const label = friend;
+          return (
+            <Checkbox label={friend} value={checkedUsers.find(user => user === friend)} changeCheck={() => ChangeCheck(friend)} />
           );})}
-  
-        </div>
       </div>
-    );
-  
-    const add_participants = (
-      <div className='AddParticipants right'>
-        <div className='right-row1'>
-          <button onClick={() => setSection('new_message')}>
-            back
-          </button>
-            Add Participants
-          <button onClick={()=>setSection('add_title')} disabled={checkedUsers.length < 2}>
-            NEXT
-          </button>
-        </div>
-        <div className='right-row2'>
-          {friends?.map(friend => {
-            // const label = 'friend' + friend.id;
-            // const label = friend;
-            return (
-              <Checkbox label={friend} value={checkedUsers.find(user => user === friend)} changeCheck={() => ChangeCheck(friend)} />
-            );})}
-        </div>
+    </div>
+  )
+
+  const add_title = (
+    <div className = 'AddTitle right'>
+      <div className='right-row1'>
+        <button onClick={()=>setSection('add_participants')}>back</button>
+        Add Title
+        <button form='form1'> CREATE</button>
       </div>
-    )
-  
-    const add_title = (
-      <div className = 'AddTitle right'>
-        <div className='right-row1'>
-          <button onClick={()=>setSection('add_participants')}>back</button>
-          Add Title
-          <button form='form1'> CREATE</button>
-        </div>
-        <div className='right-row2' onSubmit={(e)=>{onSubmit(e)}}>
-          <form id="form1">
-            <input type='text' placeholder='Group Name (Required)' required="required" value={groupName} onChange={e=>setGroupName(e.target.value)}></input>
-          </form>
-        </div>
+      <div className='right-row2' onSubmit={(e)=>{onSubmit(e)}}>
+        <form id="form1">
+          <input type='text' placeholder='Group Name (Required)' required="required" value={groupName} onChange={e=>setGroupName(e.target.value)}></input>
+        </form>
       </div>
-    );
+    </div>
+  );
     
   const send_message = <>
     <ChatWindow 
@@ -165,15 +185,19 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
     //   page = add_title;
     // }
     
-    const page = 
-    section === 'new_message'? new_message
-    : section === 'add_participants'? add_participants
-    : section === 'add_title'? add_title
-    : section === 'send_message'? send_message
-    : null; 
-  
-    return page; 
- 
+  const page = 
+  section === 'new_message'? new_message
+  : section === 'add_participants'? add_participants
+  : section === 'add_title'? add_title
+  : section === 'send_message'? send_message
+  : null; 
+
+  if (location.state?.user) {
+    return <div className = 'right'></div>; 
+  }
+
+
+  return page; 
   }
   
   function Checkbox ({label, value, changeCheck}) {
@@ -185,5 +209,5 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
         </label>
       </div> 
       );
-    }
+  }
   

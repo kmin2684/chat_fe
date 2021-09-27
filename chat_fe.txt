@@ -1,3 +1,14 @@
+two member group, no group title title,
+
+don't render if location.state
+
+onClickFriend
+    if there is a room that have two members that contain the user
+        redirect to the room
+    else redirect to new chat page
+
+loading function 
+
 reconnect to websocket if disconnected
     setTimeInterval may be needed 
 
@@ -9,6 +20,10 @@ add_friend: my own username should appear as well in search result
 disable newchat form once message sent 
 
 new chat
+    if no chats(members.length ===2 ) create new chat
+    new chat directly to last page
+    setSection('send_message')
+
     at least two members
     make group title mandatory
     socket send

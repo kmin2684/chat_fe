@@ -5,7 +5,7 @@ import Chat from "./Chat.jsx"
 
 
 
-export default function ChatPeopleList({showChat, setChatHistoryProp, rooms, friends, chats}) {
+export default function ChatPeopleList({showChat, setChatHistoryProp, rooms, friends, chats, onClickFriend}) {
    // chats = rooms.map(room => {
    //    return <Chat content = {'chat-'+room.id} LoadChat = {LoadChat}/>
    // });
@@ -21,7 +21,7 @@ export default function ChatPeopleList({showChat, setChatHistoryProp, rooms, fri
    
    if (friends) {
       return friends.map(friend => {
-         return <Friend friend = {friend}/>
+         return <Friend friend = {friend} onClickFriend={onClickFriend}/>
       })
    }
    return 'no friends';

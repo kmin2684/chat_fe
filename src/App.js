@@ -230,6 +230,37 @@ export default function App() {
     setCurrentChat(current);
   }
 
+  function onClickFriend(user) {
+    // console.log(
+    //   chats?.find(
+    //     (chat) =>
+    //       chat.members.length === 2 &&
+    //       chat.members.find((member) => member === user)
+    //   )
+    // );
+    let chat_id = chats?.find(
+      (chat) =>
+        chat.members.length === 2 &&
+        chat.members.find((member) => member === user)
+    )?.id;
+
+    if (chat_id) history.push(`room/${chat_id}`);
+    else {
+      console.log("redirect");
+
+      history.push({
+        pathname: "/newchat",
+        state: { user },
+      });
+    }
+
+    // return chats?.find(
+    //   (chat) =>
+    //     chat.members.length === 2 &&
+    //     chat.members.find((member) => member === user)
+    // );
+  }
+
   useEffect(() => {
     let current;
     if (currentChat && userInfo) {
@@ -310,6 +341,7 @@ export default function App() {
                 chats={chats}
                 userInfo={userInfo}
                 setUserInfoProp={setUserInfoProp}
+                onClickFriend={onClickFriend}
               />
               <ChatWindow
                 chatHistory={undefined}

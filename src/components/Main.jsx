@@ -13,7 +13,7 @@ import {
 import { MobileViewSide, SaveUserInfo } from "../App";
 import { userInfo2 } from "../test_vars";
 
-export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, mobileViewSide, chats, userInfo, setUserInfoProp}) {
+export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, mobileViewSide, chats, userInfo, setUserInfoProp, onClickFriend}) {
   let history = useHistory();
   useEffect(() => {
     if (mobileViewSide) MobileViewSide(mobileViewSide);}
@@ -61,7 +61,7 @@ export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSw
         </div>
       </div>
         <div className='left-row2'>
-          <ChatPeopleList showChat={showChat} setChatHistoryProp={setChatHistoryProp} rooms={rooms} friends={friends} chats={chats}/> 
+          <ChatPeopleList onClickFriend={onClickFriend} showChat={showChat} setChatHistoryProp={setChatHistoryProp} rooms={rooms} friends={friends} chats={chats}/> 
         </div>
         <div className='left-row3'>
           <ChatPeopleToggle ChatPeopleSwitch={ChatPeopleSwitch}/>
