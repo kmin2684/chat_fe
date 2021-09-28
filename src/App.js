@@ -96,7 +96,7 @@ export function SaveUserInfo(userInfo) {
 }
 
 export default function App() {
-  let history = useHistory();
+  const history = useHistory();
   // const [isLoading, setIsLoading] = useState(true);
   const [myID, setMyID] = useState("1");
   const [userInfo, setUserInfo] = useState("loading");
@@ -367,6 +367,7 @@ export default function App() {
             chats={chats}
             userInfo={userInfo}
             setUserInfoProp={setUserInfoProp}
+            onClickFriend={onClickFriend}
           />
           <ChatWindow
             chatHistory={chatHistory}
@@ -389,6 +390,7 @@ export default function App() {
             chats={chats}
             userInfo={userInfo}
             setUserInfoProp={setUserInfoProp}
+            onClickFriend={onClickFriend}
           />
           <NewChat
             // friends={friend_list}
@@ -426,6 +428,7 @@ export default function App() {
             chats={chats}
             userInfo={userInfo}
             setUserInfoProp={setUserInfoProp}
+            onClickFriend={onClickFriend}
           />
           <AddFriend
             userInfo={userInfo}
