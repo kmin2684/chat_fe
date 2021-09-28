@@ -83,14 +83,25 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
 
 
 
-  // useEffect(()=>{
-  //   if (location.state) {
-  //     console.log('location found');
-  //     setSection('send_message');
-  //     setCheckedUsers([location.state.user]);
-  //     setInputOn(true);
-  //   }
-  // }, []);  
+  useEffect(()=>{
+    // if (location.state) {
+    //   console.log('location found');
+    //   setSection('send_message');
+    //   setCheckedUsers([location.state.user]);
+    //   setInputOn(true);
+    // }
+
+    if (location.state?.user) {
+      console.log('location found', location.state.user);
+      if (section !== 'send_message') setSection('send_message');
+      if (!inputOn) setInputOn(true);
+      if (checkedUsers.length < 2 && location.state.user !== checkedUsers[0]) 
+      setCheckedUsers([location.state.user]);
+      setGroupName('');
+    }
+  }, []);  
+
+
     // if (location.state?.user) {
     //   console.log('location found');
     //   if (section !== 'send_message') setSection('send_message');
@@ -192,7 +203,7 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
   : section === 'send_message'? send_message
   : null; 
 
-  if (location.state?.user) {
+  if (location.state?.user && checkedUsers.length < 2 && location.state?.user !== checkedUsers[0] ) {
     return <div className = 'right'></div>; 
   }
 
