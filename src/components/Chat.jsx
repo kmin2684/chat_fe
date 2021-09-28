@@ -11,7 +11,7 @@ import {
   } from "react-router-dom";
 
 export default function Chat({room, setChatHistoryProp, chat, userInfo}) {
-    let history = useHistory();
+    const history = useHistory();
     const path = "/room/" + chat.id;
     const chatName = chat.name? chat.name 
     : chat.members.length === 2 ? chat.members.find(member => member !== userInfo.username)

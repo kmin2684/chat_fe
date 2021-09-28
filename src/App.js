@@ -88,8 +88,8 @@ export function MobileViewSide(viewSide) {
 export function SaveUserInfo(userInfo) {
   if (typeof Storage !== "undefined") {
     if (!userInfo) localStorage.ChatUserInfo = null;
-    localStorage.ChatUserInfo = JSON.stringify(userInfo);
-    console.log("user info save in local storage");
+    else localStorage.ChatUserInfo = JSON.stringify(userInfo);
+    console.log("user info saved in local storage");
   } else {
     console.log("unable to use localStorage");
   }
@@ -140,8 +140,9 @@ export default function App() {
     async function GetUserInfo() {
       if (typeof Storage !== "undefined") {
         if (localStorage.ChatUserInfo) {
-          let storedInfo = JSON.parse(localStorage.ChatUserInfo);
           try {
+            let storedInfo = JSON.parse(localStorage.ChatUserInfo);
+            console.log("storedInfo: ", storedInfo);
             let response = await fetch(
               "http://127.0.0.1:8000/chat_app/user_check",
               {
@@ -167,6 +168,7 @@ export default function App() {
           }
         } else {
           console.log("localStorage.ChatUserInfo is undefined");
+          setUserInfo(null);
         }
       } else {
         console.log("storage undefined");
@@ -174,7 +176,6 @@ export default function App() {
       setUserInfo(null);
     }
 
-    // console.log("getting user info");
     GetUserInfo();
   }, []);
 
@@ -244,8 +245,9 @@ export default function App() {
         chat.members.find((member) => member === user)
     )?.id;
 
-    if (chat_id) history.push(`room/${chat_id}`);
-    else {
+    if (chat_id) {
+      history.push(`/room/${chat_id}`);
+    } else {
       console.log("redirect");
 
       history.push({
@@ -308,141 +310,137 @@ export default function App() {
     return null;
   } else if (!userInfo) {
     return (
-      <div className="App">
-        <Switch>
-          <Route path="/login">
-            <Login userInfo={null} SetUserInfoProp={SetUserInfoProp} />
-          </Route>
-          <Route path="/register">
-            <Registration userInfo={null} SetUserInfoProp={SetUserInfoProp} />
-          </Route>
-          <Route path="/">
-            <Redirect to="/login" />
-          </Route>
-        </Switch>
-      </div>
+      <>
+        <Route path="/login">
+          <Login userInfo={null} SetUserInfoProp={SetUserInfoProp} />
+        </Route>
+        <Route path="/register">
+          <Registration userInfo={null} SetUserInfoProp={SetUserInfoProp} />
+        </Route>
+        <Route path="/">
+          <Redirect to="/login" />
+        </Route>
+      </>
     );
   }
 
   return (
-    <div className="App">
-      <Switch>
-        <Route exact path="/">
-          {userInfo ? (
-            <>
-              <Main
-                width={width}
-                showChat={showChat}
-                setChatHistoryProp={undefined}
-                ChatPeopleSwitch={ChatPeopleSwitch}
-                rooms={room_list}
-                friends={friends}
-                mobileViewSide={"left"}
-                chats={chats}
-                userInfo={userInfo}
-                setUserInfoProp={setUserInfoProp}
-                onClickFriend={onClickFriend}
-              />
-              <ChatWindow
-                chatHistory={undefined}
-                // setChatHistoryProp={setChatHistoryProp}
-                myID={myID}
-                userInfo={userInfo}
-                setCurrentChatProp={setCurrentChatProp}
-              />
-            </>
-          ) : (
-            <Redirect to="/login" />
-          )}
-        </Route>
-        <Route path="/room/:room_id">
-          <Main
-            width={width}
-            showChat={showChat}
-            setChatHistoryProp={undefined}
-            ChatPeopleSwitch={ChatPeopleSwitch}
-            rooms={room_list}
-            friends={friends}
-            mobileViewSide={"right"}
-            chats={chats}
-            userInfo={userInfo}
-            setUserInfoProp={setUserInfoProp}
-            onClickFriend={onClickFriend}
-          />
-          <ChatWindow
-            chatHistory={chatHistory}
-            setChatHistoryProp={undefined}
-            setCurrentChatProp={setCurrentChatProp}
-            myID={myID}
-            userInfo={userInfo}
-            socket={socket}
-          />
-        </Route>
-        <Route path="/newchat">
-          <Main
-            width={width}
-            showChat={showChat}
-            setChatHistoryProp={undefined}
-            ChatPeopleSwitch={ChatPeopleSwitch}
-            rooms={room_list}
-            friends={friends}
-            mobileViewSide={"right"}
-            chats={chats}
-            userInfo={userInfo}
-            setUserInfoProp={setUserInfoProp}
-            onClickFriend={onClickFriend}
-          />
-          <NewChat
-            // friends={friend_list}
-            // setChatHistoryProp={setChatHistoryProp}
-            width={width}
-            showChat={showChat}
-            ChatPeopleSwitch={ChatPeopleSwitch}
-            rooms={room_list}
-            friends={friends}
-            setCurrentChatProp={setCurrentChatProp}
-            socket={socket}
-          />
-        </Route>
-        <Route path="/newchat2">
-          <NewChat3
-            // friends={friend_list}
-            // setChatHistoryProp={setChatHistoryProp}
-            width={width}
-            showChat={showChat}
-            ChatPeopleSwitch={ChatPeopleSwitch}
-            rooms={room_list}
-            friends={friends}
-            setCurrentChatProp={setCurrentChatProp}
-          />
-        </Route>
-        <Route path="/addfriend">
-          <Main
-            width={width}
-            showChat={showChat}
-            setChatHistoryProp={undefined}
-            ChatPeopleSwitch={ChatPeopleSwitch}
-            rooms={room_list}
-            friends={friends}
-            mobileViewSide={"right"}
-            chats={chats}
-            userInfo={userInfo}
-            setUserInfoProp={setUserInfoProp}
-            onClickFriend={onClickFriend}
-          />
-          <AddFriend
-            userInfo={userInfo}
-            friends={friends}
-            SetFriendsProp={SetFriendsProp}
-          />
-        </Route>
-        <Route path="/login">
-          <Login userInfo={null} loggedIn={true} />
-        </Route>
-        <Route path="/register">
-          <Registration userInfo={null} loggedIn={true} />
-        </Route>
-      </Switch>
-    </div>
+    <>
+      <Route exact path="/">
+        {userInfo ? (
+          <>
+            <Main
+              width={width}
+              showChat={showChat}
+              setChatHistoryProp={undefined}
+              ChatPeopleSwitch={ChatPeopleSwitch}
+              rooms={room_list}
+              friends={friends}
+              mobileViewSide={"left"}
+              chats={chats}
+              userInfo={userInfo}
+              setUserInfoProp={setUserInfoProp}
+              onClickFriend={onClickFriend}
+            />
+            <ChatWindow
+              chatHistory={undefined}
+              // setChatHistoryProp={setChatHistoryProp}
+              myID={myID}
+              userInfo={userInfo}
+              setCurrentChatProp={setCurrentChatProp}
+            />
+          </>
+        ) : (
+          <Redirect to="/login" />
+        )}
+      </Route>
+      <Route path="/room/:room_id">
+        <Main
+          width={width}
+          showChat={showChat}
+          setChatHistoryProp={undefined}
+          ChatPeopleSwitch={ChatPeopleSwitch}
+          rooms={room_list}
+          friends={friends}
+          mobileViewSide={"right"}
+          chats={chats}
+          userInfo={userInfo}
+          setUserInfoProp={setUserInfoProp}
+          onClickFriend={onClickFriend}
+        />
+        <ChatWindow
+          chatHistory={chatHistory}
+          setChatHistoryProp={undefined}
+          setCurrentChatProp={setCurrentChatProp}
+          myID={myID}
+          userInfo={userInfo}
+          socket={socket}
+        />
+      </Route>
+      <Route path="/newchat">
+        <Main
+          width={width}
+          showChat={showChat}
+          setChatHistoryProp={undefined}
+          ChatPeopleSwitch={ChatPeopleSwitch}
+          rooms={room_list}
+          friends={friends}
+          mobileViewSide={"right"}
+          chats={chats}
+          userInfo={userInfo}
+          setUserInfoProp={setUserInfoProp}
+          onClickFriend={onClickFriend}
+        />
+        <NewChat
+          // friends={friend_list}
+          // setChatHistoryProp={setChatHistoryProp}
+          width={width}
+          showChat={showChat}
+          ChatPeopleSwitch={ChatPeopleSwitch}
+          rooms={room_list}
+          friends={friends}
+          setCurrentChatProp={setCurrentChatProp}
+          socket={socket}
+        />
+      </Route>
+      <Route path="/newchat2">
+        <NewChat3
+          // friends={friend_list}
+          // setChatHistoryProp={setChatHistoryProp}
+          width={width}
+          showChat={showChat}
+          ChatPeopleSwitch={ChatPeopleSwitch}
+          rooms={room_list}
+          friends={friends}
+          setCurrentChatProp={setCurrentChatProp}
+        />
+      </Route>
+      <Route path="/addfriend">
+        <Main
+          width={width}
+          showChat={showChat}
+          setChatHistoryProp={undefined}
+          ChatPeopleSwitch={ChatPeopleSwitch}
+          rooms={room_list}
+          friends={friends}
+          mobileViewSide={"right"}
+          chats={chats}
+          userInfo={userInfo}
+          setUserInfoProp={setUserInfoProp}
+          onClickFriend={onClickFriend}
+        />
+        <AddFriend
+          userInfo={userInfo}
+          friends={friends}
+          SetFriendsProp={SetFriendsProp}
+        />
+      </Route>
+      <Route path="/login">
+        <Login userInfo={null} loggedIn={true} />
+      </Route>
+      <Route path="/register">
+        <Registration userInfo={null} loggedIn={true} />
+      </Route>
+    </>
   );
 }
