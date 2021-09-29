@@ -10,8 +10,8 @@ import {
 import ChatWindow from "./ChatWindow";
 import { MobileViewSide } from "../App";
 
-export default function AddFriend ({userInfo, friends, SetFriendsProp}) {
-
+export default function AddFriend ({userInfo, friends, SetFriendsProp, SetChatHistoryProp}) {
+    SetChatHistoryProp(undefined);
     const [query, setQuery] = useState(undefined);
     const [suggestions, setSuggestions] = useState(undefined);
     const history = useHistory();

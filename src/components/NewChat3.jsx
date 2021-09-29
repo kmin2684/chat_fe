@@ -9,7 +9,7 @@ import {
 import ChatWindow from "./ChatWindow";
 import { MobileViewSide } from "../App";
 
-export default function NewChat ({chatHistory, myID, width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, setCurrentChatProp}) {
+export default function NewChat ({chatHistory, myID, width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, setCurrentChatProp, onClickFriend}) {
     const [section, setSection] = useState('new_message');
     const [fullyLoaded, setFullyLoaded] = useState(false);
     const [groupName, setGroupName] = useState(null);
@@ -79,7 +79,7 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
             Suggested:
           </div>
           {friends?.map(friend => { return (
-            <div>
+            <div onClick = {()=>onClickFriend({friend})}>
               {friend}
             </div>
           );})}

@@ -11,12 +11,14 @@ import {
 import ChatWindow from "./ChatWindow";
 import { MobileViewSide } from "../App";
 
-export default function NewChat ({chatHistory, myID, width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, setCurrentChatProp, socket}) {
+export default function NewChat ({chatHistory, myID, width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, setCurrentChatProp, socket, onClickFriend, SetChatHistoryProp}) {
+  SetChatHistoryProp(undefined);
+  
   const location = useLocation();
   const history = useHistory();
   const [section, setSection] = useState('new_message');
   const [fullyLoaded, setFullyLoaded] = useState(false);
-  const [groupName, setGroupName] = useState(null);
+  const [groupName, setGroupName] = useState('');
   const [inputOn, setInputOn] = useState(null);
   const [checkedUsers, setCheckedUsers] = useState([]);
 
@@ -71,6 +73,7 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
 
   function onSubmit(e) {
     e.preventDefault(); 
+    if (!groupName.trim()) return
     setSection('send_message'); 
     setInputOn(true);
   }
@@ -99,7 +102,7 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
       setCheckedUsers([location.state.user]);
       setGroupName('');
     }
-  }, []);  
+  }, [location]);  
 
 
     // if (location.state?.user) {
@@ -128,7 +131,7 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
           Suggested:
         </div>
         {friends?.map(friend => { return (
-          <div>
+          <div onClick={()=>onClickFriend(friend)}>
             {friend}
           </div>
         );})}
@@ -164,7 +167,7 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
       <div className='right-row1'>
         <button onClick={()=>setSection('add_participants')}>back</button>
         Add Title
-        <button form='form1'> CREATE</button>
+        <button form='form1' disabled ={!groupName.trim()}> CREATE</button>
       </div>
       <div className='right-row2' onSubmit={(e)=>{onSubmit(e)}}>
         <form id="form1">

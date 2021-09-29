@@ -123,6 +123,10 @@ export default function App() {
     setUserInfo(data);
   }
 
+  function SetChatHistoryProp(data) {
+    setChatHistory(data);
+  }
+
   useEffect(() => {
     if (userInfo && typeof userInfo === "object") {
       console.log("typeof userInfo", typeof userInfo);
@@ -232,13 +236,6 @@ export default function App() {
   }
 
   function onClickFriend(user) {
-    // console.log(
-    //   chats?.find(
-    //     (chat) =>
-    //       chat.members.length === 2 &&
-    //       chat.members.find((member) => member === user)
-    //   )
-    // );
     let chat_id = chats?.find(
       (chat) =>
         chat.members.length === 2 &&
@@ -248,19 +245,13 @@ export default function App() {
     if (chat_id) {
       history.push(`/room/${chat_id}`);
     } else {
-      console.log("redirect");
+      console.log("redirect", chat_id);
 
       history.push({
         pathname: "/newchat",
         state: { user },
       });
     }
-
-    // return chats?.find(
-    //   (chat) =>
-    //     chat.members.length === 2 &&
-    //     chat.members.find((member) => member === user)
-    // );
   }
 
   useEffect(() => {
@@ -401,6 +392,8 @@ export default function App() {
           friends={friends}
           setCurrentChatProp={setCurrentChatProp}
           socket={socket}
+          onClickFriend={onClickFriend}
+          SetChatHistoryProp={SetChatHistoryProp}
         />
       </Route>
       <Route path="/newchat2">
@@ -433,6 +426,7 @@ export default function App() {
           userInfo={userInfo}
           friends={friends}
           SetFriendsProp={SetFriendsProp}
+          SetChatHistoryProp={SetChatHistoryProp}
         />
       </Route>
       <Route path="/login">
