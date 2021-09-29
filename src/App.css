@@ -72,11 +72,14 @@
   padding: auto;
 }
 
-.left-row2 {
-  overflow: auto;
-}
-.Header {
+/* .Header {
   text-align: center;
+  display: flex;
+} */
+
+.left-row1 > div {
+  display: flex;
+  justify-content: space-between;
 }
 
 .message-block {

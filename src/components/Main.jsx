@@ -12,6 +12,9 @@ import {
 } from "react-router-dom";
 import { MobileViewSide, SaveUserInfo } from "../App";
 import { userInfo2 } from "../test_vars";
+import logoutIcon from "../icons/log-out.svg";
+import pencilIcon from "../icons/pencil-fill.svg";
+import personPlusIcon from "../icons/person-plus-fill.svg";
 
 export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, mobileViewSide, chats, userInfo, setUserInfoProp, onClickFriend}) {
   const history = useHistory();
@@ -53,12 +56,21 @@ export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSw
       <div className='left-row1'>
         <div className = "Header">
           {/* width={width} */}
-          <div>Signed in as: {userInfo.username}</div>
+          <div>{showChat? 'Chats' : 'People'}</div>
+          <div className='buttons'>
+            
+            <button onClick={()=>history.push('/addfriend')}>add a new friend</button>
+            <button onClick={()=>history.push('/newchat')}>
+              new chat
+            </button>
+            <img src={personPlusIcon} className='icon' onClick={()=>history.push('/addfriend')}/>
+            <img src={pencilIcon} className='icon' onClick={()=>history.push('/newchat')}/>
+          </div>
+        </div>
+        <div>
+          Signed in as: {userInfo.username}
           <button onClick={async () => await logout()}> logout </button>
-          <button onClick={()=>history.push('/newchat')}>
-            new chat
-          </button>
-          <button onClick={()=>history.push('/addfriend')}>add a new friend</button>
+          <img src={logoutIcon} className='icon' onClick={async () => await logout()}/>
         </div>
       </div>
         <div className='left-row2'>
