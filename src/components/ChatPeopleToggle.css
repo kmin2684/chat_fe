@@ -1,21 +1,36 @@
 .ChatPeopleToggle {
-    display: flex;
-    height: 100%;
-    align-items: center;
+  display: flex;
+  height: 100%;
+  align-items: center;
 }
 
 .ChatPeopleToggle > * {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    /* align-self: stretch; */
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* align-self: stretch; */
+  align-items: center;
+  justify-content: center;
 }
 
 .ChatPeopleToggle > *:hover {
-    background-color: rgb(199, 199, 199);
+  /* background-color: rgb(199, 199, 199); */
+  filter: invert(38%) sepia(95%) saturate(3060%) hue-rotate(193deg)
+    brightness(99%) contrast(109%);
 }
+
+img {
+  margin: 0 auto;
+  width: 1.5rem;
+  height: 1.5rem;
+  object-fit: contain;
+}
+
+/* img:hover {
+  filter: invert(38%) sepia(95%) saturate(3060%) hue-rotate(193deg)
+    brightness(99%) contrast(109%);
+} */
 /* .ChatPeopleToggle:nth-child(1) {
 
 } */

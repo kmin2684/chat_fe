@@ -52,7 +52,8 @@ export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSw
     <div className = 'left'>
       <div className='left-row1'>
         <div className = "Header">
-          Header, width={width}
+          {/* width={width} */}
+          <div>Signed in as: {userInfo.username}</div>
           <button onClick={async () => await logout()}> logout </button>
           <button onClick={()=>history.push('/newchat')}>
             new chat

@@ -18,7 +18,7 @@ export default function Chat({room, setChatHistoryProp, chat, userInfo}) {
     : undefined
 
 
-    return <div onClick={()=>history.push(path)}>{chatName}</div>
+    return <div className='chat' onClick={()=>history.push(path)}>{chatName}</div>
     // return <Link to={path}>
     //     <div>Chat name: {chat.name}</div>
     // </Link>;

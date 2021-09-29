@@ -13,7 +13,8 @@
   grid-column-end: 2;
   display: grid;
   grid-template-columns: [col0] 100% [col1];
-  grid-template-rows: [row0] 10% [row1] 1fr [row2] 3rem [row3];
+  grid-template-rows: [row0] 5rem [row1] 1fr [row2] 4rem [row3];
+  overflow: hidden;
 }
 
 .left-row1 {
@@ -24,6 +25,7 @@
 .left-row2 {
   grid-row-start: 2;
   grid-row-end: 3;
+  overflow: auto;
 }
 
 .left-row3 {
@@ -41,7 +43,7 @@
   border: 1px solid black;
   display: grid;
   grid-template-columns: [col0] 100% [col1];
-  grid-template-rows: [row0] 10% [row1] 1fr [row2] 3rem [row3];
+  grid-template-rows: [row0] 4rem [row1] 1fr [row2] 5rem [row3];
   overflow: hidden;
 }
 
@@ -70,6 +72,9 @@
   padding: auto;
 }
 
+.left-row2 {
+  overflow: auto;
+}
 .Header {
   text-align: center;
 }
@@ -133,6 +138,16 @@
 
 .right-row3 input {
   width: 100%;
+}
+
+.friend,
+.chat {
+  padding: 1rem 1rem;
+}
+
+.friend:hover,
+.chat:hover {
+  background-color: beige;
 }
 
 @media screen and (max-width: 900px) {
