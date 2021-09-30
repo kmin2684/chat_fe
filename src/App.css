@@ -13,7 +13,7 @@
   grid-column-end: 2;
   display: grid;
   grid-template-columns: [col0] 100% [col1];
-  grid-template-rows: [row0] 5rem [row1] 1fr [row2] 4rem [row3];
+  grid-template-rows: [row0] 7rem [row1] 1fr [row2] 4rem [row3];
   overflow: hidden;
 }
 
@@ -80,6 +80,7 @@
 .left-row1 > div {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .message-block {
@@ -151,6 +152,25 @@
 .friend:hover,
 .chat:hover {
   background-color: beige;
+}
+
+.iconContainer {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: rgb(231, 231, 231);
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.iconContainer:hover {
+  background-color: rgb(202, 202, 202);
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 @media screen and (max-width: 900px) {

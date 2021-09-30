@@ -1,3 +1,5 @@
+circle with first letter of username
+
 svg fill color
     https://stackoverflow.com/questions/22252472/how-to-change-the-color-of-an-svg-element
 

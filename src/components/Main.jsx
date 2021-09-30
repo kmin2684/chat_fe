@@ -59,18 +59,24 @@ export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSw
           <div>{showChat? 'Chats' : 'People'}</div>
           <div className='buttons'>
             
-            <button onClick={()=>history.push('/addfriend')}>add a new friend</button>
+            {/* <button onClick={()=>history.push('/addfriend')}>add a new friend</button>
             <button onClick={()=>history.push('/newchat')}>
               new chat
-            </button>
-            <img src={personPlusIcon} className='icon' onClick={()=>history.push('/addfriend')}/>
-            <img src={pencilIcon} className='icon' onClick={()=>history.push('/newchat')}/>
+            </button> */}
+            <div className='iconContainer'>
+              <img src={personPlusIcon} className='icon' onClick={()=>history.push('/addfriend')}/>
+            </div>
+            <div className='iconContainer'>
+              <img src={pencilIcon} className='icon' onClick={()=>history.push('/newchat')}/>
+            </div>
           </div>
         </div>
         <div>
           Signed in as: {userInfo.username}
-          <button onClick={async () => await logout()}> logout </button>
-          <img src={logoutIcon} className='icon' onClick={async () => await logout()}/>
+          {/* <button onClick={async () => await logout()}> logout </button> */}
+          <div className='iconContainer'>
+            <img src={logoutIcon} className='icon' onClick={async () => await logout()}/>
+          </div>
         </div>
       </div>
         <div className='left-row2'>
