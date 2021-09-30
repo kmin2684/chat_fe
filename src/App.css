@@ -165,6 +165,34 @@
   margin-right: 1rem;
 }
 
+.userIcon.group {
+  background-color: transparent;
+  background-color: black;
+  border-radius: 0;
+  position: relative;
+  display: inline;
+}
+
+.userIcon.small {
+  width: 2rem;
+  height: 2rem;
+  font-size: 1rem;
+}
+
+.userIcon.small:nth-child(1) {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+}
+
+.userIcon.small:nth-child(2) {
+  position: absolute;
+  left: 1rem;
+  top: 0;
+  z-index: 1;
+}
+
 .friend:hover,
 .chat:hover {
   background-color: beige;
