@@ -21,22 +21,20 @@ export default function Chat({room, setChatHistoryProp, chat, userInfo}) {
 
     let otherMembers = chat?.members.filter(member => member !== userInfo.username);
     
-    if (otherMembers?.length > 1) {
-      otherMembers = otherMembers.slice(0, 2);
-    }
+    if (otherMembers?.length > 1) otherMembers = otherMembers.slice(0, 2);
+ 
 
     return <>
-      <div className='chat' onClick={()=>history.push(path)}>
-        {/* {chat.member.length < 3? chat.members.map(member => member
-          chat.members.map(member => )} */}
-        
-  
+      <div className='chat' onClick={()=>history.push(path)}>      
         {otherMembers.length > 1 ? (
           <div className = 'userIcon group'> 
           {otherMembers.map(member => <div className='userIcon small' style = {{backgroundColor: StringToColor(member)}}> {member[0]} </div>)}
           </div>
           )
-        : otherMembers.map(member => <div className='userIcon' style = {{backgroundColor: StringToColor(member)}}> {member[0]} </div>)}
+        : otherMembers.map(member => 
+        <div className='userIcon' style = {{backgroundColor: StringToColor(member)}}> 
+          {member[0]} 
+        </div>)}
         {chatName}
       </div>
     </>

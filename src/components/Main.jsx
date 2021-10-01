@@ -11,10 +11,12 @@ import {
   useHistory,
 } from "react-router-dom";
 import { MobileViewSide, SaveUserInfo } from "../App";
+import {StringToColor} from '../App'
 import { userInfo2 } from "../test_vars";
 import logoutIcon from "../icons/log-out.svg";
 import pencilIcon from "../icons/pencil-fill.svg";
 import personPlusIcon from "../icons/person-plus-fill.svg";
+import xIcon from "../icons/x-lg.svg";
 
 export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, mobileViewSide, chats, userInfo, setUserInfoProp, onClickFriend}) {
   const history = useHistory();
@@ -51,12 +53,52 @@ export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSw
   //   console.log(response_json);
   // }
 
+  const profilePage = 
+    <div className = 'profile-page'>
+      <div className = 'profile-header'>
+        <div className = 'profile-header-left'>
+          <div className='iconContainer'>
+            <img src={xIcon} className='icon' onClick={()=>ProfileOn(false)}/>
+          </div>
+          <div>
+            Me
+          </div>
+        </div>
+        <div className='iconContainer'>
+          <img src={logoutIcon} className='icon' onClick={async () => await logout()}/>
+        </div>
+      </div>
+      <div className='userIcon large'>
+        {userInfo.username[0]}
+      </div>
+      <div className = 'profile-username'>
+        {userInfo.username}
+      </div>
+
+    </ div>;
+  
+  function ProfileOn(state) {
+    let profile = document.querySelector('.profile-page');
+    if (state) profile.style.display = 'block';
+    else profile.style.display = 'none';
+  }
+
   return (
     <div className = 'left'>
+      {profilePage}
       <div className='left-row1'>
         <div className = "Header">
           {/* width={width} */}
-          <div>{showChat? 'Chats' : 'People'}</div>
+          <div className = 'Header-left'>
+            <div className='userIcon' style={{backgroundColor: StringToColor(userInfo.username)}} onClick={()=>ProfileOn(true)}>
+                {userInfo.username[0]}
+            </div>
+            {showChat? 'Chats' : 'People'}
+            {/* <div className='ask'>
+              ask
+            </div> */}
+          </div>
+
           <div className='buttons'>
             
             {/* <button onClick={()=>history.push('/addfriend')}>add a new friend</button>
