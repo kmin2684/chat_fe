@@ -8,6 +8,15 @@ import {
     useParams,
     useHistory,
   } from "react-router-dom";
+import TimeAgo from 'timeago-react';
+
+function convertTZ(date, tzString) {
+    return new Date(
+        (typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {
+        timeZone: tzString,
+        })
+    );
+}
 
 
 export default function ChatWindow({setCurrentChatProp, chatHistory, myID, inputOn, userInfo, socket, newChatData}) {
@@ -68,6 +77,8 @@ export default function ChatWindow({setCurrentChatProp, chatHistory, myID, input
         setContent(e.target.value);
     }
 
+    const localTZ = Intl.DateTimeFormat().resolvedOptions().timeZone; 
+
     const messages = chatHistory?.messages?.map(message => {
         if (userInfo.username===message.sender) {
             return (
@@ -78,7 +89,8 @@ export default function ChatWindow({setCurrentChatProp, chatHistory, myID, input
                         </div>
                     </div>
                     <div className='time'>
-                        {message.time}
+                        {/* {convertTZ(message.time, localTZ).getHours()} */}
+                        <TimeAgo datetime={message.time}/>
                     </div>
                 </div>
             );
@@ -86,13 +98,13 @@ export default function ChatWindow({setCurrentChatProp, chatHistory, myID, input
             return (
                 <div className='message-block other'>
                     <div className='sender'>
-                        sender: {message.sender}
+                        {message.sender}
                     </div>
                     <div className='content'>
                         {message.content}
                     </div>
                     <div className='time'>
-                        {message.time}
+                        <TimeAgo datetime={message.time}/>
                     </div>
                 </div>
             );

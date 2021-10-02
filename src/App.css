@@ -21,6 +21,7 @@
 .left-row1 {
   grid-row-start: 1;
   grid-row-end: 2;
+  padding: 0.5rem;
 }
 
 .left-row2 {
@@ -88,6 +89,7 @@
   max-width: 70%;
   min-width: 5%;
   display: inline-block;
+  padding: 0.5rem;
 }
 
 .message-block > * {
@@ -132,6 +134,15 @@
   right: 0; */
 }
 
+.message-block .time {
+  font-size: 0.9rem;
+  color: grey;
+}
+
+.message-block.self .time {
+  text-align: right;
+}
+
 .right-row3 {
   padding: auto;
 }
@@ -165,6 +176,10 @@
   font-weight: 500;
   margin-right: 1rem;
   padding: 0 0 0.3rem 0;
+}
+
+.Header .userIcon:hover {
+  cursor: pointer;
 }
 
 .userIcon.large {
@@ -277,6 +292,10 @@
 
 .Header-left > .userIcon {
   margin: 0 1rem 0 0;
+}
+
+.left-row1 .buttons > *:nth-child(1) {
+  margin: 0 0.5rem 0 0;
 }
 
 .ask {

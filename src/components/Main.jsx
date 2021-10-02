@@ -57,15 +57,15 @@ export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSw
     <div className = 'profile-page'>
       <div className = 'profile-header'>
         <div className = 'profile-header-left'>
-          <div className='iconContainer'>
-            <img src={xIcon} className='icon' onClick={()=>ProfileOn(false)}/>
+          <div className='iconContainer' onClick={()=>ProfileOn(false)}>
+            <img src={xIcon} className='icon' />
           </div>
           <div>
             Me
           </div>
         </div>
-        <div className='iconContainer'>
-          <img src={logoutIcon} className='icon' onClick={async () => await logout()}/>
+        <div className='iconContainer' onClick={async () => await logout()}>
+          <img src={logoutIcon} className='icon' />
         </div>
       </div>
       <div className='userIcon large'>
@@ -105,21 +105,22 @@ export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSw
             <button onClick={()=>history.push('/newchat')}>
               new chat
             </button> */}
-            <div className='iconContainer'>
-              <img src={personPlusIcon} className='icon' onClick={()=>history.push('/addfriend')}/>
+            <div className='iconContainer' onClick={()=>history.push('/addfriend')}>
+              <img src={personPlusIcon} className='icon' />
             </div>
-            <div className='iconContainer'>
-              <img src={pencilIcon} className='icon' onClick={()=>history.push('/newchat')}/>
+            <div className='iconContainer' onClick={()=>history.push('/newchat')}>
+              <img src={pencilIcon} className='icon' />
             </div>
           </div>
         </div>
-        <div>
+        
+        {/* <div>
           Signed in as: {userInfo.username}
-          {/* <button onClick={async () => await logout()}> logout </button> */}
           <div className='iconContainer'>
             <img src={logoutIcon} className='icon' onClick={async () => await logout()}/>
           </div>
-        </div>
+        </div> */}
+
       </div>
         <div className='left-row2'>
           <ChatPeopleList userInfo = {userInfo} onClickFriend={onClickFriend} showChat={showChat} setChatHistoryProp={setChatHistoryProp} rooms={rooms} friends={friends} chats={chats}/> 

@@ -23,16 +23,15 @@ import Main from "./components/Main";
 import { room1, room2, friend_list, room_list, userInfo2 } from "./test_vars";
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 
+function convertTZ(date, tzString) {
+  return new Date(
+    (typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {
+      timeZone: tzString,
+    })
+  );
+}
+
 export function StringToColor(string) {
-  // let colorMap = {
-  //   0: "red",
-  //   1: "orange",
-  //   2: "yellow",
-  //   3: "green",
-  //   4: "blue",
-  //   5: "indigo",
-  //   6: "violet",
-  // };
   let colorMap = {
     0: "#313E50",
     1: "#924C5D",
@@ -40,7 +39,6 @@ export function StringToColor(string) {
     3: "#E1915E",
     4: "#E17F5E",
     5: "#85A47A",
-    // 6: "#000000",
   };
 
   let sum = 0;
