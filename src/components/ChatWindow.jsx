@@ -9,6 +9,8 @@ import {
     useHistory,
   } from "react-router-dom";
 import TimeAgo from 'timeago-react';
+import xIcon from "../icons/x-lg.svg";
+import infoIcon from "../icons/info.svg";
 
 function convertTZ(date, tzString) {
     return new Date(
@@ -113,10 +115,27 @@ export default function ChatWindow({setCurrentChatProp, chatHistory, myID, input
 
     return (
         <div className = 'right'>
-            <div className = 'right-row1'>
-                {room_id}
-                {chatHistory?.messages && <div onClick={()=>history.push('/')}> home</div>}
+            <div className = 'right-row1 chat-header'>
+                {/* {room_id} */}
+                
+                {/* {chatHistory?.messages && <div onClick={()=>history.push('/')}> home</div>} */}
+                
                 {newChatData && <div onClick={()=>history.push('/')}> home</div>}
+                
+                {chatHistory?.messages && <>
+                <div>
+                <div className='iconContainer' onClick={()=>history.push('/')}> 
+                    <img src={xIcon} className='icon' />
+                </div>
+                    <div>
+                        title
+                    </div>
+                </div>
+                <div>
+                    info
+                </div>
+                </>
+                }
             </div>
             <div className = 'right-row2' ref = {scroll}>
                 {messages?messages 
