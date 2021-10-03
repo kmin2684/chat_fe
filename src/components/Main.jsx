@@ -20,10 +20,12 @@ import xIcon from "../icons/x-lg.svg";
 
 export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, mobileViewSide, chats, userInfo, setUserInfoProp, onClickFriend}) {
   const history = useHistory();
-  useEffect(() => {
-    if (mobileViewSide) MobileViewSide(mobileViewSide);}
-    ,[mobileViewSide]
-    );  
+  
+  // useEffect(() => {
+  //   if (mobileViewSide) MobileViewSide(mobileViewSide);}
+  //   ,
+  //   [mobileViewSide]
+  //   );  
 
   function logout(){
     SaveUserInfo();
@@ -82,6 +84,7 @@ export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSw
     if (state) profile.style.display = 'block';
     else profile.style.display = 'none';
   }
+
 
   return (
     <div className = 'left'>

@@ -97,8 +97,13 @@ export function MobileViewSide(viewSide) {
 
   // add className of "HideIfMobile" to the element that will be displayed
   let sideHidden = document.querySelector(`.${hide}`);
-  originalClassList = sideHidden.classList.value
-    .split(/(\s+)/)
+  if (!sideHidden) {
+    console.log("no side to hide");
+    return;
+  }
+  console.log("side hidden", sideHidden);
+  originalClassList = sideHidden?.classList?.value
+    ?.split(/(\s+)/)
     .filter(function (e) {
       return e.trim().length > 0;
     });
@@ -378,6 +383,7 @@ export default function App() {
               myID={myID}
               userInfo={userInfo}
               setCurrentChatProp={setCurrentChatProp}
+              mobileViewSide={"left"}
             />
           </>
         ) : (
@@ -405,6 +411,7 @@ export default function App() {
           myID={myID}
           userInfo={userInfo}
           socket={socket}
+          mobileViewSide={"right"}
         />
       </Route>
       <Route path="/newchat">
@@ -433,6 +440,7 @@ export default function App() {
           socket={socket}
           onClickFriend={onClickFriend}
           SetChatHistoryProp={SetChatHistoryProp}
+          mobileViewSide={"right"}
         />
       </Route>
       <Route path="/newchat2">
@@ -466,6 +474,7 @@ export default function App() {
           friends={friends}
           SetFriendsProp={SetFriendsProp}
           SetChatHistoryProp={SetChatHistoryProp}
+          mobileViewSide={"right"}
         />
       </Route>
       <Route path="/login">

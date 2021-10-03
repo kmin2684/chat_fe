@@ -11,6 +11,7 @@ import {
 import TimeAgo from 'timeago-react';
 import xIcon from "../icons/x-lg.svg";
 import infoIcon from "../icons/info.svg";
+import { MobileViewSide } from "../App";
 
 function convertTZ(date, tzString) {
     return new Date(
@@ -21,7 +22,7 @@ function convertTZ(date, tzString) {
 }
 
 
-export default function ChatWindow({setCurrentChatProp, chatHistory, myID, inputOn, userInfo, socket, newChatData}) {
+export default function ChatWindow({setCurrentChatProp, chatHistory, myID, inputOn, userInfo, socket, newChatData, mobileViewSide}) {
     const { room_id } = useParams();
     const history = useHistory();
     const [content, setContent] = useState('');
@@ -30,6 +31,12 @@ export default function ChatWindow({setCurrentChatProp, chatHistory, myID, input
     useEffect(()=> {
         scroll.current.scrollTop = scroll.current.scrollHeight;
     },[chatHistory])
+
+    useEffect(() => {
+        if (mobileViewSide) MobileViewSide(mobileViewSide);}
+        ,
+        [mobileViewSide]
+        );  
 
     if (room_id) setCurrentChatProp(room_id)
     else setCurrentChatProp(undefined)

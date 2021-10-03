@@ -11,7 +11,7 @@ import {
 import ChatWindow from "./ChatWindow";
 import { MobileViewSide } from "../App";
 
-export default function NewChat ({chatHistory, myID, width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, setCurrentChatProp, socket, onClickFriend, SetChatHistoryProp}) {
+export default function NewChat ({chatHistory, myID, width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, setCurrentChatProp, socket, onClickFriend, SetChatHistoryProp, mobileViewSide}) {
   SetChatHistoryProp(undefined);
   
   const location = useLocation();
@@ -22,6 +22,11 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
   const [inputOn, setInputOn] = useState(null);
   const [checkedUsers, setCheckedUsers] = useState([]);
 
+  useEffect(() => {
+    if (mobileViewSide) MobileViewSide(mobileViewSide);}
+    ,
+    [mobileViewSide]
+    );  
 
   function SwitchInputOn(value) {
     setInputOn(value);
