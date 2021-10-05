@@ -12,6 +12,8 @@ import {
     useHistory
   } from "react-router-dom";
 
+import { http_url, ws_url } from "../vars";
+
 export default function Registration({userInfo, loggedIn, SetUserInfoProp}) {
     let history = useHistory();
        
@@ -22,7 +24,7 @@ export default function Registration({userInfo, loggedIn, SetUserInfoProp}) {
     function onSubmit(event) {
         event.preventDefault();
         // let content = {id, pwd};
-        fetch('http://127.0.0.1:8000/chat_app/registration', {
+        fetch( http_url + '/chat_app/registration', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({username, password, password2})

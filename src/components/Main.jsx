@@ -17,6 +17,7 @@ import logoutIcon from "../icons/log-out.svg";
 import pencilIcon from "../icons/pencil-fill.svg";
 import personPlusIcon from "../icons/person-plus-fill.svg";
 import xIcon from "../icons/x-lg.svg";
+import { http_url, ws_url } from "../vars";
 
 export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, mobileViewSide, chats, userInfo, setUserInfoProp, onClickFriend}) {
   const history = useHistory();
@@ -29,7 +30,7 @@ export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSw
 
   function logout(){
     SaveUserInfo();
-    fetch('http://127.0.0.1:8000/chat_app/logout', 
+    fetch(http_url + '/chat_app/logout', 
     {
       headers: {
         'authorization': "token " + userInfo.token,
@@ -44,7 +45,7 @@ export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSw
     }).catch(error => console.error(error));
   }
   // async function logout(){
-  //   let response = await fetch('http://127.0.0.1:8000/chat_app/logout', 
+  //   let response = await fetch( http_url + '/chat_app/logout', 
   //   {
   //     headers: {
   //       'authorization': "token " + userInfo.token,

@@ -12,6 +12,7 @@ import TimeAgo from 'timeago-react';
 import xIcon from "../icons/x-lg.svg";
 import infoIcon from "../icons/info.svg";
 import { MobileViewSide } from "../App";
+import { http_url, ws_url } from "../vars";
 
 function convertTZ(date, tzString) {
     return new Date(
@@ -22,7 +23,7 @@ function convertTZ(date, tzString) {
 }
 
 
-export default function ChatWindow({setCurrentChatProp, chatHistory, myID, inputOn, userInfo, socket, newChatData, mobileViewSide}) {
+export default function ChatWindow({setCurrentChatProp, chatHistory, myID, inputOn, userInfo, socket, newChatData, mobileViewSide, chatTitle}) {
     const { room_id } = useParams();
     const history = useHistory();
     const [content, setContent] = useState('');
@@ -64,7 +65,7 @@ export default function ChatWindow({setCurrentChatProp, chatHistory, myID, input
         e.preventDefault();
         if (content.trim().length) {
             console.log(content);
-            fetch('http://127.0.0.1:8000/chat_app/chat_update/' + room_id, {
+            fetch( http_url + '/chat_app/chat_update/' + room_id, {
                 method: 'POST',
                 headers: 
                     {
@@ -135,7 +136,7 @@ export default function ChatWindow({setCurrentChatProp, chatHistory, myID, input
                     <img src={xIcon} className='icon' />
                 </div>
                     <div>
-                        title
+                        {chatTitle}
                     </div>
                 </div>
                 <div>

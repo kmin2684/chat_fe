@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import ChatWindow from "./ChatWindow";
 import { MobileViewSide } from "../App";
+import { http_url, ws_url } from "../vars";
 
 export default function AddFriend ({userInfo, friends, SetFriendsProp, SetChatHistoryProp}) {
     SetChatHistoryProp(undefined);
@@ -26,7 +27,7 @@ export default function AddFriend ({userInfo, friends, SetFriendsProp, SetChatHi
 
     function onSubmit(e) {
         e.preventDefault();
-        fetch('http://127.0.0.1:8000/chat_app/add_friend?' + new URLSearchParams({username: query}), {
+        fetch( http_url + '/chat_app/add_friend?' + new URLSearchParams({username: query}), {
             method: 'GET',
             headers: {'Content-Type': 'application/json', 'Authorization': 'token '+ userInfo.token,},
         })
@@ -43,7 +44,7 @@ export default function AddFriend ({userInfo, friends, SetFriendsProp, SetChatHi
     function onClick(e) {
         let username = e.target.value;
         let new_suggestion;
-        fetch('http://127.0.0.1:8000/chat_app/add_friend', {
+        fetch( http_url + '/chat_app/add_friend', {
             method: 'POST',
             headers: {'Content-Type': 'application/json', 'Authorization': 'token '+ userInfo.token},
             body: JSON.stringify({username})

@@ -21,6 +21,7 @@ import {
 import ChatWindow from "./components/ChatWindow";
 import Main from "./components/Main";
 import { room1, room2, friend_list, room_list, userInfo2 } from "./test_vars";
+import { http_url, ws_url } from "./vars";
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 
 function convertTZ(date, tzString) {
@@ -58,12 +59,9 @@ function getWindowDimensions() {
 }
 
 async function GetChat(id, token) {
-  let response = await fetch(
-    "http://127.0.0.1:8000/chat_app/chat_update/" + id,
-    {
-      headers: { authorization: "token " + token },
-    }
-  );
+  let response = await fetch(http_url + "/chat_app/chat_update/" + id, {
+    headers: { authorization: "token " + token },
+  });
   let response_json = await response.json();
   return response_json;
 }
@@ -164,7 +162,7 @@ export default function App() {
       if (Object.keys(userInfo).find((key) => key === "token")) {
         setSocket(
           new W3CWebSocket(
-            "ws://127.0.0.1:8000/ws/chat/?token=" + userInfo.token
+            "ws://127.0.0.1:8000" + "/ws/chat/?token=" + userInfo.token
           )
         );
       }
@@ -178,13 +176,10 @@ export default function App() {
           try {
             let storedInfo = JSON.parse(localStorage.ChatUserInfo);
             console.log("storedInfo: ", storedInfo);
-            let response = await fetch(
-              "http://127.0.0.1:8000/chat_app/user_check",
-              {
-                method: "GET",
-                headers: { Authorization: "token " + storedInfo.token },
-              }
-            );
+            let response = await fetch(http_url + "/chat_app/user_check", {
+              method: "GET",
+              headers: { Authorization: "token " + storedInfo.token },
+            });
             let response_json = await response.json();
             if (response_json.username) {
               SaveUserInfo({
@@ -222,13 +217,10 @@ export default function App() {
       else token = null;
       // console.log("token: ", token);
       if (token) {
-        let response = await fetch(
-          "http://127.0.0.1:8000/chat_app/general_update",
-          {
-            method: "GET",
-            headers: { Authorization: "token " + userInfo.token },
-          }
-        );
+        let response = await fetch(http_url + "/chat_app/general_update", {
+          method: "GET",
+          headers: { Authorization: "token " + userInfo.token },
+        });
         let data = await response.json();
         console.log("\n\n\n general update \n\n\n");
         console.log(data);
@@ -285,11 +277,24 @@ export default function App() {
     }
   }
 
+  function GetChatTitle() {
+    let displayedChat;
+    if (!currentChat) return undefined;
+    displayedChat = chats.find((chat) => chat.id == currentChat);
+
+    if (displayedChat?.name) return displayedChat.name;
+    else {
+      return displayedChat.members.find(
+        (member) => member !== userInfo.username
+      );
+    }
+  }
+
   useEffect(() => {
     let current;
     if (currentChat && userInfo) {
       if (Object.keys(userInfo).find((e) => e === "token")) {
-        fetch("http://127.0.0.1:8000/chat_app/chat_update/" + currentChat, {
+        fetch(http_url + "/chat_app/chat_update/" + currentChat, {
           headers: { authorization: "token " + userInfo.token },
         })
           .then((response) => response.json())
@@ -406,6 +411,7 @@ export default function App() {
         /> */}
         <ChatWindow
           chatHistory={chatHistory}
+          chatTitle={GetChatTitle()}
           setChatHistoryProp={undefined}
           setCurrentChatProp={setCurrentChatProp}
           myID={myID}

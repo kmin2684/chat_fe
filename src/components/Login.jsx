@@ -12,6 +12,8 @@ import {
     useHistory
   } from "react-router-dom";
 
+import { http_url, ws_url } from "../vars";
+
 export default function Login({userInfo, loggedIn, SetUserInfoProp}) {
     let history = useHistory();
     const [username, setUsername] = useState(null);
@@ -20,7 +22,7 @@ export default function Login({userInfo, loggedIn, SetUserInfoProp}) {
     function onSubmit(event) {
         event.preventDefault();
         // let content = {id, pwd};
-        fetch('http://127.0.0.1:8000/chat_app/api-token-auth/', {
+        fetch( http_url + '/chat_app/api-token-auth/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({username, password})
