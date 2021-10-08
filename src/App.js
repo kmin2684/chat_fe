@@ -280,11 +280,11 @@ export default function App() {
   function GetChatTitle() {
     let displayedChat;
     if (!currentChat) return undefined;
-    displayedChat = chats.find((chat) => chat.id == currentChat);
+    displayedChat = chats?.find((chat) => chat.id == currentChat);
 
     if (displayedChat?.name) return displayedChat.name;
     else {
-      return displayedChat.members.find(
+      return displayedChat?.members?.find(
         (member) => member !== userInfo.username
       );
     }
