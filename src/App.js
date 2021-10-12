@@ -161,9 +161,7 @@ export default function App() {
       console.log("typeof userInfo", typeof userInfo);
       if (Object.keys(userInfo).find((key) => key === "token")) {
         setSocket(
-          new W3CWebSocket(
-            "ws://127.0.0.1:8000" + "/ws/chat/?token=" + userInfo.token
-          )
+          new W3CWebSocket(ws_url + "/ws/chat/?token=" + userInfo.token)
         );
       }
     }
