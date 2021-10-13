@@ -61,12 +61,13 @@ export default function Login({userInfo, loggedIn, SetUserInfoProp}) {
     function VisitorSignIn(type) {
         let username = undefined;
         let password = undefined;
-        if (type=1) {
+        console.log(type); 
+        if (type === 1) {
             username = 'visitor1';
             password = '123';
-        } else if  (type = 2) {
+        } else if  (type === 2) {
             username = 'visitor2';
-            password = '123';
+            password = '2684';
         }
         setIsLoading(true);
         fetch( http_url + '/chat_app/api-token-auth/', {

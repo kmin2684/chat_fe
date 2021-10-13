@@ -4,6 +4,7 @@ add friend
 add a new group 
 loading 
 clear database
+change logo and name 
 
 two member group, no group title title,
 

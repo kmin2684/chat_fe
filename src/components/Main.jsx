@@ -71,7 +71,7 @@ export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSw
           <img src={logoutIcon} className='icon' />
         </div>
       </div>
-      <div className='userIcon large'>
+      <div className='userIcon large' style={{backgroundColor: StringToColor(userInfo.username)}}>
         {userInfo.username[0]}
       </div>
       <div className = 'profile-username'>

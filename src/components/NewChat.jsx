@@ -9,6 +9,7 @@ import {
   useLocation
 } from "react-router-dom";
 import ChatWindow from "./ChatWindow";
+import Friend from "./Friend";
 import { MobileViewSide } from "../App";
 
 export default function NewChat ({chatHistory, myID, width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, setCurrentChatProp, socket, onClickFriend, SetChatHistoryProp, mobileViewSide}) {
@@ -136,9 +137,10 @@ export default function NewChat ({chatHistory, myID, width, showChat, setChatHis
           Suggested:
         </div>
         {friends?.map(friend => { return (
-          <div onClick={()=>onClickFriend(friend)}>
-            {friend}
-          </div>
+          // <div onClick={()=>onClickFriend(friend)}>
+          //   {friend}
+          // </div>
+          <Friend friend = {friend} onClickFriend={onClickFriend}/>
         );})}
 
       </div>
