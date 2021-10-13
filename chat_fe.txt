@@ -1,3 +1,10 @@
+login page
+registration page 
+add friend 
+add a new group 
+loading 
+clear database
+
 two member group, no group title title,
 
 don't render if location.state

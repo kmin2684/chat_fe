@@ -76,7 +76,10 @@ export default function AddFriend ({userInfo, friends, SetFriendsProp, SetChatHi
     return <>
     <div className="right">
         <div className="right-row1">
-            <div><button onClick={() => history.push('/')}>Home</button></div>
+            <div>
+                <button onClick={() => history.push('/')}>Home</button>
+                Add friends
+            </div>
             <form onSubmit={e => onSubmit(e)}>
                 <input type="text" placeholder="search by username" value={query} onChange = {e=>onChange(e)}/>
             </form>

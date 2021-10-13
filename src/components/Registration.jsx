@@ -54,13 +54,15 @@ export default function Registration({userInfo, loggedIn, SetUserInfoProp}) {
     if (loggedIn) return <Redirect to='/' />
 
     return <>
-     <form onSubmit={onSubmit}>
-        <input type="text" placeholder="id" onChange={(event)=>onChange(event, 'username')} value={username} />
-        <input type="password" placeholder="password" onChange={(event)=>onChange(event, 'password')} value={password} />
-        <input type="password" placeholder="retype password" onChange={(event)=>onChange(event, 'password2')} value={password2} />
-        <button type="submit">register</button>
-    </form> 
+    <div className = "registration">
+        <form onSubmit={onSubmit}>
+            <input type="text" placeholder="id" onChange={(event)=>onChange(event, 'username')} value={username} />
+            <input type="password" placeholder="password" onChange={(event)=>onChange(event, 'password')} value={password} />
+            <input type="password" placeholder="retype password" onChange={(event)=>onChange(event, 'password2')} value={password2} />
+            <button type="submit">register</button>
+        </form> 
     <div>Already registered? <button onClick={()=>history.push('/login')}>Go to sign in page</button></div>  
+    </div>
     </>;
 }
 

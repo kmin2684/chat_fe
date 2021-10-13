@@ -56,6 +56,7 @@
 .right-row1 {
   grid-row-start: 1;
   grid-row-end: 2;
+  padding: 0.5rem;
 }
 
 .right-row2 {
@@ -318,6 +319,42 @@
   height: 5rem;
 }
 
+.login,
+.registration {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  margin: 2rem auto;
+}
+
+.login form,
+.registration form {
+  margin: 0 0 2rem 0;
+}
+
+.login input,
+.registration input {
+  display: block;
+  margin: 0 0 0.5rem 0;
+}
+
+.creat-new-account {
+  margin: 0.5rem 0 1rem 0;
+}
+
+.visitor-sign-in {
+  margin: 0.5rem 0 0 0;
+}
+
+.sr-only {
+  display: none;
+}
+
+.spinner-border {
+  position: absolute;
+  left: 50%;
+  top: 10%;
+}
+
 @media screen and (max-width: 900px) {
   .App {
     border: dotted rgb(35, 4, 212) 1px;
@@ -336,6 +373,13 @@
     grid-column-start: 1;
     grid-column-end: 2;
     display: grid;
+  }
+
+  .login,
+  .registration {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    margin: 2rem auto;
   }
 }
 
