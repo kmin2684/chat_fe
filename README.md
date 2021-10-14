@@ -1,3 +1,7 @@
+Backend portion of the app can be accessed via
+
+https://github.com/kmin2684/chat_be
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
