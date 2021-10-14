@@ -374,19 +374,6 @@ export default function App() {
       <Route exact path="/">
         {userInfo ? (
           <>
-            {/* <Main
-              width={width}
-              showChat={showChat}
-              setChatHistoryProp={undefined}
-              ChatPeopleSwitch={ChatPeopleSwitch}
-              rooms={room_list}
-              friends={friends}
-              mobileViewSide={"left"}
-              chats={chats}
-              userInfo={userInfo}
-              setUserInfoProp={setUserInfoProp}
-              onClickFriend={onClickFriend}
-            /> */}
             <ChatWindow
               chatHistory={undefined}
               // setChatHistoryProp={setChatHistoryProp}
@@ -401,19 +388,6 @@ export default function App() {
         )}
       </Route>
       <Route path="/room/:room_id">
-        {/* <Main
-          width={width}
-          showChat={showChat}
-          setChatHistoryProp={undefined}
-          ChatPeopleSwitch={ChatPeopleSwitch}
-          rooms={room_list}
-          friends={friends}
-          mobileViewSide={"right"}
-          chats={chats}
-          userInfo={userInfo}
-          setUserInfoProp={setUserInfoProp}
-          onClickFriend={onClickFriend}
-        /> */}
         <ChatWindow
           chatHistory={chatHistory}
           chatTitle={GetChatTitle()}
@@ -426,22 +400,7 @@ export default function App() {
         />
       </Route>
       <Route path="/newchat">
-        {/* <Main
-          width={width}
-          showChat={showChat}
-          setChatHistoryProp={undefined}
-          ChatPeopleSwitch={ChatPeopleSwitch}
-          rooms={room_list}
-          friends={friends}
-          mobileViewSide={"right"}
-          chats={chats}
-          userInfo={userInfo}
-          setUserInfoProp={setUserInfoProp}
-          onClickFriend={onClickFriend}
-        /> */}
         <NewChat
-          // friends={friend_list}
-          // setChatHistoryProp={setChatHistoryProp}
           width={width}
           showChat={showChat}
           ChatPeopleSwitch={ChatPeopleSwitch}
@@ -456,8 +415,6 @@ export default function App() {
       </Route>
       <Route path="/newchat2">
         <NewChat3
-          // friends={friend_list}
-          // setChatHistoryProp={setChatHistoryProp}
           width={width}
           showChat={showChat}
           ChatPeopleSwitch={ChatPeopleSwitch}
@@ -467,19 +424,6 @@ export default function App() {
         />
       </Route>
       <Route path="/addfriend">
-        {/* <Main
-          width={width}
-          showChat={showChat}
-          setChatHistoryProp={undefined}
-          ChatPeopleSwitch={ChatPeopleSwitch}
-          rooms={room_list}
-          friends={friends}
-          mobileViewSide={"right"}
-          chats={chats}
-          userInfo={userInfo}
-          setUserInfoProp={setUserInfoProp}
-          onClickFriend={onClickFriend}
-        /> */}
         <AddFriend
           userInfo={userInfo}
           friends={friends}
