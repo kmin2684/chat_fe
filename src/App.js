@@ -324,17 +324,19 @@ export default function App() {
           if (data.newChat && data.room) {
             console.log("chats", chats);
             setChats([...chats, data.room]);
-            if (data.sender === userInfo.username)
-              history.push(`room/${data.room.id}`);
+            if (data.sender === userInfo?.username)
+              history.replace(`room/${data.room.id}`);
+            // else console.log("the user is not the sender");
           }
-        } else if (data.message.room_id == currentChat && chatHistory)
+        } else if (data.message.room_id == currentChat && chatHistory) {
           setChatHistory({
             ...chatHistory,
             messages: [...chatHistory.messages, data.message],
           });
+        }
       };
     }
-  }, [socket, currentChat, chatHistory, chats]);
+  }, [socket, currentChat, chatHistory, chats, userInfo]);
 
   if (userInfo === "loading") {
     return null;
