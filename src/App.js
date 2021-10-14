@@ -294,8 +294,14 @@ export default function App() {
         fetch(http_url + "/chat_app/chat_update/" + currentChat, {
           headers: { authorization: "token " + userInfo.token },
         })
-          .then((response) => response.json())
-          .then((data) => setChatHistory(data));
+          .then((response) => {
+            if (response.ok) return response.json();
+            else {
+              history.replace("/");
+            }
+          })
+          .then((data) => setChatHistory(data))
+          .catch((error) => console.error(error));
       }
     } else setChatHistory(undefined);
   }, [currentChat, userInfo]);

@@ -112,7 +112,7 @@ export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSw
             <div className='iconContainer' onClick={()=>history.push('/addfriend')}>
               <img src={personPlusIcon} className='icon' />
             </div>
-            <div className='iconContainer' onClick={()=>history.push('/newchat')}>
+            <div className='iconContainer' onClick={()=>history.replace('/newchat')}>
               <img src={pencilIcon} className='icon' />
             </div>
           </div>
