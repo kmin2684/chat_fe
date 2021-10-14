@@ -267,8 +267,7 @@ export default function App() {
       history.push(`/room/${chat_id}`);
     } else {
       console.log("redirect", chat_id);
-
-      history.push({
+      history.replace({
         pathname: "/newchat",
         state: { user },
       });

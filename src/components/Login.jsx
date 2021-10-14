@@ -61,7 +61,7 @@ export default function Login({userInfo, loggedIn, SetUserInfoProp}) {
             password = '123';
         } else if  (type === 2) {
             username = 'visitor2';
-            password = '2684';
+            password = '123';
         }
         setIsLoading(true);
         fetch( http_url + '/chat_app/api-token-auth/', {
