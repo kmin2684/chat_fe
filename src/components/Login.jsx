@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 // import './Chat.css;'
 import {SaveUserInfo} from "../App";
+import Spinner from './Spinner';
 
 import {
     BrowserRouter as Router,
@@ -19,13 +20,6 @@ export default function Login({userInfo, loggedIn, SetUserInfoProp}) {
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-
-    const spinner =  <>
-        <div className="spinner-border" role="status">
-            <span className="sr-only">Loading...</span>
-        </div>
-    </>
-
     
     function onSubmit(event) {
         event.preventDefault();
@@ -101,7 +95,7 @@ export default function Login({userInfo, loggedIn, SetUserInfoProp}) {
         <div>want to try the app without registering?</div>
         <div className = 'visitor-sign-in'><button  onClick={() => VisitorSignIn(1)}>sign in as visitor1</button></div>
         <div className = 'visitor-sign-in'><button  onClick={() => VisitorSignIn(2)}>sign in as visitor2</button></div>
-        {isLoading&&spinner}
+        {isLoading&&<Spinner />}
     </div>
     );
         // <form onSubmit={onSubmit}>

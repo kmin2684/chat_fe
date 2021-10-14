@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 // import './Chat.css;'
 import {SaveUserInfo} from "../App";
+import Spinner from './Spinner';
 
 import {
     BrowserRouter as Router,
@@ -20,16 +21,20 @@ export default function Registration({userInfo, loggedIn, SetUserInfoProp}) {
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
     const [password2, setPassword2] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     
     function onSubmit(event) {
         event.preventDefault();
-        // let content = {id, pwd};
+        // let content = {id, pwd};]
+        setIsLoading(true);
         fetch( http_url + '/chat_app/registration', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({username, password, password2})
         })
-        .then(response => response.json())
+        .then(response => {
+            setIsLoading(false);
+            return response.json();})
         .then(data => {
             console.log(data);
             let keys = Object.keys(data)
@@ -55,6 +60,7 @@ export default function Registration({userInfo, loggedIn, SetUserInfoProp}) {
 
     return <>
     <div className = "registration">
+    {isLoading&&<Spinner/>}
         <form onSubmit={onSubmit}>
             <input type="text" placeholder="id" onChange={(event)=>onChange(event, 'username')} value={username} />
             <input type="password" placeholder="password" onChange={(event)=>onChange(event, 'password')} value={password} />
@@ -63,6 +69,7 @@ export default function Registration({userInfo, loggedIn, SetUserInfoProp}) {
         </form> 
     <div>Already registered? <button onClick={()=>history.push('/login')}>Go to sign in page</button></div>  
     </div>
+    
     </>;
 }
 
