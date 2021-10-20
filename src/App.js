@@ -260,6 +260,7 @@ export default function App() {
           if (data.newChat && data.room) {
             console.log("chats", chats);
             // setChats([...chats, data.room]);
+            console.log(data.room);
             dispatch(chatsFriendsActions.addChat(data.room));
             if (data.sender === userInfo?.username)
               history.replace(`room/${data.room.id}`);
@@ -314,9 +315,6 @@ export default function App() {
           <>
             <ChatWindow
               chatHistory={undefined}
-              // setChatHistoryProp={setChatHistoryProp}
-              // myID={myID}
-              userInfo={userInfo}
               setCurrentChatProp={setCurrentChatProp}
               mobileViewSide={"left"}
             />
@@ -331,7 +329,6 @@ export default function App() {
           chatTitle={GetChatTitle()}
           setChatHistoryProp={undefined}
           setCurrentChatProp={setCurrentChatProp}
-          // myID={myID}
           userInfo={userInfo}
           socket={socket}
           mobileViewSide={"right"}
@@ -342,8 +339,6 @@ export default function App() {
           width={width}
           showChat={showChat}
           ChatPeopleSwitch={ChatPeopleSwitch}
-          // rooms={room_list}
-          friends={friends}
           setCurrentChatProp={setCurrentChatProp}
           socket={socket}
           onClickFriend={onClickFriend}
@@ -363,18 +358,15 @@ export default function App() {
       </Route>
       <Route path="/addfriend">
         <AddFriend
-          userInfo={userInfo}
-          friends={friends}
-          // SetFriendsProp={SetFriendsProp}
           SetChatHistoryProp={SetChatHistoryProp}
           mobileViewSide={"right"}
         />
       </Route>
       <Route path="/login">
-        <Login userInfo={null} loggedIn={true} />
+        <Login loggedIn={true} />
       </Route>
       <Route path="/register">
-        <Registration userInfo={null} loggedIn={true} />
+        <Registration loggedIn={true} />
       </Route>
     </>
   );

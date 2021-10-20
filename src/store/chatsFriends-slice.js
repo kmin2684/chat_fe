@@ -10,13 +10,13 @@ const chatsFriendsSlice = createSlice({
       state.chats = action.payload.chats;
     },
     addChat(state, action) {
-      state.chats = state.chats.push(action.payload);
+      state.chats.push(action.payload);
     },
     setFriends(state, action) {
       state.friends = action.payload.friends;
     },
     addFriend(state, action) {
-      state.friends = state.chats.push(action.payload);
+      state.chats.push(action.payload);
     },
     increment(state) {
       state.counter++;
