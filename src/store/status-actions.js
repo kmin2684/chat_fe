@@ -1,4 +1,4 @@
-import { chatsFriendsActions } from "./chatsFriends-slice";
+import { statusActions } from "./status-slice";
 import { http_url, ws_url } from "../others/shared_vars";
 import store from "./index";
 
@@ -24,12 +24,12 @@ export const GeneralUpdate = () => {
       console.log(data.rooms);
       console.log(data.friends);
       dispatch(
-        chatsFriendsActions.setChats({
+        statusActions.setChats({
           chats: data.rooms,
         })
       );
       dispatch(
-        chatsFriendsActions.setFriends({
+        statusActions.setFriends({
           friends: data.friends,
         })
       );

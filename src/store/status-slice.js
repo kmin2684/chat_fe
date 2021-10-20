@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = { chats: [], friends: [] };
 
-const chatsFriendsSlice = createSlice({
-  name: "chatsFriends",
+const statusSlice = createSlice({
+  name: "status",
   initialState,
   reducers: {
     setChats(state, action) {
@@ -24,6 +24,6 @@ const chatsFriendsSlice = createSlice({
   },
 });
 
-export const chatsFriendsActions = chatsFriendsSlice.actions;
+export const statusActions = statusSlice.actions;
 
-export default chatsFriendsSlice;
+export default statusSlice;

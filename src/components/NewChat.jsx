@@ -18,7 +18,7 @@ export default function NewChat ({chatHistory, setChatHistoryProp, ChatPeopleSwi
   
   const location = useLocation();
   const history = useHistory();
-  const friends = useSelector(state => state.chatsFriends.friends);
+  const friends = useSelector(state => state.status.friends);
 
   const [section, setSection] = useState('new_message');
   const [fullyLoaded, setFullyLoaded] = useState(false);

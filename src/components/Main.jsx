@@ -19,7 +19,7 @@ import xIcon from "../icons/x-lg.svg";
 import { http_url, ws_url } from "../others/shared_vars";
 import { useSelector, useDispatch } from "react-redux";
 import { userInfoActions } from "../store/userInfo-slice";
-import { chatsFriendsActions } from "../store/chatsFriends-slice";
+import { statusActionsActions } from "../store/status-slice";
 
 
 export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, mobileViewSide, chats, setUserInfoProp, onClickFriend}) {

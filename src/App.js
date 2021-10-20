@@ -30,9 +30,7 @@ import {
   SaveUserInfo,
 } from "./others/shared_functions";
 import { fetchUserInfo, GeneralUpdate } from "./store/userInfo-actions";
-// import { chatsActions } from "./store/chatsFriends-slice";
-// import { friendsActions } from "./store/friends-slice";
-import { chatsFriendsActions } from "./store/chatsFriends-slice";
+import { statusActions } from "./store/status-slice";
 
 async function GetChat(id, token) {
   let response = await fetch(http_url + "/chat_app/chat_update/" + id, {
@@ -55,8 +53,8 @@ export default function App() {
   // const [chats, setChats] = useState(undefined);
   // const [friends, setFriends] = useState(undefined);
 
-  const chats = useSelector((state) => state.chatsFriends.chats);
-  const friends = useSelector((state) => state.chatsFriends.friends);
+  const chats = useSelector((state) => state.status.chats);
+  const friends = useSelector((state) => state.status.friends);
 
   const [currentChat, setCurrentChat] = useState(undefined);
   const [socket, setSocket] = useState(undefined);
@@ -261,7 +259,7 @@ export default function App() {
             console.log("chats", chats);
             // setChats([...chats, data.room]);
             console.log(data.room);
-            dispatch(chatsFriendsActions.addChat(data.room));
+            dispatch(statusActions.addChat(data.room));
             if (data.sender === userInfo?.username)
               history.replace(`room/${data.room.id}`);
             // else console.log("the user is not the sender");
