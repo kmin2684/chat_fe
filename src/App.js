@@ -28,6 +28,7 @@ import {
   StringToColor,
   MobileViewSide,
   SaveUserInfo,
+  GetChatTitle,
 } from "./others/shared_functions";
 import { fetchUserInfo, GeneralUpdate } from "./store/userInfo-actions";
 import { statusActions } from "./store/status-slice";
@@ -55,23 +56,12 @@ export default function App() {
   // switching between chat and friend list
   const [showChat, setShowChat] = useState(true);
 
-  // displaying chat history
-  // const [chatHistory, setChatHistory] = useState(undefined);
-
   function setUserInfoProp(data) {
     // setUserInfo(data);
   }
 
   function SetUserInfoProp(data) {
     // setUserInfo(data);
-  }
-
-  // function SetFriendsProp(data) {
-  //   setFriends(data);
-  // }
-
-  function SetChatHistoryProp(data) {
-    // setChatHistory(data);
   }
 
   useEffect(() => {
@@ -85,95 +75,13 @@ export default function App() {
     }
   }, [userInfo]);
 
-  // useEffect(() => {
-  //   async function GetUserInfo() {
-  //     if (typeof Storage !== "undefined") {
-  //       if (localStorage.ChatUserInfo) {
-  //         try {
-  //           let storedInfo = JSON.parse(localStorage.ChatUserInfo);
-  //           console.log("storedInfo: ", storedInfo);
-  //           let response = await fetch(http_url + "/chat_app/user_check", {
-  //             method: "GET",
-  //             headers: { Authorization: "token " + storedInfo.token },
-  //           });
-  //           let response_json = await response.json();
-  //           if (response_json.username) {
-  //             SaveUserInfo({
-  //               username: response_json.username,
-  //               token: storedInfo.token,
-  //             });
-  //             setUserInfo({
-  //               username: response_json.username,
-  //               token: storedInfo.token,
-  //             });
-  //             return;
-  //           }
-  //         } catch (error) {
-  //           localStorage.ChatUserInfo = null;
-  //           console.error(error);
-  //         }
-  //       } else {
-  //         console.log("localStorage.ChatUserInfo is undefined");
-  //         setUserInfo(null);
-  //       }
-  //     } else {
-  //       console.log("storage undefined");
-  //     }
-  //     setUserInfo(null);
-  //   }
-
-  //   GetUserInfo();
-  // }, []);
-
   useEffect(() => {
     dispatch(fetchUserInfo());
-    // dispatch(GeneralUpdate());
   }, []);
-
-  // useEffect(() => {
-  //   async function GeneralUpdate() {
-  //     // console.log("token is", userInfo.token);
-  //     let token;
-  //     if (userInfo) token = Object.keys(userInfo)?.find((e) => e === "token");
-  //     else token = null;
-  //     // console.log("token: ", token);
-  //     if (token) {
-  //       let response = await fetch(http_url + "/chat_app/general_update", {
-  //         method: "GET",
-  //         headers: { Authorization: "token " + userInfo.token },
-  //       });
-  //       let data = await response.json();
-  //       console.log("\n\n\n general update \n\n\n");
-  //       console.log(data);
-  //       setChats(data.rooms);
-  //       console.log("friends: ", data.friends, "chats: ", data.rooms);
-
-  //       setFriends(data.friends);
-  //       // console.log("token used for general update:", userInfo);
-  //     }
-  //   }
-
-  //   // console.log("general updating", userInfo, userInfo.token);
-  //   GeneralUpdate();
-  // }, [userInfo]);
 
   useEffect(() => {
     if (userInfo.token) dispatch(GeneralUpdate());
   }, [userInfo.token]);
-
-  // monitoring viewport width
-  const [windowDimensions, setWindowDimensions] = useState({ width: null });
-  const { width } = windowDimensions;
-  // useEffect(() => {
-  //   function handleResize() {
-  //     setWindowDimensions(getWindowDimensions());
-  //   }
-  //   window.addEventListener('resize', handleResize);
-  //   return () => {
-  //     window.removeEventListener('resize', handleResize);
-  //   };
-  // }, []
-  // );
 
   function ChatPeopleSwitch(state) {
     state ? setShowChat(true) : setShowChat(false);
@@ -201,18 +109,18 @@ export default function App() {
     }
   }
 
-  function GetChatTitle() {
-    let displayedChat;
-    if (!currentChat) return undefined;
-    displayedChat = chats?.find((chat) => chat.id == currentChat);
+  // function GetChatTitle() {
+  //   let displayedChat;
+  //   if (!currentChat) return undefined;
+  //   displayedChat = chats?.find((chat) => chat.id == currentChat);
 
-    if (displayedChat?.name) return displayedChat.name;
-    else {
-      return displayedChat?.members?.find(
-        (member) => member !== userInfo.username
-      );
-    }
-  }
+  //   if (displayedChat?.name) return displayedChat.name;
+  //   else {
+  //     return displayedChat?.members?.find(
+  //       (member) => member !== userInfo.username
+  //     );
+  //   }
+  // }
 
   useEffect(() => {
     let current;
@@ -269,7 +177,6 @@ export default function App() {
     }
   }, [socket, currentChat, chatHistory, chats, userInfo]);
 
-  // if (!userInfo) return null;
   if (userInfo.isLoading) {
     return null;
   } else if (!userInfo.token) {
@@ -318,10 +225,7 @@ export default function App() {
       </Route>
       <Route path="/room/:room_id">
         <ChatWindow
-          // chatHistory={chatHistory}
-          chatTitle={GetChatTitle()}
-          // setChatHistoryProp={undefined}
-          // setCurrentChatProp={setCurrentChatProp}
+          chatTitle={GetChatTitle(currentChat, chats, userInfo)}
           userInfo={userInfo}
           socket={socket}
           mobileViewSide={"right"}
@@ -332,28 +236,13 @@ export default function App() {
           width={width}
           showChat={showChat}
           ChatPeopleSwitch={ChatPeopleSwitch}
-          // setCurrentChatProp={setCurrentChatProp}
           socket={socket}
           onClickFriend={onClickFriend}
-          // SetChatHistoryProp={SetChatHistoryProp}
           mobileViewSide={"right"}
         />
       </Route>
-      {/* <Route path="/newchat2">
-        <NewChat3
-          width={width}
-          showChat={showChat}
-          ChatPeopleSwitch={ChatPeopleSwitch}
-          // rooms={room_list}
-          friends={friends}
-          setCurrentChatProp={setCurrentChatProp}
-        />
-      </Route> */}
       <Route path="/addfriend">
-        <AddFriend
-          // SetChatHistoryProp={SetChatHistoryProp}
-          mobileViewSide={"right"}
-        />
+        <AddFriend mobileViewSide={"right"} />
       </Route>
       <Route path="/login">
         <Login loggedIn={true} />

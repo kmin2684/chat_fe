@@ -22,7 +22,7 @@ import { userInfoActions } from "../store/userInfo-slice";
 import { statusActionsActions } from "../store/status-slice";
 
 
-export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, mobileViewSide, chats, setUserInfoProp, onClickFriend}) {
+export default function Main ({showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, onClickFriend}) {
   const history = useHistory();
   const dispatch = useDispatch();
   const userInfo = useSelector(state => state.userInfo);
@@ -97,7 +97,6 @@ export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSw
       {profilePage}
       <div className='left-row1'>
         <div className = "Header">
-          {/* width={width} */}
           <div className = 'Header-left'>
             <div className='userIcon' style={{backgroundColor: StringToColor(userInfo.username)}} onClick={()=>ProfileOn(true)}>
                 {userInfo.username[0]}
