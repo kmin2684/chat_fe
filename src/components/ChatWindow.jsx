@@ -25,16 +25,18 @@ function convertTZ(date, tzString) {
 }
 
 
-export default function ChatWindow({chatHistory, myID, inputOn, socket, newChatData, mobileViewSide, chatTitle}) {
+export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide, chatTitle}) {
     const { room_id } = useParams();
-    console.log("room id", room_id);
     const dispatch = useDispatch();
     const history = useHistory();
     const userInfo = useSelector(state => state.userInfo);
+    const chatHistory = useSelector(state => state.status.chatHistory);
 
     const [content, setContent] = useState('');
     const scroll = useRef(null);
     const [disabled, setDisabled] = useState(false);
+
+
     useEffect(()=> {
         scroll.current.scrollTop = scroll.current.scrollHeight;
     },[chatHistory])

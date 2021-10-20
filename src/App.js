@@ -43,28 +43,20 @@ async function GetChat(id, token) {
 export default function App() {
   const history = useHistory();
   const dispatch = useDispatch();
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [myID, setMyID] = useState("1");
-
-  // const [userInfo, setUserInfo] = useState("loading");
 
   const userInfo = useSelector((state) => state.userInfo);
-
-  // const [chats, setChats] = useState(undefined);
-  // const [friends, setFriends] = useState(undefined);
-
   const chats = useSelector((state) => state.status.chats);
   const friends = useSelector((state) => state.status.friends);
   const currentChat = useSelector((state) => state.status.currentChat);
+  const chatHistory = useSelector((state) => state.status.chatHistory);
 
-  // const [currentChat, setCurrentChat] = useState(undefined);
   const [socket, setSocket] = useState(undefined);
 
   // switching between chat and friend list
   const [showChat, setShowChat] = useState(true);
 
   // displaying chat history
-  const [chatHistory, setChatHistory] = useState(undefined);
+  // const [chatHistory, setChatHistory] = useState(undefined);
 
   function setUserInfoProp(data) {
     // setUserInfo(data);
@@ -79,7 +71,7 @@ export default function App() {
   // }
 
   function SetChatHistoryProp(data) {
-    setChatHistory(data);
+    // setChatHistory(data);
   }
 
   useEffect(() => {
@@ -235,10 +227,10 @@ export default function App() {
               history.replace("/");
             }
           })
-          .then((data) => setChatHistory(data))
+          .then((data) => dispatch(statusActions.setChatHistory(data)))
           .catch((error) => console.error(error));
       }
-    } else setChatHistory(undefined);
+    } else dispatch(statusActions.setChatHistory(null));
   }, [currentChat, userInfo]);
 
   useEffect(() => {
@@ -266,10 +258,12 @@ export default function App() {
             // else console.log("the user is not the sender");
           }
         } else if (data.message.room_id == currentChat && chatHistory) {
-          setChatHistory({
-            ...chatHistory,
-            messages: [...chatHistory.messages, data.message],
-          });
+          dispatch(
+            statusActions.setChatHistory({
+              ...chatHistory,
+              messages: [...chatHistory.messages, data.message],
+            })
+          );
         }
       };
     }
@@ -299,7 +293,7 @@ export default function App() {
       <Main
         width={width}
         showChat={showChat}
-        setChatHistoryProp={undefined}
+        // setChatHistoryProp={undefined}
         ChatPeopleSwitch={ChatPeopleSwitch}
         // rooms={room_list}
         friends={friends}
@@ -324,9 +318,9 @@ export default function App() {
       </Route>
       <Route path="/room/:room_id">
         <ChatWindow
-          chatHistory={chatHistory}
+          // chatHistory={chatHistory}
           chatTitle={GetChatTitle()}
-          setChatHistoryProp={undefined}
+          // setChatHistoryProp={undefined}
           // setCurrentChatProp={setCurrentChatProp}
           userInfo={userInfo}
           socket={socket}
@@ -341,7 +335,7 @@ export default function App() {
           // setCurrentChatProp={setCurrentChatProp}
           socket={socket}
           onClickFriend={onClickFriend}
-          SetChatHistoryProp={SetChatHistoryProp}
+          // SetChatHistoryProp={SetChatHistoryProp}
           mobileViewSide={"right"}
         />
       </Route>
@@ -357,7 +351,7 @@ export default function App() {
       </Route> */}
       <Route path="/addfriend">
         <AddFriend
-          SetChatHistoryProp={SetChatHistoryProp}
+          // SetChatHistoryProp={SetChatHistoryProp}
           mobileViewSide={"right"}
         />
       </Route>

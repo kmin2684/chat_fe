@@ -15,10 +15,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { statusActions } from "../store/status-slice";
 
 export default function NewChat ({chatHistory, setChatHistoryProp, socket, onClickFriend, SetChatHistoryProp, mobileViewSide}) {
-  SetChatHistoryProp(undefined);
   
   const location = useLocation();
   const history = useHistory();
+  const dispatch = useDispatch();
   const friends = useSelector(state => state.status.friends);
 
   const [section, setSection] = useState('new_message');
@@ -27,11 +27,11 @@ export default function NewChat ({chatHistory, setChatHistoryProp, socket, onCli
   const [inputOn, setInputOn] = useState(null);
   const [checkedUsers, setCheckedUsers] = useState([]);
 
+  dispatch(statusActions.setChatHistory(null));
+
   useEffect(() => {
     if (mobileViewSide) MobileViewSide(mobileViewSide);}
-    ,
-    [mobileViewSide]
-    );  
+    ,[mobileViewSide]);  
 
   function SwitchInputOn(value) {
     setInputOn(value);

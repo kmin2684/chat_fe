@@ -13,10 +13,11 @@ import { http_url, ws_url } from "../others/shared_vars";
 import { useSelector, useDispatch } from "react-redux";
 import { statusActions } from "../store/status-slice";
 
-export default function AddFriend ({ SetChatHistoryProp}) {
+export default function AddFriend () {
     const dispatch = useDispatch();
 
-    SetChatHistoryProp(undefined);
+
+    dispatch(statusActions.setChatHistory(null));
     const [query, setQuery] = useState(undefined);
     const [suggestions, setSuggestions] = useState(undefined);
     const history = useHistory();
