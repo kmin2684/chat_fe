@@ -1,18 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router, Switch, HashRouter } from "react-router-dom";
+import store from "./store/index.js";
 
 ReactDOM.render(
   <React.StrictMode>
     <HashRouter>
-      <div className="App">
-        <Switch>
-          <App />
-        </Switch>
-      </div>
+      <Provider store={store}>
+        <div className="App">
+          <Switch>
+            <App />
+          </Switch>
+        </div>
+      </Provider>
     </HashRouter>
   </React.StrictMode>,
   document.getElementById("root")

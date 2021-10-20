@@ -4,13 +4,15 @@ const initialState = { username: null, token: null, isLoading: true };
 
 const userInfoSlice = createSlice({
   name: "userInfo",
-  initialState,
+  initialState: { username: null, token: null, isLoading: true },
   reducers: {
     setUserInfo(state, action) {
       state.username = action.payload.username;
       state.token = action.payload.token;
       state.isLoading = action.payload.isLoading
-        ? action.payload.isloading
+        ? action.payload.isLoading
+        : action.payload.isLoading === false
+        ? action.payload.isLoading
         : state.isLoading;
     },
     setIsLoading(state, action) {
@@ -33,4 +35,4 @@ const userInfoSlice = createSlice({
 
 export const userInfoActions = userInfoSlice.actions;
 
-export default userInfoSlice.reducer;
+export default userInfoSlice;

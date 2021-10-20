@@ -1,5 +1,4 @@
-import { uiActions } from "./ui-slice";
-import { cartActions } from "./cart-slice";
+import { userInfoActions } from "./userInfo-slice";
 import { http_url, ws_url } from "../others/shared_vars";
 
 export const fetchUserInfo = () => {
@@ -49,6 +48,7 @@ export const fetchUserInfo = () => {
 
     try {
       const userData = await fetchData(storedInfo);
+      console.log("userData", userData);
       dispatch(
         userInfoActions.setUserInfo({
           username: userData.username,
@@ -57,7 +57,8 @@ export const fetchUserInfo = () => {
         })
       );
     } catch (error) {
-      console.error(error);
+      console.error(error.message, "fetchUserInfo failed");
+
       dispatch(
         userInfoActions.setUserInfo({
           username: null,

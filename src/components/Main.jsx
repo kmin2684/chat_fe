@@ -11,13 +11,14 @@ import {
   useHistory,
 } from "react-router-dom";
 import { MobileViewSide, SaveUserInfo, StringToColor } from "../others/shared_functions";
-import { userInfo2 } from "../test_vars";
+// import { userInfo2 } from "../test_vars";
 import logoutIcon from "../icons/log-out.svg";
 import pencilIcon from "../icons/pencil-fill.svg";
 import personPlusIcon from "../icons/person-plus-fill.svg";
 import xIcon from "../icons/x-lg.svg";
 import { http_url, ws_url } from "../others/shared_vars";
 import { useSelector, useDispatch } from "react-redux";
+import { userInfoActions } from "../store/userInfo-slice";
 
 export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, mobileViewSide, chats, setUserInfoProp, onClickFriend}) {
   const history = useHistory();
@@ -43,7 +44,7 @@ export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSw
       console.log('logged out');
       console.log(data);
       // setUserInfoProp(undefined);
-      dispatch(setUserInfo({username: null, tokne: null}));
+      dispatch(userInfoActions.setUserInfo({username: null, token: null}));
     }).catch(error => console.error(error));
   }
   // async function logout(){

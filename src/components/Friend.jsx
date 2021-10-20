@@ -1,6 +1,6 @@
 import React from "react";
-import './Friend.css'
-import {StringToColor} from '../others/shared_functions"'
+import './Friend.css';
+import {StringToColor} from '../others/shared_functions';
 
 export default function Friend ({friend, onClickFriend}) {
     

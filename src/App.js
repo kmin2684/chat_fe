@@ -20,7 +20,7 @@ import {
 } from "react-router-dom";
 import ChatWindow from "./components/ChatWindow";
 import Main from "./components/Main";
-import { room1, room2, friend_list, room_list, userInfo2 } from "./test_vars";
+// import { room1, room2, friend_list, room_list, userInfo2 } from "./test_vars";
 import { http_url, ws_url } from "./others/shared_vars";
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 import { useSelector, useDispatch } from "react-redux";
@@ -48,6 +48,7 @@ export default function App() {
   // const [userInfo, setUserInfo] = useState("loading");
 
   const userInfo = useSelector((state) => state.userInfo);
+  console.log("userinfo from store", userInfo);
 
   const [chats, setChats] = useState(undefined);
   const [friends, setFriends] = useState(undefined);
@@ -61,15 +62,15 @@ export default function App() {
   const [chatHistory, setChatHistory] = useState(undefined);
 
   function setUserInfoProp(data) {
-    setUserInfo(data);
+    // setUserInfo(data);
+  }
+
+  function SetUserInfoProp(data) {
+    // setUserInfo(data);
   }
 
   function SetFriendsProp(data) {
     setFriends(data);
-  }
-
-  function SetUserInfoProp(data) {
-    setUserInfo(data);
   }
 
   function SetChatHistoryProp(data) {
@@ -262,6 +263,7 @@ export default function App() {
     }
   }, [socket, currentChat, chatHistory, chats, userInfo]);
 
+  // if (!userInfo) return null;
   if (userInfo.isLoading) {
     return null;
   } else if (!userInfo.token) {
@@ -287,7 +289,7 @@ export default function App() {
         showChat={showChat}
         setChatHistoryProp={undefined}
         ChatPeopleSwitch={ChatPeopleSwitch}
-        rooms={room_list}
+        // rooms={room_list}
         friends={friends}
         mobileViewSide={"left"}
         chats={chats}
@@ -301,7 +303,7 @@ export default function App() {
             <ChatWindow
               chatHistory={undefined}
               // setChatHistoryProp={setChatHistoryProp}
-              myID={myID}
+              // myID={myID}
               userInfo={userInfo}
               setCurrentChatProp={setCurrentChatProp}
               mobileViewSide={"left"}
@@ -317,7 +319,7 @@ export default function App() {
           chatTitle={GetChatTitle()}
           setChatHistoryProp={undefined}
           setCurrentChatProp={setCurrentChatProp}
-          myID={myID}
+          // myID={myID}
           userInfo={userInfo}
           socket={socket}
           mobileViewSide={"right"}
@@ -328,7 +330,7 @@ export default function App() {
           width={width}
           showChat={showChat}
           ChatPeopleSwitch={ChatPeopleSwitch}
-          rooms={room_list}
+          // rooms={room_list}
           friends={friends}
           setCurrentChatProp={setCurrentChatProp}
           socket={socket}
@@ -342,7 +344,7 @@ export default function App() {
           width={width}
           showChat={showChat}
           ChatPeopleSwitch={ChatPeopleSwitch}
-          rooms={room_list}
+          // rooms={room_list}
           friends={friends}
           setCurrentChatProp={setCurrentChatProp}
         />
