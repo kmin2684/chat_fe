@@ -55,8 +55,8 @@ export default function App() {
   // const [chats, setChats] = useState(undefined);
   // const [friends, setFriends] = useState(undefined);
 
-  const chats = useSelector((state) => state.chats.chats);
-  const friends = useSelector((state) => state.friends.friends);
+  const chats = useSelector((state) => state.chatsFriends.chats);
+  const friends = useSelector((state) => state.chatsFriends.friends);
 
   const [currentChat, setCurrentChat] = useState(undefined);
   const [socket, setSocket] = useState(undefined);

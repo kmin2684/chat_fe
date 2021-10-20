@@ -10,8 +10,8 @@ export default function ChatPeopleList({showChat, setChatHistoryProp, rooms, onC
    //    return <Chat content = {'chat-'+room.id} LoadChat = {LoadChat}/>
    // });
    const userInfo = useSelector(state => state.userInfo);
-   const chats = useSelector(state => state.chats.chats);
-   const friends = useSelector(state => state.friends.friends);
+   const chats = useSelector(state => state.chatsFriends.chats);
+   const friends = useSelector(state => state.chatsFriends.friends);
 
    if (showChat) {
       if (chats) {
