@@ -19,6 +19,8 @@ import xIcon from "../icons/x-lg.svg";
 import { http_url, ws_url } from "../others/shared_vars";
 import { useSelector, useDispatch } from "react-redux";
 import { userInfoActions } from "../store/userInfo-slice";
+import { chatsActions } from "../store/chats-slice";
+import { friendsActions } from "../store/friends-slice";
 
 export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, mobileViewSide, chats, setUserInfoProp, onClickFriend}) {
   const history = useHistory();
@@ -130,7 +132,7 @@ export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSw
 
       </div>
         <div className='left-row2'>
-          <ChatPeopleList onClickFriend={onClickFriend} showChat={showChat} setChatHistoryProp={setChatHistoryProp} rooms={rooms} friends={friends} chats={chats}/> 
+          <ChatPeopleList onClickFriend={onClickFriend} showChat={showChat} setChatHistoryProp={setChatHistoryProp} rooms={rooms}/> 
         </div>
         <div className='left-row3'>
           <ChatPeopleToggle ChatPeopleSwitch={ChatPeopleSwitch}/>

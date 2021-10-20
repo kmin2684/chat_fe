@@ -11,13 +11,18 @@ import ChatWindow from "./ChatWindow";
 import { MobileViewSide } from "../others/shared_functions";
 import { http_url, ws_url } from "../others/shared_vars";
 import { useSelector, useDispatch } from "react-redux";
+import { friendsActions } from "../store/friends-slice";
 
-export default function AddFriend ({friends, SetFriendsProp, SetChatHistoryProp}) {
+export default function AddFriend ({ SetChatHistoryProp}) {
+    const dispatch = useDispatch();
+
     SetChatHistoryProp(undefined);
     const [query, setQuery] = useState(undefined);
     const [suggestions, setSuggestions] = useState(undefined);
     const history = useHistory();
     const userInfo = useSelector(state => state.userInfo);
+    const friends = useSelector(state => state.friends);
+
 
     useEffect(()=>{
         MobileViewSide('right');
@@ -59,7 +64,8 @@ export default function AddFriend ({friends, SetFriendsProp, SetChatHistoryProp}
                 return suggestion;
             })
             setSuggestions(new_suggestion);
-            SetFriendsProp([...friends, username]); 
+            // SetFriendsProp([...friends, username]); 
+            dispatch(friendsActions(AddFriend(username)));
         });
     } 
  

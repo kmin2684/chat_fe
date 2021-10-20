@@ -5,11 +5,13 @@ import Chat from "./Chat.jsx"
 import { useSelector, useDispatch } from "react-redux";
 
 
-export default function ChatPeopleList({showChat, setChatHistoryProp, rooms, friends, chats, onClickFriend}) {
+export default function ChatPeopleList({showChat, setChatHistoryProp, rooms, onClickFriend}) {
    // chats = rooms.map(room => {
    //    return <Chat content = {'chat-'+room.id} LoadChat = {LoadChat}/>
    // });
    const userInfo = useSelector(state => state.userInfo);
+   const chats = useSelector(state => state.chats.chats);
+   const friends = useSelector(state => state.friends.friends);
 
    if (showChat) {
       if (chats) {

@@ -4,7 +4,7 @@ const initialState = { username: null, token: null, isLoading: true };
 
 const userInfoSlice = createSlice({
   name: "userInfo",
-  initialState: { username: null, token: null, isLoading: true },
+  initialState,
   reducers: {
     setUserInfo(state, action) {
       state.username = action.payload.username;

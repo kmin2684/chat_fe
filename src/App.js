@@ -29,7 +29,10 @@ import {
   MobileViewSide,
   SaveUserInfo,
 } from "./others/shared_functions";
-import { fetchUserInfo } from "./store/userInfo-actions";
+import { fetchUserInfo, GeneralUpdate } from "./store/userInfo-actions";
+// import { chatsActions } from "./store/chatsFriends-slice";
+// import { friendsActions } from "./store/friends-slice";
+import { chatsFriendsActions } from "./store/chatsFriends-slice";
 
 async function GetChat(id, token) {
   let response = await fetch(http_url + "/chat_app/chat_update/" + id, {
@@ -48,10 +51,13 @@ export default function App() {
   // const [userInfo, setUserInfo] = useState("loading");
 
   const userInfo = useSelector((state) => state.userInfo);
-  console.log("userinfo from store", userInfo);
 
-  const [chats, setChats] = useState(undefined);
-  const [friends, setFriends] = useState(undefined);
+  // const [chats, setChats] = useState(undefined);
+  // const [friends, setFriends] = useState(undefined);
+
+  const chats = useSelector((state) => state.chats.chats);
+  const friends = useSelector((state) => state.friends.friends);
+
   const [currentChat, setCurrentChat] = useState(undefined);
   const [socket, setSocket] = useState(undefined);
 
@@ -69,9 +75,9 @@ export default function App() {
     // setUserInfo(data);
   }
 
-  function SetFriendsProp(data) {
-    setFriends(data);
-  }
+  // function SetFriendsProp(data) {
+  //   setFriends(data);
+  // }
 
   function SetChatHistoryProp(data) {
     setChatHistory(data);
@@ -130,34 +136,39 @@ export default function App() {
 
   useEffect(() => {
     dispatch(fetchUserInfo());
+    // dispatch(GeneralUpdate());
   }, []);
 
+  // useEffect(() => {
+  //   async function GeneralUpdate() {
+  //     // console.log("token is", userInfo.token);
+  //     let token;
+  //     if (userInfo) token = Object.keys(userInfo)?.find((e) => e === "token");
+  //     else token = null;
+  //     // console.log("token: ", token);
+  //     if (token) {
+  //       let response = await fetch(http_url + "/chat_app/general_update", {
+  //         method: "GET",
+  //         headers: { Authorization: "token " + userInfo.token },
+  //       });
+  //       let data = await response.json();
+  //       console.log("\n\n\n general update \n\n\n");
+  //       console.log(data);
+  //       setChats(data.rooms);
+  //       console.log("friends: ", data.friends, "chats: ", data.rooms);
+
+  //       setFriends(data.friends);
+  //       // console.log("token used for general update:", userInfo);
+  //     }
+  //   }
+
+  //   // console.log("general updating", userInfo, userInfo.token);
+  //   GeneralUpdate();
+  // }, [userInfo]);
+
   useEffect(() => {
-    async function GeneralUpdate() {
-      // console.log("token is", userInfo.token);
-      let token;
-      if (userInfo) token = Object.keys(userInfo)?.find((e) => e === "token");
-      else token = null;
-      // console.log("token: ", token);
-      if (token) {
-        let response = await fetch(http_url + "/chat_app/general_update", {
-          method: "GET",
-          headers: { Authorization: "token " + userInfo.token },
-        });
-        let data = await response.json();
-        console.log("\n\n\n general update \n\n\n");
-        console.log(data);
-        setChats(data.rooms);
-        console.log("friends: ", data.friends, "chats: ", data.rooms);
-
-        setFriends(data.friends);
-        // console.log("token used for general update:", userInfo);
-      }
-    }
-
-    // console.log("general updating", userInfo, userInfo.token);
-    GeneralUpdate();
-  }, [userInfo]);
+    if (userInfo.token) dispatch(GeneralUpdate());
+  }, [userInfo.token]);
 
   // monitoring viewport width
   const [windowDimensions, setWindowDimensions] = useState({ width: null });
@@ -248,7 +259,8 @@ export default function App() {
         if (Object.keys(data).find((key) => key === "newChat")) {
           if (data.newChat && data.room) {
             console.log("chats", chats);
-            setChats([...chats, data.room]);
+            // setChats([...chats, data.room]);
+            dispatch(chatsFriendsActions.addChat(data.room));
             if (data.sender === userInfo?.username)
               history.replace(`room/${data.room.id}`);
             // else console.log("the user is not the sender");
@@ -353,7 +365,7 @@ export default function App() {
         <AddFriend
           userInfo={userInfo}
           friends={friends}
-          SetFriendsProp={SetFriendsProp}
+          // SetFriendsProp={SetFriendsProp}
           SetChatHistoryProp={SetChatHistoryProp}
           mobileViewSide={"right"}
         />
