@@ -21,42 +21,15 @@ import {
 import ChatWindow from "./components/ChatWindow";
 import Main from "./components/Main";
 import { room1, room2, friend_list, room_list, userInfo2 } from "./test_vars";
-import { http_url, ws_url } from "./vars";
+import { http_url, ws_url } from "./others/shared_vars";
 import { w3cwebsocket as W3CWebSocket } from "websocket";
-
-function convertTZ(date, tzString) {
-  return new Date(
-    (typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {
-      timeZone: tzString,
-    })
-  );
-}
-
-export function StringToColor(string) {
-  let colorMap = {
-    0: "#313E50",
-    1: "#924C5D",
-    2: "#C5867A",
-    3: "#E1915E",
-    4: "#E17F5E",
-    5: "#85A47A",
-  };
-
-  let sum = 0;
-  for (let char of string) {
-    sum += char.charCodeAt(0);
-  }
-
-  return colorMap[sum % 6];
-}
-
-function getWindowDimensions() {
-  const { innerWidth: width, innerHeight: height } = window;
-  return {
-    width,
-    height,
-  };
-}
+import { useSelector, useDispatch } from "react-redux";
+import {
+  StringToColor,
+  MobileViewSide,
+  SaveUserInfo,
+} from "./others/shared_functions";
+import { fetchUserInfo } from "./store/userInfo-actions";
 
 async function GetChat(id, token) {
   let response = await fetch(http_url + "/chat_app/chat_update/" + id, {
@@ -66,69 +39,16 @@ async function GetChat(id, token) {
   return response_json;
 }
 
-export function MobileViewSide(viewSide) {
-  let show;
-  let hide;
-  if (viewSide === "left") {
-    show = "left";
-    hide = "right";
-  } else if (viewSide === "right") {
-    show = "right";
-    hide = "left";
-  } else {
-    console.log("invalide viewSide for MobileViewSide function");
-    return;
-  }
-  // add className of "ShowIfMobile" to the element that will be displayed
-  let sideDisplayed = document.querySelector(`.${show}`);
-  let originalClassList = sideDisplayed.classList.value
-    .split(/(\s+)/)
-    .filter(function (e) {
-      return e.trim().length > 0;
-    });
-  let uniqueClassList = [...new Set(originalClassList)];
-  let modifiedClassList = uniqueClassList.filter(
-    (e) => !(e === "HideIfMobile" || e === "ShowIfMobile")
-  );
-  sideDisplayed.classList.remove(...originalClassList);
-  sideDisplayed.classList.add(...[...modifiedClassList, "ShowIfMobile"]);
-
-  // add className of "HideIfMobile" to the element that will be displayed
-  let sideHidden = document.querySelector(`.${hide}`);
-  if (!sideHidden) {
-    console.log("no side to hide");
-    return;
-  }
-  console.log("side hidden", sideHidden);
-  originalClassList = sideHidden?.classList?.value
-    ?.split(/(\s+)/)
-    .filter(function (e) {
-      return e.trim().length > 0;
-    });
-  uniqueClassList = [...new Set(originalClassList)];
-  modifiedClassList = uniqueClassList.filter(
-    (e) => !(e === "HideIfMobile" || e === "ShowIfMobile")
-  );
-  sideHidden.classList.remove(...originalClassList);
-  sideHidden.classList.add(...[...modifiedClassList, "HideIfMobile"]);
-  return;
-}
-
-export function SaveUserInfo(userInfo) {
-  if (typeof Storage !== "undefined") {
-    if (!userInfo) localStorage.ChatUserInfo = null;
-    else localStorage.ChatUserInfo = JSON.stringify(userInfo);
-    console.log("user info saved in local storage");
-  } else {
-    console.log("unable to use localStorage");
-  }
-}
-
 export default function App() {
   const history = useHistory();
+  const dispatch = useDispatch();
   // const [isLoading, setIsLoading] = useState(true);
-  const [myID, setMyID] = useState("1");
-  const [userInfo, setUserInfo] = useState("loading");
+  // const [myID, setMyID] = useState("1");
+
+  // const [userInfo, setUserInfo] = useState("loading");
+
+  const userInfo = useSelector((state) => state.userInfo);
+
   const [chats, setChats] = useState(undefined);
   const [friends, setFriends] = useState(undefined);
   const [currentChat, setCurrentChat] = useState(undefined);
@@ -167,44 +87,48 @@ export default function App() {
     }
   }, [userInfo]);
 
-  useEffect(() => {
-    async function GetUserInfo() {
-      if (typeof Storage !== "undefined") {
-        if (localStorage.ChatUserInfo) {
-          try {
-            let storedInfo = JSON.parse(localStorage.ChatUserInfo);
-            console.log("storedInfo: ", storedInfo);
-            let response = await fetch(http_url + "/chat_app/user_check", {
-              method: "GET",
-              headers: { Authorization: "token " + storedInfo.token },
-            });
-            let response_json = await response.json();
-            if (response_json.username) {
-              SaveUserInfo({
-                username: response_json.username,
-                token: storedInfo.token,
-              });
-              setUserInfo({
-                username: response_json.username,
-                token: storedInfo.token,
-              });
-              return;
-            }
-          } catch (error) {
-            localStorage.ChatUserInfo = null;
-            console.error(error);
-          }
-        } else {
-          console.log("localStorage.ChatUserInfo is undefined");
-          setUserInfo(null);
-        }
-      } else {
-        console.log("storage undefined");
-      }
-      setUserInfo(null);
-    }
+  // useEffect(() => {
+  //   async function GetUserInfo() {
+  //     if (typeof Storage !== "undefined") {
+  //       if (localStorage.ChatUserInfo) {
+  //         try {
+  //           let storedInfo = JSON.parse(localStorage.ChatUserInfo);
+  //           console.log("storedInfo: ", storedInfo);
+  //           let response = await fetch(http_url + "/chat_app/user_check", {
+  //             method: "GET",
+  //             headers: { Authorization: "token " + storedInfo.token },
+  //           });
+  //           let response_json = await response.json();
+  //           if (response_json.username) {
+  //             SaveUserInfo({
+  //               username: response_json.username,
+  //               token: storedInfo.token,
+  //             });
+  //             setUserInfo({
+  //               username: response_json.username,
+  //               token: storedInfo.token,
+  //             });
+  //             return;
+  //           }
+  //         } catch (error) {
+  //           localStorage.ChatUserInfo = null;
+  //           console.error(error);
+  //         }
+  //       } else {
+  //         console.log("localStorage.ChatUserInfo is undefined");
+  //         setUserInfo(null);
+  //       }
+  //     } else {
+  //       console.log("storage undefined");
+  //     }
+  //     setUserInfo(null);
+  //   }
 
-    GetUserInfo();
+  //   GetUserInfo();
+  // }, []);
+
+  useEffect(() => {
+    dispatch(fetchUserInfo());
   }, []);
 
   useEffect(() => {
@@ -338,9 +262,9 @@ export default function App() {
     }
   }, [socket, currentChat, chatHistory, chats, userInfo]);
 
-  if (userInfo === "loading") {
+  if (userInfo.isLoading) {
     return null;
-  } else if (!userInfo) {
+  } else if (!userInfo.token) {
     return (
       <>
         <Route path="/login">
@@ -372,7 +296,7 @@ export default function App() {
         onClickFriend={onClickFriend}
       />
       <Route exact path="/">
-        {userInfo ? (
+        {userInfo.token ? (
           <>
             <ChatWindow
               chatHistory={undefined}

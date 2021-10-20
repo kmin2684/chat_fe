@@ -10,18 +10,19 @@ import {
   userHistory,
   useHistory,
 } from "react-router-dom";
-import { MobileViewSide, SaveUserInfo } from "../App";
-import {StringToColor} from '../App'
+import { MobileViewSide, SaveUserInfo, StringToColor } from "../others/shared_functions";
 import { userInfo2 } from "../test_vars";
 import logoutIcon from "../icons/log-out.svg";
 import pencilIcon from "../icons/pencil-fill.svg";
 import personPlusIcon from "../icons/person-plus-fill.svg";
 import xIcon from "../icons/x-lg.svg";
-import { http_url, ws_url } from "../vars";
+import { http_url, ws_url } from "../others/shared_vars";
+import { useSelector, useDispatch } from "react-redux";
 
-export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, mobileViewSide, chats, userInfo, setUserInfoProp, onClickFriend}) {
+export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, mobileViewSide, chats, setUserInfoProp, onClickFriend}) {
   const history = useHistory();
-  
+  const dispatch = useDispatch();
+  const userInfo = useSelector(state => state.userInfo);
   // useEffect(() => {
   //   if (mobileViewSide) MobileViewSide(mobileViewSide);}
   //   ,
@@ -41,7 +42,8 @@ export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSw
     .then(data => {
       console.log('logged out');
       console.log(data);
-      setUserInfoProp(undefined);
+      // setUserInfoProp(undefined);
+      dispatch(setUserInfo({username: null, tokne: null}));
     }).catch(error => console.error(error));
   }
   // async function logout(){
@@ -127,7 +129,7 @@ export default function Main ({width, showChat, setChatHistoryProp, ChatPeopleSw
 
       </div>
         <div className='left-row2'>
-          <ChatPeopleList userInfo = {userInfo} onClickFriend={onClickFriend} showChat={showChat} setChatHistoryProp={setChatHistoryProp} rooms={rooms} friends={friends} chats={chats}/> 
+          <ChatPeopleList onClickFriend={onClickFriend} showChat={showChat} setChatHistoryProp={setChatHistoryProp} rooms={rooms} friends={friends} chats={chats}/> 
         </div>
         <div className='left-row3'>
           <ChatPeopleToggle ChatPeopleSwitch={ChatPeopleSwitch}/>

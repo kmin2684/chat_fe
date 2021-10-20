@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 // import './Chat.css;'
-import {SaveUserInfo} from "../App";
+import {SaveUserInfo} from "../others/shared_functions";
 import Spinner from './Spinner';
+import { useSelector, useDispatch } from "react-redux";
+import {userInfoActions} from "../store/userInfo-slice";
 
 import {
     BrowserRouter as Router,
@@ -13,10 +15,11 @@ import {
     useHistory
   } from "react-router-dom";
 
-import { http_url, ws_url } from "../vars";
+import { http_url, ws_url } from "../others/shared_vars";
 
 export default function Login({userInfo, loggedIn, SetUserInfoProp}) {
     let history = useHistory();
+    const dispatch = useDispatch(); 
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -38,7 +41,8 @@ export default function Login({userInfo, loggedIn, SetUserInfoProp}) {
             console.log(data);
             if (data?.token) {
                 SaveUserInfo({username: data.username, token: data.token});
-                SetUserInfoProp({username: data.username, token: data.token});
+                // SetUserInfoProp({username: data.username, token: data.token});
+                dispatch(userInfoActions.setUserInfo({username: data.username, token: data.token}));
             } else if (data?.non_field_errors) {
                 console.log('error message', data.non_field_errors);
             }
@@ -75,7 +79,8 @@ export default function Login({userInfo, loggedIn, SetUserInfoProp}) {
             setIsLoading(false);
             if (data.token) {
                 SaveUserInfo({username: data.username, token: data.token});
-                SetUserInfoProp({username: data.username, token: data.token});
+                // SetUserInfoProp({username: data.username, token: data.token});
+                dispatch(userInfoActions.setUserInfo({username: data.username, token: data.token}));
             } else if (data.non_field_errors) {
                 console.log('error message', data.non_field_errors);
             }

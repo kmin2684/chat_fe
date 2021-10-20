@@ -7,7 +7,7 @@ import {
   useParams
 } from "react-router-dom";
 import ChatWindow from "./ChatWindow";
-import { MobileViewSide } from "../App";
+import { MobileViewSide } from "../others/shared_functions";
 
 export default function NewChat ({chatHistory, myID, width, showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, friends, setCurrentChatProp, onClickFriend}) {
     const [section, setSection] = useState('new_message');

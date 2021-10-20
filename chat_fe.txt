@@ -1,3 +1,7 @@
+is loading for fetch 
+
+add greyed out message to right window
+
 login page
 registration page 
 add friend 

@@ -11,8 +11,9 @@ import {
 import TimeAgo from 'timeago-react';
 import xIcon from "../icons/x-lg.svg";
 import infoIcon from "../icons/info.svg";
-import { MobileViewSide } from "../App";
-import { http_url, ws_url } from "../vars";
+import { MobileViewSide } from "../others/shared_functions";
+import { http_url, ws_url } from "../others/shared_vars";
+import { useSelector, useDispatch } from "react-redux";
 
 function convertTZ(date, tzString) {
     return new Date(
@@ -23,9 +24,11 @@ function convertTZ(date, tzString) {
 }
 
 
-export default function ChatWindow({setCurrentChatProp, chatHistory, myID, inputOn, userInfo, socket, newChatData, mobileViewSide, chatTitle}) {
+export default function ChatWindow({setCurrentChatProp, chatHistory, myID, inputOn, socket, newChatData, mobileViewSide, chatTitle}) {
     const { room_id } = useParams();
     const history = useHistory();
+    const userInfo = useSelector(state => state.userInfo);
+
     const [content, setContent] = useState('');
     const scroll = useRef(null);
     const [disabled, setDisabled] = useState(false);

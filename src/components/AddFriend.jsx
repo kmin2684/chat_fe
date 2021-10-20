@@ -8,14 +8,16 @@ import {
   useHistory
 } from "react-router-dom";
 import ChatWindow from "./ChatWindow";
-import { MobileViewSide } from "../App";
-import { http_url, ws_url } from "../vars";
+import { MobileViewSide } from "../others/shared_functions";
+import { http_url, ws_url } from "../others/shared_vars";
+import { useSelector, useDispatch } from "react-redux";
 
-export default function AddFriend ({userInfo, friends, SetFriendsProp, SetChatHistoryProp}) {
+export default function AddFriend ({friends, SetFriendsProp, SetChatHistoryProp}) {
     SetChatHistoryProp(undefined);
     const [query, setQuery] = useState(undefined);
     const [suggestions, setSuggestions] = useState(undefined);
     const history = useHistory();
+    const userInfo = useSelector(state => state.userInfo);
 
     useEffect(()=>{
         MobileViewSide('right');

@@ -2,18 +2,19 @@ import React from "react";
 // import './ChatPeopleList.css'
 import Friend from "./Friend.jsx"
 import Chat from "./Chat.jsx"
+import { useSelector, useDispatch } from "react-redux";
 
 
-
-export default function ChatPeopleList({showChat, setChatHistoryProp, rooms, friends, chats, onClickFriend, userInfo}) {
+export default function ChatPeopleList({showChat, setChatHistoryProp, rooms, friends, chats, onClickFriend}) {
    // chats = rooms.map(room => {
    //    return <Chat content = {'chat-'+room.id} LoadChat = {LoadChat}/>
    // });
+   const userInfo = useSelector(state => state.userInfo);
 
    if (showChat) {
       if (chats) {
          return chats.map(chat => {
-            return <Chat userInfo = {userInfo} chat = {chat} setChatHistoryProp = {setChatHistoryProp}/>
+            return <Chat chat = {chat} setChatHistoryProp = {setChatHistoryProp}/>
          });     
       } 
       return 'no chats';

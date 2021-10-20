@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 // import './Chat.css;'
-import {SaveUserInfo} from "../App";
+import {SaveUserInfo} from "../others/shared_functions";
 import Spinner from './Spinner';
 
 import {
@@ -13,7 +13,7 @@ import {
     useHistory
   } from "react-router-dom";
 
-import { http_url, ws_url } from "../vars";
+import { http_url, ws_url } from "../others/shared_vars";
 
 export default function Registration({userInfo, loggedIn, SetUserInfoProp}) {
     let history = useHistory();
