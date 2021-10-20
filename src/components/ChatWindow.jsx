@@ -14,6 +14,7 @@ import infoIcon from "../icons/info.svg";
 import { MobileViewSide } from "../others/shared_functions";
 import { http_url, ws_url } from "../others/shared_vars";
 import { useSelector, useDispatch } from "react-redux";
+import {statusActions} from "../store/status-slice";
 
 function convertTZ(date, tzString) {
     return new Date(
@@ -24,8 +25,10 @@ function convertTZ(date, tzString) {
 }
 
 
-export default function ChatWindow({setCurrentChatProp, chatHistory, myID, inputOn, socket, newChatData, mobileViewSide, chatTitle}) {
+export default function ChatWindow({chatHistory, myID, inputOn, socket, newChatData, mobileViewSide, chatTitle}) {
     const { room_id } = useParams();
+    console.log("room id", room_id);
+    const dispatch = useDispatch();
     const history = useHistory();
     const userInfo = useSelector(state => state.userInfo);
 
@@ -42,8 +45,11 @@ export default function ChatWindow({setCurrentChatProp, chatHistory, myID, input
         [mobileViewSide]
         );  
 
-    if (room_id) setCurrentChatProp(room_id)
-    else setCurrentChatProp(undefined)
+    // if (room_id) setCurrentChatProp(room_id)
+    // else setCurrentChatProp(undefined)
+    
+    if (room_id) dispatch(statusActions.setCurrentChat(room_id));
+    else dispatch(statusActions.setCurrentChat(null));
 
     function sendMessage(e) {
         e.preventDefault();

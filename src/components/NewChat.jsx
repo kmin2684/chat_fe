@@ -12,8 +12,9 @@ import ChatWindow from "./ChatWindow";
 import Friend from "./Friend";
 import { MobileViewSide } from "../others/shared_functions";
 import { useSelector, useDispatch } from "react-redux";
+import { statusActions } from "../store/status-slice";
 
-export default function NewChat ({chatHistory, setChatHistoryProp, ChatPeopleSwitch, rooms, setCurrentChatProp, socket, onClickFriend, SetChatHistoryProp, mobileViewSide}) {
+export default function NewChat ({chatHistory, setChatHistoryProp, socket, onClickFriend, SetChatHistoryProp, mobileViewSide}) {
   SetChatHistoryProp(undefined);
   
   const location = useLocation();
@@ -193,7 +194,7 @@ export default function NewChat ({chatHistory, setChatHistoryProp, ChatPeopleSwi
     setChatHistoryProp={setChatHistoryProp}
     // myID={myID} 
     inputOn={inputOn} 
-    setCurrentChatProp={setCurrentChatProp}
+    // setCurrentChatProp={setCurrentChatProp}
     newChatData={newChatData}
     socket={socket}
     />

@@ -55,8 +55,9 @@ export default function App() {
 
   const chats = useSelector((state) => state.status.chats);
   const friends = useSelector((state) => state.status.friends);
+  const currentChat = useSelector((state) => state.status.currentChat);
 
-  const [currentChat, setCurrentChat] = useState(undefined);
+  // const [currentChat, setCurrentChat] = useState(undefined);
   const [socket, setSocket] = useState(undefined);
 
   // switching between chat and friend list
@@ -186,9 +187,9 @@ export default function App() {
     state ? setShowChat(true) : setShowChat(false);
   }
 
-  function setCurrentChatProp(current) {
-    setCurrentChat(current);
-  }
+  // function setCurrentChatProp(current) {
+  //   setCurrentChat(current);
+  // }
 
   function onClickFriend(user) {
     let chat_id = chats?.find(
@@ -313,7 +314,7 @@ export default function App() {
           <>
             <ChatWindow
               chatHistory={undefined}
-              setCurrentChatProp={setCurrentChatProp}
+              // setCurrentChatProp={setCurrentChatProp}
               mobileViewSide={"left"}
             />
           </>
@@ -326,7 +327,7 @@ export default function App() {
           chatHistory={chatHistory}
           chatTitle={GetChatTitle()}
           setChatHistoryProp={undefined}
-          setCurrentChatProp={setCurrentChatProp}
+          // setCurrentChatProp={setCurrentChatProp}
           userInfo={userInfo}
           socket={socket}
           mobileViewSide={"right"}
@@ -337,14 +338,14 @@ export default function App() {
           width={width}
           showChat={showChat}
           ChatPeopleSwitch={ChatPeopleSwitch}
-          setCurrentChatProp={setCurrentChatProp}
+          // setCurrentChatProp={setCurrentChatProp}
           socket={socket}
           onClickFriend={onClickFriend}
           SetChatHistoryProp={SetChatHistoryProp}
           mobileViewSide={"right"}
         />
       </Route>
-      <Route path="/newchat2">
+      {/* <Route path="/newchat2">
         <NewChat3
           width={width}
           showChat={showChat}
@@ -353,7 +354,7 @@ export default function App() {
           friends={friends}
           setCurrentChatProp={setCurrentChatProp}
         />
-      </Route>
+      </Route> */}
       <Route path="/addfriend">
         <AddFriend
           SetChatHistoryProp={SetChatHistoryProp}
