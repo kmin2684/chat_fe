@@ -17,7 +17,7 @@ import {
 
 import { http_url, ws_url } from "../others/shared_vars";
 
-export default function Login({userInfo, loggedIn, SetUserInfoProp}) {
+export default function Login({loggedIn}) {
     let history = useHistory();
     const dispatch = useDispatch(); 
     const [username, setUsername] = useState(null);
@@ -26,7 +26,6 @@ export default function Login({userInfo, loggedIn, SetUserInfoProp}) {
     
     function onSubmit(event) {
         event.preventDefault();
-        // let content = {id, pwd};
         setIsLoading(true);
         fetch( http_url + '/chat_app/api-token-auth/', {
             method: 'POST',

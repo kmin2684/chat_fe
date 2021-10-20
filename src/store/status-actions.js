@@ -39,6 +39,54 @@ export const GeneralUpdate = () => {
   };
 };
 
+export const FetchMessages = () => async (dispatch) => {
+  const state = store.getState();
+  const currentChat = state.currentChat;
+  const userInfo = state.userInfo;
+
+  const FetchData = async () => {
+    const response = await fetch(
+      http_url + "/chat_app/chat_update/" + currentChat,
+      {
+        headers: { authorization: "token " + userInfo.token },
+      }
+    );
+
+    if (!response.ok) throw new Error("fetchMessage failed");
+
+    const data = await response.json();
+    return data;
+  };
+
+  if (!userInfo.token || !currentChat) return;
+
+  try {
+    data = await FetchData();
+    dispatch(statusActions.setChatHistory(data));
+    return true;
+  } catch (err) {
+    console.error(err, "error on fetchMessages");
+    dispatch(statusActions.setChatHistory(null));
+    return;
+  }
+
+  // if (currentChat) {
+  //   if (userInfo.token) {
+  //     fetch(http_url + "/chat_app/chat_update/" + currentChat, {
+  //       headers: { authorization: "token " + userInfo.token },
+  //     })
+  //       .then((response) => {
+  //         if (response.ok) return response.json();
+  //         else {
+  //           history.replace("/");
+  //         }
+  //       })
+  //       .then((data) => dispatch(statusActions.setChatHistory(data)))
+  //       .catch((error) => console.error(error));
+  //   }
+  // } else dispatch(statusActions.setChatHistory(null));
+};
+
 // export const fetchCartData = () => {
 //     return async (dispatch) => {
 //       const fetchData = async () => {

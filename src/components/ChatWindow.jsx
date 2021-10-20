@@ -36,6 +36,7 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
     const scroll = useRef(null);
     const [disabled, setDisabled] = useState(false);
 
+    // const chatTitle = GetChatTitle
 
     useEffect(()=> {
         scroll.current.scrollTop = scroll.current.scrollHeight;
@@ -46,6 +47,14 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
         ,
         [mobileViewSide]
         );  
+
+    useEffect(()=>{
+        return () =>{
+            console.log('chat window unmounting');
+            dispatch(statusActions.setChatHistory(null));
+            dispatch(statusActions.setCurrentChat(null));
+        }
+    },[room_id])
 
     // if (room_id) setCurrentChatProp(room_id)
     // else setCurrentChatProp(undefined)

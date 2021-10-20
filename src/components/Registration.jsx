@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-// import './Chat.css;'
+import {useDispatch} from "react-redux";
+
 import {SaveUserInfo} from "../others/shared_functions";
 import Spinner from './Spinner';
 
@@ -14,10 +15,12 @@ import {
   } from "react-router-dom";
 
 import { http_url, ws_url } from "../others/shared_vars";
+import { userInfoActions } from "../store/userInfo-slice";
 
 export default function Registration({userInfo, loggedIn, SetUserInfoProp}) {
-    let history = useHistory();
-       
+    const history = useHistory();
+    const dispatch = useDispatch();
+
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
     const [password2, setPassword2] = useState(null);
@@ -40,7 +43,8 @@ export default function Registration({userInfo, loggedIn, SetUserInfoProp}) {
             let keys = Object.keys(data)
             if (keys.find(key => key === "token")) {
                 SaveUserInfo({username: data.username, token: data.token});
-                SetUserInfoProp({username: data.username, token: data.token});
+                // SetUserInfoProp({username: data.username, token: data.token});
+                dispatch(userInfoActions.setUserInfo({username: data.username, token: data.token}));
             } else if (keys.find(key => key === "error")) {
                 console.log('error message', data.error);
             }

@@ -1,10 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import ChatPeopleList from "./components/ChatPeopleList";
-import ChatPeopleToggle from "./components/ChatPeopleToggle";
 import Login from "./components/Login";
 import Registration from "./components/Registration";
-import NewChat3 from "./components/NewChat3";
 import NewChat from "./components/NewChat";
 import AddFriend from "./components/AddFriend";
 import React, { useState, useEffect } from "react";
@@ -30,16 +27,12 @@ import {
   SaveUserInfo,
   GetChatTitle,
 } from "./others/shared_functions";
-import { fetchUserInfo, GeneralUpdate } from "./store/userInfo-actions";
+import {
+  fetchUserInfo,
+  GeneralUpdate,
+  FetchMessages,
+} from "./store/userInfo-actions";
 import { statusActions } from "./store/status-slice";
-
-async function GetChat(id, token) {
-  let response = await fetch(http_url + "/chat_app/chat_update/" + id, {
-    headers: { authorization: "token " + token },
-  });
-  let response_json = await response.json();
-  return response_json;
-}
 
 export default function App() {
   const history = useHistory();
@@ -53,27 +46,11 @@ export default function App() {
 
   const [socket, setSocket] = useState(undefined);
 
-  // switching between chat and friend list
-  const [showChat, setShowChat] = useState(true);
-
-  function setUserInfoProp(data) {
-    // setUserInfo(data);
-  }
-
-  function SetUserInfoProp(data) {
-    // setUserInfo(data);
-  }
-
   useEffect(() => {
-    if (userInfo && typeof userInfo === "object") {
-      console.log("typeof userInfo", typeof userInfo);
-      if (Object.keys(userInfo).find((key) => key === "token")) {
-        setSocket(
-          new W3CWebSocket(ws_url + "/ws/chat/?token=" + userInfo.token)
-        );
-      }
+    if (userInfo.token) {
+      setSocket(new W3CWebSocket(ws_url + "/ws/chat/?token=" + userInfo.token));
     }
-  }, [userInfo]);
+  }, [userInfo.token]);
 
   useEffect(() => {
     dispatch(fetchUserInfo());
@@ -83,13 +60,56 @@ export default function App() {
     if (userInfo.token) dispatch(GeneralUpdate());
   }, [userInfo.token]);
 
-  function ChatPeopleSwitch(state) {
-    state ? setShowChat(true) : setShowChat(false);
-  }
+  useEffect(() => {
+    if (currentChat) {
+      if (userInfo.token) {
+        fetch(http_url + "/chat_app/chat_update/" + currentChat, {
+          headers: { authorization: "token " + userInfo.token },
+        })
+          .then((response) => {
+            if (response.ok) return response.json();
+            else {
+              history.replace("/");
+            }
+          })
+          .then((data) => dispatch(statusActions.setChatHistory(data)))
+          .catch((error) => console.error(error));
+      }
+    } else dispatch(statusActions.setChatHistory(null));
+  }, [currentChat, userInfo]);
 
-  // function setCurrentChatProp(current) {
-  //   setCurrentChat(current);
-  // }
+  useEffect(() => {
+    let data;
+    if (socket) {
+      console.log(socket);
+
+      socket.onopen = () => {
+        console.log("connected to websocket");
+      };
+
+      socket.onmessage = (e) => {
+        console.log("onmessage via websocket");
+        data = JSON.parse(e.data);
+        console.log(data);
+
+        // if (Object.keys(data).find((key) => key === "newChat")) {
+        // }
+        if (data.newChat && data.room) {
+          dispatch(statusActions.addChat(data.room));
+          if (data.sender === userInfo?.username)
+            history.replace(`room/${data.room.id}`);
+          // else console.log("the user is not the sender");
+        } else if (data.message.room_id == currentChat && chatHistory) {
+          dispatch(
+            statusActions.setChatHistory({
+              ...chatHistory,
+              messages: [...chatHistory.messages, data.message],
+            })
+          );
+        }
+      };
+    }
+  }, [socket, currentChat, chatHistory, chats, userInfo]);
 
   function onClickFriend(user) {
     let chat_id = chats?.find(
@@ -109,84 +129,16 @@ export default function App() {
     }
   }
 
-  // function GetChatTitle() {
-  //   let displayedChat;
-  //   if (!currentChat) return undefined;
-  //   displayedChat = chats?.find((chat) => chat.id == currentChat);
-
-  //   if (displayedChat?.name) return displayedChat.name;
-  //   else {
-  //     return displayedChat?.members?.find(
-  //       (member) => member !== userInfo.username
-  //     );
-  //   }
-  // }
-
-  useEffect(() => {
-    let current;
-    if (currentChat && userInfo) {
-      if (Object.keys(userInfo).find((e) => e === "token")) {
-        fetch(http_url + "/chat_app/chat_update/" + currentChat, {
-          headers: { authorization: "token " + userInfo.token },
-        })
-          .then((response) => {
-            if (response.ok) return response.json();
-            else {
-              history.replace("/");
-            }
-          })
-          .then((data) => dispatch(statusActions.setChatHistory(data)))
-          .catch((error) => console.error(error));
-      }
-    } else dispatch(statusActions.setChatHistory(null));
-  }, [currentChat, userInfo]);
-
-  useEffect(() => {
-    let data;
-    if (socket && typeof socket === "object") {
-      console.log(socket);
-
-      socket.onopen = () => {
-        console.log("connected to websocket");
-      };
-
-      socket.onmessage = (e) => {
-        console.log("onmessage via websocket");
-        data = JSON.parse(e.data);
-        console.log(data);
-
-        if (Object.keys(data).find((key) => key === "newChat")) {
-          if (data.newChat && data.room) {
-            console.log("chats", chats);
-            // setChats([...chats, data.room]);
-            console.log(data.room);
-            dispatch(statusActions.addChat(data.room));
-            if (data.sender === userInfo?.username)
-              history.replace(`room/${data.room.id}`);
-            // else console.log("the user is not the sender");
-          }
-        } else if (data.message.room_id == currentChat && chatHistory) {
-          dispatch(
-            statusActions.setChatHistory({
-              ...chatHistory,
-              messages: [...chatHistory.messages, data.message],
-            })
-          );
-        }
-      };
-    }
-  }, [socket, currentChat, chatHistory, chats, userInfo]);
-
   if (userInfo.isLoading) {
     return null;
   } else if (!userInfo.token) {
     return (
       <>
         <Route path="/login">
-          <Login userInfo={null} SetUserInfoProp={SetUserInfoProp} />
+          <Login userInfo={null} />
         </Route>
         <Route path="/register">
-          <Registration userInfo={null} SetUserInfoProp={SetUserInfoProp} />
+          <Registration userInfo={null} />
         </Route>
         <Route path="/">
           <Redirect to="/login" />
@@ -197,28 +149,10 @@ export default function App() {
 
   return (
     <>
-      <Main
-        width={width}
-        showChat={showChat}
-        // setChatHistoryProp={undefined}
-        ChatPeopleSwitch={ChatPeopleSwitch}
-        // rooms={room_list}
-        friends={friends}
-        mobileViewSide={"left"}
-        chats={chats}
-        userInfo={userInfo}
-        setUserInfoProp={setUserInfoProp}
-        onClickFriend={onClickFriend}
-      />
+      <Main mobileViewSide={"left"} onClickFriend={onClickFriend} />
       <Route exact path="/">
         {userInfo.token ? (
-          <>
-            <ChatWindow
-              chatHistory={undefined}
-              // setCurrentChatProp={setCurrentChatProp}
-              mobileViewSide={"left"}
-            />
-          </>
+          <ChatWindow mobileViewSide={"left"} />
         ) : (
           <Redirect to="/login" />
         )}
@@ -226,16 +160,12 @@ export default function App() {
       <Route path="/room/:room_id">
         <ChatWindow
           chatTitle={GetChatTitle(currentChat, chats, userInfo)}
-          userInfo={userInfo}
           socket={socket}
           mobileViewSide={"right"}
         />
       </Route>
       <Route path="/newchat">
         <NewChat
-          width={width}
-          showChat={showChat}
-          ChatPeopleSwitch={ChatPeopleSwitch}
           socket={socket}
           onClickFriend={onClickFriend}
           mobileViewSide={"right"}

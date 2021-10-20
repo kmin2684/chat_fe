@@ -1,6 +1,4 @@
 import React from "react";
-// import './Chat.css;'
-
 import {
     BrowserRouter as Router,
     Switch,
@@ -10,17 +8,17 @@ import {
     useHistory,
   } from "react-router-dom";
 
-  import {StringToColor} from '../others/shared_functions';
-  import { useSelector, useDispatch } from "react-redux";
+import {StringToColor} from '../others/shared_functions';
+import { useSelector, useDispatch } from "react-redux";
 
 
-export default function Chat({room, setChatHistoryProp, chat}) {
+export default function Chat({chat}) {
     const history = useHistory();
     const userInfo = useSelector(state => state.userInfo);
     const path = "/room/" + chat.id;
     const chatName = chat.name? chat.name 
-    : chat.members.length === 2 ? chat.members.find(member => member !== userInfo.username)
-    : undefined
+    : chat.members?.length === 2 ? chat.members.find(member => member !== userInfo.username)
+    : undefined;
 
     let otherMembers = chat?.members.filter(member => member !== userInfo.username);
     

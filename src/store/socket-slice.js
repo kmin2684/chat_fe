@@ -1,14 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  chats: [],
-  friends: [],
-  currentChat: null,
-  chatHistory: null,
+  socket: null,
 };
 
-const statusSlice = createSlice({
-  name: "status",
+const socketSlice = createSlice({
+  name: "socket",
   initialState,
   reducers: {
     setChats(state, action) {
@@ -21,13 +18,16 @@ const statusSlice = createSlice({
       state.friends = action.payload.friends;
     },
     addFriend(state, action) {
-      state.friends.push(action.payload);
+      state.chats.push(action.payload);
     },
     setCurrentChat(state, action) {
       state.currentChat = action.payload;
     },
     setChatHistory(state, action) {
       state.chatHistory = action.payload;
+    },
+    increment(state) {
+      state.counter++;
     },
   },
 });

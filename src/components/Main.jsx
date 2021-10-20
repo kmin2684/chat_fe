@@ -22,15 +22,16 @@ import { userInfoActions } from "../store/userInfo-slice";
 import { statusActionsActions } from "../store/status-slice";
 
 
-export default function Main ({showChat, setChatHistoryProp, ChatPeopleSwitch, rooms, onClickFriend}) {
+export default function Main ({setChatHistoryProp, rooms, onClickFriend}) {
   const history = useHistory();
   const dispatch = useDispatch();
   const userInfo = useSelector(state => state.userInfo);
-  // useEffect(() => {
-  //   if (mobileViewSide) MobileViewSide(mobileViewSide);}
-  //   ,
-  //   [mobileViewSide]
-  //   );  
+  const [showChat, setShowChat] = useState(true);
+
+  function ChatPeopleSwitch(value) {
+    setShowChat(value);
+  }
+
 
   function logout(){
     SaveUserInfo();
