@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-// import './Chat.css;'
 import {
     BrowserRouter as Router,
     Switch,
@@ -15,6 +14,7 @@ import { MobileViewSide } from "../others/shared_functions";
 import { http_url, ws_url } from "../others/shared_vars";
 import { useSelector, useDispatch } from "react-redux";
 import {statusActions} from "../store/status-slice";
+import TextField from '@mui/material/TextField';
 
 function convertTZ(date, tzString) {
     return new Date(
@@ -50,7 +50,6 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
 
     useEffect(()=>{
         return () =>{
-            console.log('chat window unmounting');
             dispatch(statusActions.setChatHistory(null));
             dispatch(statusActions.setCurrentChat(null));
         }
@@ -142,7 +141,7 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
     });
 
     return (
-        <div className = 'right'>
+        <div className = 'right chat-window'>
             <div className = 'right-row1 chat-header'>
                 {/* {room_id} */}
                 
@@ -152,9 +151,9 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
                 
                 {chatHistory?.messages && <>
                 <div>
-                <div className='iconContainer' onClick={()=>history.push('/')}> 
-                    <img src={xIcon} className='icon' />
-                </div>
+                    <div className='iconContainer' onClick={()=>history.push('/')}> 
+                        <img src={xIcon} className='icon' />
+                    </div>
                     <div>
                         {chatTitle}
                     </div>
@@ -167,14 +166,16 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
             </div>
             <div className = 'right-row2' ref = {scroll}>
                 {messages?messages 
-                : inputOn? 'send a new message'
-                : 'no message'}
+                : inputOn? <div className='greyed-out'>send a new message</div>
+                : <div className='greyed-out'>There are no messages to display. Please select a chat to display messages.</div>}
             </div>
             <div className = 'right-row3'>
                 {
                     (messages||inputOn)&& 
-                    <form onSubmit = {e => sendMessage(e)}>
-                        <input disabled={disabled} type='text' placeholder='Aa' value={content} onChange={e => onChange(e)}/>
+                    <form onSubmit = {e => sendMessage(e)} autocomplete="off">
+                        <div>
+                           <TextField id="outlined-basic" type="text" disabled={disabled} placeholder='Aa' value={content} onChange={e => onChange(e)}/>
+                        </div>
                     </form>            
                 }
             </div>

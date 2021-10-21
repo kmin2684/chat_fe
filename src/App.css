@@ -13,7 +13,7 @@
   grid-column-end: 2;
   display: grid;
   grid-template-columns: [col0] 100% [col1];
-  grid-template-rows: [row0] 7rem [row1] 1fr [row2] 4rem [row3];
+  grid-template-rows: [row0] 5rem [row1] 1fr [row2] 4rem [row3];
   overflow: hidden;
   position: relative;
 }
@@ -45,7 +45,7 @@
   border: 1px solid black;
   display: grid;
   grid-template-columns: [col0] 100% [col1];
-  grid-template-rows: [row0] 4rem [row1] 1fr [row2] 5rem [row3];
+  grid-template-rows: [row0] 4rem [row1] 1fr [row2] 3rem [row3];
   overflow: hidden;
 }
 
@@ -73,6 +73,31 @@
   /* justify-self: stretch;
   align-self: stretch; */
   padding: auto;
+}
+
+.chat-window .greyed-out {
+  margin: 30% 1rem 0 1rem;
+  color: rgb(167, 167, 167);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.chat-window .right-row3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-window .right-row3 form {
+  width: 95%;
+}
+
+.chat-window .right-row3 form div {
+  width: 100%;
+}
+
+.chat-window .right-row3 form div input {
+  padding: 0.2rem 0.5rem;
 }
 
 .chat-header {
@@ -157,11 +182,6 @@
 
 .right-row3 {
   padding: auto;
-}
-
-.right-row3 > form {
-  width: 90%;
-  margin: auto auto;
 }
 
 .right-row3 input {
