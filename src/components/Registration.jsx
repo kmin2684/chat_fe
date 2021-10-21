@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import {useDispatch} from "react-redux";
-
 import {SaveUserInfo} from "../others/shared_functions";
 import Spinner from './Spinner';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
 import {
     BrowserRouter as Router,
@@ -66,12 +67,12 @@ export default function Registration({userInfo, loggedIn, SetUserInfoProp}) {
     <div className = "registration">
     {isLoading&&<Spinner/>}
         <form onSubmit={onSubmit}>
-            <input type="text" placeholder="id" onChange={(event)=>onChange(event, 'username')} value={username} />
-            <input type="password" placeholder="password" onChange={(event)=>onChange(event, 'password')} value={password} />
-            <input type="password" placeholder="retype password" onChange={(event)=>onChange(event, 'password2')} value={password2} />
-            <button type="submit">register</button>
+            <TextField id="outlined-basic" placeholder="id" onChange={(event)=>onChange(event, 'username')} value={username} />
+            <TextField id="outlined-password-input" type="password" placeholder="password" onChange={(event)=>onChange(event, 'password')} value={password} />
+            <TextField id="outlined-password-input" type="password" placeholder="retype password" onChange={(event)=>onChange(event, 'password2')} value={password2} />
+            <Button variant="contained" type="submit">register</Button>
         </form> 
-    <div>Already registered? <button onClick={()=>history.push('/login')}>Go to sign in page</button></div>  
+    <div>Already registered? <Button variant="contained" onClick={()=>history.push('/login')}>Go to sign in page</Button></div>  
     </div>
     
     </>;

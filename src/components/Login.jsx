@@ -4,6 +4,9 @@ import {SaveUserInfo} from "../others/shared_functions";
 import Spinner from './Spinner';
 import { useSelector, useDispatch } from "react-redux";
 import {userInfoActions} from "../store/userInfo-slice";
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+
 
 import {
     BrowserRouter as Router,
@@ -90,15 +93,15 @@ export default function Login({loggedIn}) {
     :
     <div className='login'>
         <form onSubmit={onSubmit} className='login-form'>
-            <input type="text" placeholder="id" onChange={(event)=>onChange(event, 'username')} value={username} />
-            <input type="password" placeholder="password" onChange={(event)=>onChange(event, 'password')} value={password} />
-            <button type="submit">log in</button>
+            <TextField id="outlined-basic" type="text" placeholder="id" onChange={(event)=>onChange(event, 'username')} value={username} />
+            <TextField id="outlined-password-input" type="password" placeholder="password" onChange={(event)=>onChange(event, 'password')} value={password} />
+            <Button variant="contained" type="submit">log in</Button>
         </form>
         <div>do not have an account yet?</div>
-        <div className='creat-new-account'><button onClick={()=>history.push('/register')}>Create a New Account</button></div>
+        <div className='creat-new-account'><Button variant="contained" onClick={()=>history.push('/register')}>Create a New Account</Button></div>
         <div>want to try the app without registering?</div>
-        <div className = 'visitor-sign-in'><button  onClick={() => VisitorSignIn(1)}>sign in as visitor1</button></div>
-        <div className = 'visitor-sign-in'><button  onClick={() => VisitorSignIn(2)}>sign in as visitor2</button></div>
+        <div className = 'visitor-sign-in'><Button variant="contained"  onClick={() => VisitorSignIn(1)}>sign in as visitor1</Button></div>
+        <div className = 'visitor-sign-in'><Button variant="contained"  onClick={() => VisitorSignIn(2)}>sign in as visitor2</Button></div>
         {isLoading&&<Spinner />}
     </div>
     );
@@ -109,11 +112,3 @@ export default function Login({loggedIn}) {
         // </form>
 }
 
-
-
-// onSubmit
-//     prevent defualt action
-//     send id and password via post method
-//     if response is success
-//         redirect to main page 
-//     else display error message to the user 

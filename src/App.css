@@ -331,10 +331,22 @@
   margin: 0 0 2rem 0;
 }
 
-.login input,
+/* .login input,
 .registration input {
   display: block;
   margin: 0 0 0.5rem 0;
+} */
+
+.login form div,
+.registration form div {
+  display: block;
+  margin: 0 0 1rem 0;
+}
+
+.login form input,
+.registration form input {
+  padding: 0.5rem;
+  width: 95%;
 }
 
 .creat-new-account {
