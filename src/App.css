@@ -75,6 +75,10 @@
   padding: auto;
 }
 
+.chat-window {
+  position: relative;
+}
+
 .chat-window .greyed-out {
   margin: 30% 1rem 0 1rem;
   color: rgb(167, 167, 167);
@@ -100,6 +104,14 @@
   padding: 0.2rem 0.5rem;
 }
 
+.chat-window .MuiDialog-container {
+  align-items: flex-start;
+}
+
+.chat-window .MuiPaper-root {
+  margin-top: 10%;
+}
+
 .chat-header {
   display: flex;
   justify-content: space-between;
@@ -109,6 +121,14 @@
 .chat-header > div:nth-child(1) {
   display: flex;
   align-items: center;
+}
+
+.chat-header .xIconContainer {
+  margin: 0 2rem 0 0;
+}
+
+.chatTitle {
+  font-weight: 700;
 }
 
 /* .Header {

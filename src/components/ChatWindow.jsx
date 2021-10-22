@@ -15,6 +15,11 @@ import { http_url, ws_url } from "../others/shared_vars";
 import { useSelector, useDispatch } from "react-redux";
 import {statusActions} from "../store/status-slice";
 import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
+import Modal from '@mui/material/Modal';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import ChatWindowModal from './ChatWindowModal';
 
 function convertTZ(date, tzString) {
     return new Date(
@@ -35,8 +40,11 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
     const [content, setContent] = useState('');
     const scroll = useRef(null);
     const [disabled, setDisabled] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
 
-    // const chatTitle = GetChatTitle
+    function setModalOpenProp (value) {
+        setModalOpen(value);
+    }
 
     useEffect(()=> {
         scroll.current.scrollTop = scroll.current.scrollHeight;
@@ -142,25 +150,34 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
 
     return (
         <div className = 'right chat-window'>
-            <div className = 'right-row1 chat-header'>
-                {/* {room_id} */}
-                
-                {/* {chatHistory?.messages && <div onClick={()=>history.push('/')}> home</div>} */}
-                
+            <div className = 'right-row1 chat-header'>               
                 {newChatData && <div onClick={()=>history.push('/')}> home</div>}
                 
                 {chatHistory?.messages && <>
-                <div>
-                    <div className='iconContainer' onClick={()=>history.push('/')}> 
-                        <img src={xIcon} className='icon' />
-                    </div>
                     <div>
-                        {chatTitle}
+                        <div className='iconContainer xIconContainer' onClick={()=>history.push('/')}> 
+                            <img src={xIcon} className='icon' />
+                        </div>
+                        <div className='chatTitle'>
+                            {chatTitle}
+                        </div>
                     </div>
-                </div>
-                <div>
-                    info
-                </div>
+                    <div className='iconContainer' onClick={()=>setModalOpen(true)}> 
+                        <img src={infoIcon} className='icon' />
+                    </div>
+                    {/* <Grid container>
+                        <Grid item xs={3}>
+                            <div className='iconContainer' onClick={()=>history.push('/')}> 
+                                <img src={xIcon} className='icon' />
+                            </div>
+                        </Grid>
+                        <Grid item xs={7}>
+                            {chatTitle}
+                        </Grid>
+                        <Grid item xs={2}>
+                            info
+                        </Grid>
+                    </Grid> */}
                 </>
                 }
             </div>
@@ -179,6 +196,10 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
                     </form>            
                 }
             </div>
+            < ChatWindowModal 
+                modalOpen={modalOpen}
+                setModalOpenProp={setModalOpenProp}
+            />
         </div>
     );
 }
