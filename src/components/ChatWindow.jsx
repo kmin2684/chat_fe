@@ -105,7 +105,7 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
         e.preventDefault();
         if(socket && room_id && content.trim().length) {
             if(typeof socket === 'object'){
-                socket.send(JSON.stringify({message: content, room_id}))   
+                if (socket.url) socket.send(JSON.stringify({message: content, room_id}));  
             }
         } else if(socket && newChatData && content.trim().length) {
             console.log("new chat sent: ", {...newChatData, message: content});

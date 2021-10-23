@@ -53,14 +53,14 @@ export default function App() {
   }, [userInfo.token]);
 
   useEffect(() => {
-    console.log("fetching user info ");
+    // console.log("fetching user info ");
     dispatch(fetchUserInfo());
   }, []);
 
   useEffect(() => {
     if (userInfo.token) dispatch(GeneralUpdate());
     return () => {
-      console.log("app unmounting ");
+      // console.log("app unmounting");
       setSocket({});
     };
   }, [userInfo.token]);
@@ -92,6 +92,7 @@ export default function App() {
 
   useEffect(() => {
     let data;
+    console.log("socket is ", socket);
     if (socket.url) {
       console.log(socket);
 
@@ -121,6 +122,11 @@ export default function App() {
         }
       };
     }
+    // return () => {
+    //   console.log("resetting socket onopen and onmessage");
+    //   socket.onopen = () => null;
+    //   socket.onmessage = () => null;
+    // };
   }, [socket.url, currentChat, chatHistory, chats, userInfo]);
   // [socket.url, currentChat, chatHistory, chats, userInfo]
 
