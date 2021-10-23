@@ -20,6 +20,7 @@ import Modal from '@mui/material/Modal';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import { makeStyles } from "@material-ui/core/styles";
+import Friend from './Friend';
 
 const useStyles = makeStyles({
     topScrollPaper: {
@@ -27,8 +28,13 @@ const useStyles = makeStyles({
     }});
 
 export default function ChatWindowModal(prop) {
+    const members = useSelector(state => state.status.chatHistory?.members);
 
     const classes = useStyles(); 
+
+    if (!members) {
+        return null;
+    }; 
 
     return ( <>    
     <Dialog
@@ -45,18 +51,10 @@ export default function ChatWindowModal(prop) {
         // aria-labelledby="modal-modal-title"
         // aria-describedby="modal-modal-description"
     >
-    <DialogTitle>members</DialogTitle>
-        <div>
-            <div>
-                sdfdsf
-            </div>                
-            <div>
-                sdfdsf
-            </div>                
-            <div>
-                sdfdsf
-        </div>
-        </div>
+        <DialogTitle>members</DialogTitle>
+        
+        {members.map(member => <Friend friend={member} onClickFriend = {() => {return} }/>)}
+
     </Dialog>
     </>
     )

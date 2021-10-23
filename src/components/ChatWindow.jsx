@@ -16,27 +16,23 @@ import { useSelector, useDispatch } from "react-redux";
 import {statusActions} from "../store/status-slice";
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
-import Modal from '@mui/material/Modal';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
 import ChatWindowModal from './ChatWindowModal';
-
-function convertTZ(date, tzString) {
-    return new Date(
-        (typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {
-        timeZone: tzString,
-        })
-    );
-}
+import {GetChatTitle} from '../others/shared_functions';
 
 
-export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide, chatTitle}) {
+
+export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide}) {
+
+
     const { room_id } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
     const userInfo = useSelector(state => state.userInfo);
     const chatHistory = useSelector(state => state.status.chatHistory);
+    const currentChat = useSelector(state=> state.status.currentChat);
+    const chats = useSelector(state => state.status.chats);
 
+    const [chatTitle, setChatTitle] = useState(null);
     const [content, setContent] = useState('');
     const scroll = useRef(null);
     const [disabled, setDisabled] = useState(false);
@@ -52,22 +48,52 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
 
     useEffect(() => {
         if (mobileViewSide) MobileViewSide(mobileViewSide);}
-        ,
-        [mobileViewSide]
-        );  
+    ,[mobileViewSide]);  
 
     useEffect(()=>{
+    if (room_id) {
+        dispatch(statusActions.setCurrentChat(room_id));
+        // setChatTitle(GetChatTitle(currentChat, chats, userInfo));
+    }
+    else dispatch(statusActions.setCurrentChat(null));
+
         return () =>{
-            dispatch(statusActions.setChatHistory(null));
             dispatch(statusActions.setCurrentChat(null));
         }
     },[room_id])
 
+    useEffect(()=>
+    {
+
+        if (newChatData?.groupName) {
+            setChatTitle(newChatData.groupName);
+        } else if(newChatData?.members) {
+            setChatTitle(newChatData.members[0]);
+        } else {
+            setChatTitle(GetChatTitle(currentChat, chats, userInfo));
+        }
+        
+    }, [currentChat, newChatData]
+    )
+
+
+
     // if (room_id) setCurrentChatProp(room_id)
     // else setCurrentChatProp(undefined)
     
-    if (room_id) dispatch(statusActions.setCurrentChat(room_id));
-    else dispatch(statusActions.setCurrentChat(null));
+    // if (room_id) dispatch(statusActions.setCurrentChat(room_id));
+    // else dispatch(statusActions.setCurrentChat(null));
+
+    useEffect(() => {
+        console.log('newChatData', newChatData);
+        console.log('currentChat', currentChat);
+        if (newChatData?.members) {
+            console.log('changing chat history', newChatData);
+            dispatch(statusActions.setChatHistory({members: newChatData.members}));
+        }
+
+    }, [newChatData])
+
 
     function sendMessage(e) {
         e.preventDefault();
@@ -151,35 +177,25 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
     return (
         <div className = 'right chat-window'>
             <div className = 'right-row1 chat-header'>               
-                {newChatData && <div onClick={()=>history.push('/')}> home</div>}
+                {/* {newChatData && <div onClick={()=>history.push('/')}> home</div>} */}
                 
-                {chatHistory?.messages && <>
+                {(chatHistory || newChatData) && <>
                     <div>
                         <div className='iconContainer xIconContainer' onClick={()=>history.push('/')}> 
                             <img src={xIcon} className='icon' />
                         </div>
                         <div className='chatTitle'>
-                            {chatTitle}
+                            {/* {chatHistory?.messages ? chatTitle
+                            :newChatData? newChatData.groupName
+                            : null    
+                        } */}
+                        {chatTitle}
                         </div>
                     </div>
                     <div className='iconContainer' onClick={()=>setModalOpen(true)}> 
                         <img src={infoIcon} className='icon' />
                     </div>
-                    {/* <Grid container>
-                        <Grid item xs={3}>
-                            <div className='iconContainer' onClick={()=>history.push('/')}> 
-                                <img src={xIcon} className='icon' />
-                            </div>
-                        </Grid>
-                        <Grid item xs={7}>
-                            {chatTitle}
-                        </Grid>
-                        <Grid item xs={2}>
-                            info
-                        </Grid>
-                    </Grid> */}
-                </>
-                }
+                    </>}
             </div>
             <div className = 'right-row2' ref = {scroll}>
                 {messages?messages 

@@ -110,6 +110,8 @@
 
 .chat-window .MuiPaper-root {
   margin-top: 10%;
+  min-width: 50%;
+  max-width: 80%;
 }
 
 .chat-header {
@@ -432,6 +434,11 @@
     grid-column-start: 1;
     grid-column-end: 2;
     margin: 2rem auto;
+  }
+
+  .chat-window .MuiPaper-root {
+    margin-top: 10%;
+    width: 80%;
   }
 }
 

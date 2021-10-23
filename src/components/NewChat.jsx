@@ -14,7 +14,7 @@ import { MobileViewSide } from "../others/shared_functions";
 import { useSelector, useDispatch } from "react-redux";
 import { statusActions } from "../store/status-slice";
 
-export default function NewChat ({chatHistory, setChatHistoryProp, socket, onClickFriend, SetChatHistoryProp, mobileViewSide}) {
+export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
   
   const location = useLocation();
   const history = useHistory();
@@ -26,8 +26,18 @@ export default function NewChat ({chatHistory, setChatHistoryProp, socket, onCli
   const [groupName, setGroupName] = useState('');
   const [inputOn, setInputOn] = useState(null);
   const [checkedUsers, setCheckedUsers] = useState([]);
+  const [newChatData, setNewChatData] = useState({
+    newChat: true,
+    groupName: null,
+    members: null,
+  })
 
-  dispatch(statusActions.setChatHistory(null));
+
+  useEffect(() => {
+    setNewChatData({...newChatData, groupName, members: checkedUsers})
+  }, [checkedUsers, groupName])
+
+  // dispatch(statusActions.setChatHistory(null));
 
   useEffect(() => {
     if (mobileViewSide) MobileViewSide(mobileViewSide);}
@@ -88,11 +98,11 @@ export default function NewChat ({chatHistory, setChatHistoryProp, socket, onCli
     setInputOn(true);
   }
 
-  const newChatData = {
-    newChat: true,
-    groupName,
-    members: checkedUsers,
-  };
+  // const newChatData = {
+  //   newChat: true,
+  //   groupName,
+  //   members: checkedUsers,
+  // };
 
 
 
@@ -190,11 +200,9 @@ export default function NewChat ({chatHistory, setChatHistoryProp, socket, onCli
     
   const send_message = <>
     <ChatWindow 
-    chatHistory = {chatHistory} 
-    setChatHistoryProp={setChatHistoryProp}
-    // myID={myID} 
+    // chatHistory = {chatHistory} 
+    // setChatHistoryProp={setChatHistoryProp}
     inputOn={inputOn} 
-    // setCurrentChatProp={setCurrentChatProp}
     newChatData={newChatData}
     socket={socket}
     />
@@ -217,9 +225,9 @@ export default function NewChat ({chatHistory, setChatHistoryProp, socket, onCli
   : section === 'send_message'? send_message
   : null; 
 
-  if (location.state?.user && checkedUsers.length < 2 && location.state?.user !== checkedUsers[0] ) {
-    return <div className = 'right'></div>; 
-  }
+  // if (location.state?.user && checkedUsers.length < 2 && location.state?.user !== checkedUsers[0] ) {
+  //   return <div className = 'right'></div>; 
+  // }
 
 
   return page; 

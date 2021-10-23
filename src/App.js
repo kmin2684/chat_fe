@@ -159,7 +159,7 @@ export default function App() {
       </Route>
       <Route path="/room/:room_id">
         <ChatWindow
-          chatTitle={GetChatTitle(currentChat, chats, userInfo)}
+          // chatTitle={GetChatTitle(currentChat, chats, userInfo)}
           socket={socket}
           mobileViewSide={"right"}
         />
