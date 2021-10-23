@@ -47,20 +47,20 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
     setInputOn(value);
   }
 
-  function Change_section (current) {
-    if (current === 'new_message') {
-      setSection(new_message);
-      setInputOn(false);
-    } else if (current === 'add_participants') {
-      setSection(add_participants);
-      setInputOn(false);
-    } else if (current === 'add_title') {
-      setSection(add_title);
-      setInputOn(false);
-    } else if (current === 'send_message') {
-      setInputOn(true); 
-    }
-  }
+  // function Change_section (current) {
+  //   if (current === 'new_message') {
+  //     setSection(new_message);
+  //     setInputOn(false);
+  //   } else if (current === 'add_participants') {
+  //     setSection(add_participants);
+  //     setInputOn(false);
+  //   } else if (current === 'add_title') {
+  //     setSection(add_title);
+  //     setInputOn(false);
+  //   } else if (current === 'send_message') {
+  //     setInputOn(true); 
+  //   }
+  // }
   
   function ChangeCheck(user) {
     // let checkedUsersCopy = [...checkedUsers];
@@ -229,6 +229,12 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
   //   return <div className = 'right'></div>; 
   // }
 
+
+
+  // to directly render send_message page
+  if (location.state?.user && section !== 'send_message') {
+    return <div className='right'/>  ; 
+  }
 
   return page; 
   }

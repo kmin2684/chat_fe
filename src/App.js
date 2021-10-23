@@ -44,7 +44,7 @@ export default function App() {
   const currentChat = useSelector((state) => state.status.currentChat);
   const chatHistory = useSelector((state) => state.status.chatHistory);
 
-  const [socket, setSocket] = useState(undefined);
+  const [socket, setSocket] = useState({});
 
   useEffect(() => {
     if (userInfo.token) {
@@ -87,7 +87,7 @@ export default function App() {
 
   useEffect(() => {
     let data;
-    if (socket) {
+    if (socket.url) {
       console.log(socket);
 
       socket.onopen = () => {
@@ -116,7 +116,8 @@ export default function App() {
         }
       };
     }
-  }, [socket, currentChat, chatHistory, chats, userInfo]);
+  }, [socket.url, currentChat, chatHistory, chats, userInfo]);
+  // [socket.url, currentChat, chatHistory, chats, userInfo]
 
   function onClickFriend(user) {
     let chat_id = chats?.find(
