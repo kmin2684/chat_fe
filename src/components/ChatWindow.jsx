@@ -64,7 +64,6 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
 
     useEffect(()=>
     {
-
         if (newChatData?.groupName) {
             setChatTitle(newChatData.groupName);
         } else if(newChatData?.members) {
@@ -76,6 +75,13 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
     }, [currentChat, newChatData]
     )
 
+    useEffect(() => {
+        if (newChatData?.members) {
+            let newChatMembers = [...newChatData.members, userInfo.username];
+            dispatch(statusActions.setCurrentChat({newChatMembers}));
+        }
+    }, [newChatData])
+
 
 
     // if (room_id) setCurrentChatProp(room_id)
@@ -84,15 +90,15 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
     // if (room_id) dispatch(statusActions.setCurrentChat(room_id));
     // else dispatch(statusActions.setCurrentChat(null));
 
-    useEffect(() => {
-        console.log('newChatData', newChatData);
-        console.log('currentChat', currentChat);
-        if (newChatData?.members) {
-            console.log('changing chat history', newChatData);
-            dispatch(statusActions.setChatHistory({members: newChatData.members}));
-        }
+    // useEffect(() => {
+    //     console.log('newChatData', newChatData);
+    //     console.log('currentChat', currentChat);
+    //     if (newChatData?.members) {
+    //         console.log('changing chat history', newChatData);
+    //         dispatch(statusActions.setChatHistory({members: newChatData.members}));
+    //     }
 
-    }, [newChatData])
+    // }, [newChatData])
 
 
     function sendMessage(e) {

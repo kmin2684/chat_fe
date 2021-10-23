@@ -63,6 +63,13 @@ export default function App() {
   useEffect(() => {
     if (currentChat) {
       if (userInfo.token) {
+        // used for setting chat info just before sending a new message to create a new chat
+        if (Object.keys(currentChat).find((key) => key === "newChatMembers")) {
+          let members = [...currentChat.newChatMembers];
+          dispatch(statusActions.setChatHistory({ members }));
+          return;
+        }
+
         fetch(http_url + "/chat_app/chat_update/" + currentChat, {
           headers: { authorization: "token " + userInfo.token },
         })
