@@ -53,11 +53,16 @@ export default function App() {
   }, [userInfo.token]);
 
   useEffect(() => {
+    console.log("fetching user info ");
     dispatch(fetchUserInfo());
   }, []);
 
   useEffect(() => {
     if (userInfo.token) dispatch(GeneralUpdate());
+    return () => {
+      console.log("app unmounting ");
+      setSocket({});
+    };
   }, [userInfo.token]);
 
   useEffect(() => {
