@@ -1,10 +1,11 @@
 .App {
-  border: dotted rgb(35, 4, 212) 1px;
+  --outer-border: solid rgb(136, 136, 136) 2px;
+  border: var(--outer-border);
   display: grid;
   height: 100vh;
   grid-template-columns: [col0] 40% [col1] 60% [col2];
   grid-template-rows: [row0] 100% [row1];
-  max-width: 1400px;
+  max-width: 1200px;
   margin: auto;
 }
 
@@ -13,9 +14,10 @@
   grid-column-end: 2;
   display: grid;
   grid-template-columns: [col0] 100% [col1];
-  grid-template-rows: [row0] 5rem [row1] 1fr [row2] 4rem [row3];
+  grid-template-rows: [row0] 4rem [row1] 1fr [row2] 4rem [row3];
   overflow: hidden;
   position: relative;
+  border-right: var(--outer-border);
 }
 
 .left-row1 {
@@ -28,6 +30,8 @@
   grid-row-start: 2;
   grid-row-end: 3;
   overflow: auto;
+  border-top: var(--outer-border);
+  border-bottom: var(--outer-border);
 }
 
 .left-row3 {
@@ -42,16 +46,16 @@
   grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: 4;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   display: grid;
   grid-template-columns: [col0] 100% [col1];
-  grid-template-rows: [row0] 4rem [row1] 1fr [row2] 3rem [row3];
+  grid-template-rows: [row0] 4rem [row1] 1fr [row2] 4rem [row3];
   overflow: hidden;
 }
 
-.right:hover {
+/* .right:hover {
   border: 2px solid blue;
-}
+} */
 
 .right-row1 {
   grid-row-start: 1;
@@ -86,6 +90,11 @@
   font-weight: 700;
 }
 
+.chat-window .right-row2 {
+  border-top: var(--outer-border);
+  border-bottom: var(--outer-border);
+}
+
 .chat-window .right-row3 {
   display: flex;
   align-items: center;
@@ -101,7 +110,7 @@
 }
 
 .chat-window .right-row3 form div input {
-  padding: 0.2rem 0.5rem;
+  padding: 0.5rem 0.5rem;
 }
 
 .chat-window .MuiDialog-container {
@@ -215,6 +224,7 @@
   padding: 1rem 1rem;
   display: flex;
   align-items: center;
+  border-bottom: solid rgb(186 186 186) 1px;
 }
 
 .userIcon {
@@ -409,9 +419,13 @@
   top: 10%;
 }
 
+.MuiFormControl-root fieldset {
+  top: 0px;
+}
+
 @media screen and (max-width: 900px) {
   .App {
-    border: dotted rgb(35, 4, 212) 1px;
+    border: solid black 1px;
     display: grid;
     height: 100vh;
     grid-template-columns: [col0] 100% [col1];

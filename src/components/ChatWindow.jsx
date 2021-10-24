@@ -72,7 +72,7 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
             setChatTitle(GetChatTitle(currentChat, chats, userInfo));
         }
         
-    }, [currentChat, newChatData]
+    }, [currentChat, newChatData, chats]
     )
 
     useEffect(() => {
@@ -213,7 +213,7 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
                     (messages||inputOn)&& 
                     <form onSubmit = {e => sendMessage(e)} autocomplete="off">
                         <div>
-                           <TextField id="outlined-basic" type="text" disabled={disabled} placeholder='Aa' value={content} onChange={e => onChange(e)}/>
+                           <TextField id="outlined-basic" variant="outlined" type="text" disabled={disabled} placeholder='Aa' value={content} onChange={e => onChange(e)} autoFocus={true}/>
                         </div>
                     </form>            
                 }
