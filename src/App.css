@@ -318,6 +318,10 @@
   border: 0.2rem solid white;
 }
 
+.userIcon.small:nth-child(1):hover {
+  background-color: rgb(240 240 240);
+}
+
 .userIcon.small:nth-child(2) {
   position: absolute;
   left: 1rem;
@@ -327,7 +331,11 @@
 
 .friend:hover,
 .chat:hover {
-  background-color: beige;
+  background-color: rgb(240 240 240);
+}
+
+.chat:hover .userIcon.small:nth-child(1) {
+  border: 0.2rem solid rgb(240 240 240);
 }
 
 .iconContainer {
@@ -352,6 +360,7 @@
 .Header-left {
   display: flex;
   align-items: center;
+  font-weight: 700;
 }
 
 .Header-left > .userIcon {
