@@ -2,8 +2,6 @@
   --outer-border: solid rgb(136, 136, 136) 2px;
   --chat-blue: #0084ff;
   --hover-grey: rgb(240 240 240);
-  border-left: var(--outer-border);
-  border-right: var(--outer-border);
   display: grid;
   height: 100vh;
   grid-template-columns: [col0] 40% [col1] 60% [col2];
@@ -20,6 +18,7 @@
   grid-template-rows: [row0] 4rem [row1] 1fr [row2] 4rem [row3];
   overflow: hidden;
   position: relative;
+  border-left: var(--outer-border);
   border-right: var(--outer-border);
 }
 
@@ -51,7 +50,7 @@
   grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: 4;
-  /* border: 1px solid black; */
+  border-right: var(--outer-border);
   display: grid;
   grid-template-columns: [col0] 100% [col1];
   grid-template-rows: [row0] 4rem [row1] 1fr [row2] 4rem [row3];
@@ -230,11 +229,13 @@
   font-weight: 700;
 }
 
-.NewChat.AddParticipants .right-row1 {
+.NewChat.AddParticipants .right-row1,
+.NewChat.AddTitle .right-row1 {
   justify-content: space-between;
 }
 
-.NewChat.AddParticipants .right-row1 div:nth-child(1) {
+.NewChat.AddParticipants .right-row1 div:nth-child(1),
+.NewChat.AddTitle .right-row1 div:nth-child(1) {
   display: flex;
   align-items: center;
 }
@@ -267,15 +268,45 @@
 }
 
 .NewChat .suggested {
-  margin: 1rem 0 0 1rem;
+  /* margin: 1rem 0 0 0; */
+  padding: 1rem 0 0.5rem 1rem;
+  border-bottom: solid rgb(186 186 186) 1px;
 }
 
-.NewChat #next-button {
+/* .NewChat .suggested::before {
+  content: "";
+  margin-left: 1rem;
+} */
+
+.NewChat #next-button,
+.NewChat #create-button {
   color: white;
 }
 
-.NewChat #next-button.Mui-disabled {
+.NewChat #next-button.Mui-disabled,
+.NewChat #create-button.Mui-disabled {
   color: rgba(255, 255, 255, 0.589);
+}
+
+.NewChat .text-field-container {
+  margin: 2rem auto 0 auto;
+  width: 90%;
+}
+
+.NewChat .MuiTextField-root {
+  width: 100%;
+}
+
+.add-friend .right-row1 {
+  display: flex;
+  align-items: center;
+  background-color: var(--chat-blue);
+  color: white;
+  font-weight: 700;
+}
+
+.add-friend .iconContainer {
+  margin: 0 2rem 0 0;
 }
 
 .right-row3 {
@@ -516,12 +547,12 @@
     height: 100vh;
     grid-template-columns: [col0] 100% [col1];
     grid-template-rows: [row0] 100% [row1];
-    /* max-width: 1400px; */
     margin: auto;
   }
 
-  .left {
-    border-right: none;
+  .left,
+  .right {
+    border: none;
   }
 
   .HideIfMobile {

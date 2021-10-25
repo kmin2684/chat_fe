@@ -15,7 +15,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { statusActions } from "../store/status-slice";
 import xIcon from "../icons/x-lg.svg";
 import groupIcon from "../icons/group-icon.svg";
-import  {Button, IconButton}  from '@mui/material';
+import  {Button, IconButton, TextField }  from '@mui/material';
 import arrowLeftIcon from "../icons/arrow-left.svg";
 
 export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
@@ -96,8 +96,15 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
     // }
 
   function onSubmit(e) {
+    console.log('onSubmit');
     e.preventDefault(); 
-    if (!groupName.trim()) return
+    if (!groupName.trim()) return ; 
+    setSection('send_message'); 
+    setInputOn(true);
+  }
+
+  function handleClick() {
+    if (!groupName.trim()) return ; 
     setSection('send_message'); 
     setInputOn(true);
   }
@@ -167,7 +174,7 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
           </div>
         </div>
         <div className="suggested">
-          Suggested
+          Suggested:
         </div>
         {friends?.map(friend => { return (
           // <div onClick={()=>onClickFriend(friend)}>
@@ -207,13 +214,26 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
   const add_title = (
     <div className = 'NewChat AddTitle right'>
       <div className='right-row1'>
-        <button onClick={()=>setSection('add_participants')}>back</button>
+        <div>
+            <div className='iconContainer' onClick={() => setSection('add_participants')}> 
+                <img src={arrowLeftIcon} className='icon' />
+            </div>
+            Add Title
+          </div>
+          <Button id='create-button' onClick={handleClick} disabled={!groupName.trim()}>
+            CREATE
+          </Button> 
+
+        {/* <button onClick={()=>setSection('add_participants')}>back</button>
         Add Title
-        <button form='form1' disabled ={!groupName.trim()}> CREATE</button>
+        <button form='form1' disabled ={!groupName.trim()}> CREATE</button> */}
       </div>
       <div className='right-row2' onSubmit={(e)=>{onSubmit(e)}}>
         <form id="form1">
-          <input type='text' placeholder='Group Name (Required)' required="required" value={groupName} onChange={e=>setGroupName(e.target.value)}></input>
+          {/* <input type='text' placeholder='Group Name (Required)' required="required" value={groupName} onChange={e=>setGroupName(e.target.value)}></input> */}
+          <div className='text-field-container'>
+            <TextField variant="standard" type='text' placeholder='Group Name (Required)' required="required" value={groupName} onChange={e=>setGroupName(e.target.value)} />
+          </div>
         </form>
       </div>
     </div>

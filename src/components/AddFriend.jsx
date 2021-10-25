@@ -12,6 +12,7 @@ import { MobileViewSide } from "../others/shared_functions";
 import { http_url, ws_url } from "../others/shared_vars";
 import { useSelector, useDispatch } from "react-redux";
 import { statusActions } from "../store/status-slice";
+import xIcon from "../icons/x-lg.svg"
 
 export default function AddFriend () {
     const dispatch = useDispatch();
@@ -83,17 +84,25 @@ export default function AddFriend () {
     </div>;
 
     return <>
-    <div className="right">
+    <div className="right add-friend">
         <div className="right-row1">
-            <div>
+            {/* <div>
                 <button onClick={() => history.push('/')}>Home</button>
                 Add friends
+            </div> */}
+            <div className='iconContainer xIconContainer' onClick={()=>history.push('/')}> 
+                <img src={xIcon} className='icon' />
             </div>
+            <div >
+                Add friends
+            </div>
+        </div>
+        <div className='right-row2'>
             <form onSubmit={e => onSubmit(e)}>
                 <input type="text" placeholder="search by username" value={query} onChange = {e=>onChange(e)}/>
             </form>
-        </div>
         {searchResult}
+        </div>
     </div>
     </>;
 
