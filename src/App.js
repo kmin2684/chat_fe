@@ -173,6 +173,10 @@ export default function App() {
         {userInfo.token ? (
           <ChatWindow mobileViewSide={"left"} />
         ) : (
+          // <div className="right empty HideIfMobile">
+          //   There are no messages to display. Please select a chat to display
+          //   messages.
+          // </div>
           <Redirect to="/login" />
         )}
       </Route>

@@ -1,6 +1,9 @@
 .App {
   --outer-border: solid rgb(136, 136, 136) 2px;
-  border: var(--outer-border);
+  --chat-blue: #0084ff;
+  --hover-grey: rgb(240 240 240);
+  border-left: var(--outer-border);
+  border-right: var(--outer-border);
   display: grid;
   height: 100vh;
   grid-template-columns: [col0] 40% [col1] 60% [col2];
@@ -24,14 +27,16 @@
   grid-row-start: 1;
   grid-row-end: 2;
   padding: 0.5rem;
+  background-color: var(--chat-blue);
+  color: white;
 }
 
 .left-row2 {
   grid-row-start: 2;
   grid-row-end: 3;
   overflow: auto;
-  border-top: var(--outer-border);
-  border-bottom: var(--outer-border);
+  /* border-top: var(--outer-border);
+  border-bottom: var(--outer-border); */
 }
 
 .left-row3 {
@@ -83,17 +88,23 @@
   position: relative;
 }
 
+.chat-window .right-row1 {
+  background-color: var(--chat-blue);
+  color: white;
+}
+
 .chat-window .greyed-out {
   margin: 30% 1rem 0 1rem;
   color: rgb(167, 167, 167);
   font-size: 2rem;
   font-weight: 700;
+  position: absolute;
 }
 
-.chat-window .right-row2 {
+/* .chat-window .right-row2 {
   border-top: var(--outer-border);
   border-bottom: var(--outer-border);
-}
+} */
 
 .chat-window .right-row3 {
   display: flex;
@@ -209,6 +220,62 @@
 
 .message-block.self .time {
   text-align: right;
+}
+
+.NewChat .right-row1 {
+  display: flex;
+  align-items: center;
+  background-color: var(--chat-blue);
+  color: white;
+  font-weight: 700;
+}
+
+.NewChat.AddParticipants .right-row1 {
+  justify-content: space-between;
+}
+
+.NewChat.AddParticipants .right-row1 div:nth-child(1) {
+  display: flex;
+  align-items: center;
+}
+
+.NewChat .right-row1 .iconContainer {
+  margin: 0 2rem 0 0;
+}
+
+.NewChat .create-new-group {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: solid rgb(186 186 186) 1px;
+}
+
+.NewChat .create-new-group:hover {
+  background-color: var(--hover-grey);
+}
+
+.NewChat .iconContainer.group {
+  background-color: rgb(231, 231, 231);
+  width: 3rem;
+  height: 3rem;
+  margin: 0 1rem 0 0;
+}
+
+.NewChat .iconContainer.group .icon {
+  width: 2rem;
+  height: 3rem;
+}
+
+.NewChat .suggested {
+  margin: 1rem 0 0 1rem;
+}
+
+.NewChat #next-button {
+  color: white;
+}
+
+.NewChat #next-button.Mui-disabled {
+  color: rgba(255, 255, 255, 0.589);
 }
 
 .right-row3 {
@@ -432,15 +499,29 @@
   top: 0px;
 }
 
+.empty {
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  margin: 40% 1rem 0 1rem;
+  color: rgb(167, 167, 167);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
 @media screen and (max-width: 900px) {
   .App {
-    border: solid black 1px;
+    /* border: none; */
     display: grid;
     height: 100vh;
     grid-template-columns: [col0] 100% [col1];
     grid-template-rows: [row0] 100% [row1];
     /* max-width: 1400px; */
     margin: auto;
+  }
+
+  .left {
+    border-right: none;
   }
 
   .HideIfMobile {

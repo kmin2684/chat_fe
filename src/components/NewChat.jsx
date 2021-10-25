@@ -13,6 +13,10 @@ import Friend from "./Friend";
 import { MobileViewSide } from "../others/shared_functions";
 import { useSelector, useDispatch } from "react-redux";
 import { statusActions } from "../store/status-slice";
+import xIcon from "../icons/x-lg.svg";
+import groupIcon from "../icons/group-icon.svg";
+import  {Button, IconButton}  from '@mui/material';
+import arrowLeftIcon from "../icons/arrow-left.svg";
 
 export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
   
@@ -138,17 +142,32 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
   const new_message = (
     <div className='NewChat right'>
       <div className='right-row1'>
-        <div>
+        <div className='iconContainer xIconContainer' onClick={()=>history.push('/')}> 
+            <img src={xIcon} className='icon' />
+        </div>
+        <div >
+          New message
+        </div>
+
+        {/* <div>
           New message
         </div>
         <div>
           <button onClick={() => setSection('add_participants')}> Create a New Group </button>
           <button onClick={() => history.push('/')}>home</button>
-        </div>
+        </div> */}
       </div>
       <div className='right-row2'>
-        <div>
-          Suggested:
+        <div className = 'create-new-group' onClick={()=>setSection('add_participants')}>
+          <div className='iconContainer group'> 
+              <img src={groupIcon} className='icon' />
+          </div>
+          <div >
+            Create a New Group
+          </div>
+        </div>
+        <div className="suggested">
+          Suggested
         </div>
         {friends?.map(friend => { return (
           // <div onClick={()=>onClickFriend(friend)}>
@@ -162,15 +181,17 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
   );
 
   const add_participants = (
-    <div className='AddParticipants right'>
+    <div className='NewChat AddParticipants right'>
       <div className='right-row1'>
-        <button onClick={() => setSection('new_message')}>
-          back
-        </button>
+        <div>
+          <div className='iconContainer' onClick={() => setSection('new_message')}> 
+              <img src={arrowLeftIcon} className='icon' />
+          </div>
           Add Participants
-        <button onClick={()=>setSection('add_title')} disabled={checkedUsers.length < 2}>
+        </div>
+        <Button id='next-button' onClick={()=>setSection('add_title')} disabled={checkedUsers.length < 2}>
           NEXT
-        </button>
+        </Button>       
       </div>
       <div className='right-row2'>
         {friends?.map(friend => {
@@ -184,7 +205,7 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
   )
 
   const add_title = (
-    <div className = 'AddTitle right'>
+    <div className = 'NewChat AddTitle right'>
       <div className='right-row1'>
         <button onClick={()=>setSection('add_participants')}>back</button>
         Add Title
