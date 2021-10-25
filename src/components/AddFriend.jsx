@@ -8,11 +8,13 @@ import {
   useHistory
 } from "react-router-dom";
 import ChatWindow from "./ChatWindow";
+import Friend from "./Friend";
 import { MobileViewSide } from "../others/shared_functions";
 import { http_url, ws_url } from "../others/shared_vars";
 import { useSelector, useDispatch } from "react-redux";
 import { statusActions } from "../store/status-slice";
 import xIcon from "../icons/x-lg.svg"
+import  {Button, IconButton, TextField }  from '@mui/material';
 
 export default function AddFriend () {
     const dispatch = useDispatch();
@@ -29,6 +31,22 @@ export default function AddFriend () {
     useEffect(()=>{
         MobileViewSide('right');
     }, [])
+
+    useEffect(()=>{
+        fetch( http_url + '/chat_app/add_friend?' + new URLSearchParams({username: query}), {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json', 'Authorization': 'token '+ userInfo.token,},
+        })
+        .then(response => {
+            if (response.ok) return response.json()
+            else return null
+        })
+        .then(data => {
+            console.log(data);
+            setSuggestions(data);
+        });   
+    }
+    ,[query])
 
     function onChange(e) {
         setQuery(e.target.value);
@@ -74,11 +92,17 @@ export default function AddFriend () {
 
     const searchResult = <div className="right-row2>">
         {suggestions?.map(suggestion => <>
-            <div>
+            <Friend 
+            friend={suggestion.username}
+            onClickFriend={()=>null}
+            isFriend={suggestion.isFriend}
+            addFriend={onClick}
+            />
+            {/* <div>
                 {suggestion.username}
                 {suggestion.isFriend ? <span>added</span> 
                 : <button onClick={e => onClick(e)} value={suggestion.username}> Add</button>}
-            </div>
+            </div> */}
         </>
         )}
     </div>;
@@ -99,7 +123,11 @@ export default function AddFriend () {
         </div>
         <div className='right-row2'>
             <form onSubmit={e => onSubmit(e)}>
-                <input type="text" placeholder="search by username" value={query} onChange = {e=>onChange(e)}/>
+                <div className='text-field-container'>
+                    <TextField variant="standard" type='text' placeholder='search by username' required="required" value={query}  onChange = {e=>onChange(e)} />
+                </div>
+
+                {/* <input type="text" placeholder="search by username" value={query} onChange = {e=>onChange(e)}/> */}
             </form>
         {searchResult}
         </div>

@@ -204,9 +204,17 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
         {friends?.map(friend => {
           // const label = 'friend' + friend.id;
           // const label = friend;
-          return (
-            <Checkbox label={friend} value={checkedUsers.find(user => user === friend)} changeCheck={() => ChangeCheck(friend)} />
-          );})}
+          return (<>
+            <div className='friend-checkbox-container'>
+              <Friend 
+              friend = {friend}  
+              onClickFriend = {() => null}
+              checked={checkedUsers.find(user => user === friend)} 
+              changeCheck={() => ChangeCheck(friend)}
+              />
+              {/* <Checkbox label={friend} value={checkedUsers.find(user => user === friend)} changeCheck={() => ChangeCheck(friend)} /> */}
+            </div>
+            </>);})}
       </div>
     </div>
   )
@@ -284,7 +292,7 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
     return (
       <div className='group-participant'>
         <label>
-          {label}
+          {/* {label} */}
           <input type='checkbox' checked={value} onChange={changeCheck} ></input>
         </label>
       </div> 

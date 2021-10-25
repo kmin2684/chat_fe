@@ -268,15 +268,9 @@
 }
 
 .NewChat .suggested {
-  /* margin: 1rem 0 0 0; */
   padding: 1rem 0 0.5rem 1rem;
   border-bottom: solid rgb(186 186 186) 1px;
 }
-
-/* .NewChat .suggested::before {
-  content: "";
-  margin-left: 1rem;
-} */
 
 .NewChat #next-button,
 .NewChat #create-button {
@@ -309,6 +303,15 @@
   margin: 0 2rem 0 0;
 }
 
+.add-friend .text-field-container {
+  margin: 2rem auto 0 auto;
+  width: 90%;
+}
+
+.add-friend .MuiTextField-root {
+  width: 100%;
+}
+
 .right-row3 {
   padding: auto;
 }
@@ -323,6 +326,28 @@
   display: flex;
   align-items: center;
   border-bottom: solid rgb(186 186 186) 1px;
+}
+
+/* .friend input[type="checkbox"] {
+  margin-left: 2rem;
+}
+
+.friend .MuiButton-root {
+  margin-left: 2rem;
+} */
+
+.friend.additional-field {
+  justify-content: space-between;
+}
+
+.friend.additional-field div:nth-child(1) {
+  display: flex;
+  align-items: center;
+}
+
+.friend.additional-field .MuiButton-root,
+.friend.additional-field input[type="checkbox"] {
+  margin-right: 2rem;
 }
 
 .userIcon {
