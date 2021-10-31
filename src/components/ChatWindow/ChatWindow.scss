@@ -1,0 +1,112 @@
+.chat-window {
+  position: relative;
+
+  .right-row1 {
+    background-color: var(--chat-blue);
+    color: white;
+  }
+
+  .greyed-out {
+    margin: 30% 1rem 0 1rem;
+    color: rgb(167, 167, 167);
+    font-size: 2rem;
+    font-weight: 700;
+    position: absolute;
+  }
+
+  // .right-row2 {
+  //   border-top: var(--outer-border);
+  //   border-bottom: var(--outer-border);
+  // }
+
+  .right-row3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    form {
+      width: 95%;
+
+      div {
+        width: 100%;
+
+        input {
+          padding: 0.5rem 0.5rem;
+        }
+      }
+    }
+  }
+
+  .MuiDialog-container {
+    align-items: flex-start;
+  }
+
+  .MuiPaper-root {
+    margin-top: 10%;
+    min-width: 50%;
+    max-width: 80%;
+  }
+
+  .chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .xIconContainer {
+      margin: 0 2rem 0 0;
+    }
+  }
+
+  .chat-header > div:nth-child(1) {
+    display: flex;
+    align-items: center;
+  }
+
+  .chatTitle {
+    font-weight: 700;
+  }
+
+  .message-block {
+    max-width: 70%;
+    min-width: 5%;
+    display: inline-block;
+    padding: 0.5rem;
+
+    & > * {
+      overflow-wrap: anywhere;
+    }
+
+    .content {
+      display: inline-block;
+      border-radius: 18px;
+      padding: 0 0.8rem;
+    }
+
+    .time {
+      font-size: 0.9rem;
+      color: grey;
+    }
+  }
+
+  .message-block.self {
+    align-self: flex-end;
+
+    .container {
+      display: flex;
+      justify-content: flex-end;
+      padding: 0;
+    }
+
+    .content {
+      background-color: rgb(0, 132, 255);
+      color: white;
+    }
+    .time {
+      text-align: right;
+    }
+  }
+
+  .message-block.other > .content {
+    background-color: #e4e6eb;
+  }
+}

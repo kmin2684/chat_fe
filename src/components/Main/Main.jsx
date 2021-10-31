@@ -19,7 +19,7 @@ import { http_url, ws_url } from "../../others/shared_vars";
 import { useSelector, useDispatch } from "react-redux";
 import { userInfoActions } from "../../store/userInfo-slice";
 import { statusActionsActions } from "../../store/status-slice";
-
+import './Main.scss';
 
 export default function Main ({setChatHistoryProp, rooms, onClickFriend}) {
   const history = useHistory();
@@ -91,7 +91,7 @@ export default function Main ({setChatHistoryProp, rooms, onClickFriend}) {
   }
 
   return (
-    <div className = 'left'>
+    <div className = 'left Main'>
       {profilePage}
       <div className='left-row1'>
         <div className = "Header">

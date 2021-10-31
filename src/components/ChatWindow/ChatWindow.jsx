@@ -18,6 +18,7 @@ import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import ChatWindowModal from '../ChatWindowModal/ChatWindowModal';
 import {GetChatTitle} from '../../others/shared_functions';
+import './ChatWindow.scss'
 
 
 
@@ -181,20 +182,16 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
     });
 
     return (
-        <div className = 'right chat-window'>
-            <div className = 'right-row1 chat-header'>               
+        <div className = {`right chat-window`}>
+            <div className = {`right-row1 chat-header`}>               
                 {/* {newChatData && <div onClick={()=>history.push('/')}> home</div>} */}
                 
                 {(chatHistory || newChatData) && <>
                     <div>
-                        <div className='iconContainer xIconContainer' onClick={()=>history.push('/')}> 
+                        <div className={`iconContainer xIconContainer`} onClick={()=>history.push('/')}> 
                             <img src={xIcon} className='icon' />
                         </div>
                         <div className='chatTitle'>
-                            {/* {chatHistory?.messages ? chatTitle
-                            :newChatData? newChatData.groupName
-                            : null    
-                        } */}
                         {chatTitle}
                         </div>
                     </div>

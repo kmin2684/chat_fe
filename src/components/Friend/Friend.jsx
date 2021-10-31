@@ -1,5 +1,5 @@
 import React from "react";
-import './Friend.css';
+import './Friend.scss';
 import {StringToColor} from '../../others/shared_functions';
 import { Button } from "@mui/material";
 

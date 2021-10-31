@@ -17,6 +17,8 @@ import xIcon from "../../icons/x-lg.svg";
 import groupIcon from "../../icons/group-icon.svg";
 import  {Button, IconButton, TextField }  from '@mui/material';
 import arrowLeftIcon from "../../icons/arrow-left.svg";
+import './NewChat.scss'
+
 
 export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
   

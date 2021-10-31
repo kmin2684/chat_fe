@@ -14,6 +14,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { statusActions } from "../../store/status-slice";
 import xIcon from "../../icons/x-lg.svg"
 import  {Button, IconButton, TextField }  from '@mui/material';
+import './AddFriend.scss'
+
 
 export default function AddFriend () {
     const dispatch = useDispatch();

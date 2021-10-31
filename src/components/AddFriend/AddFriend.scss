@@ -1,0 +1,22 @@
+.add-friend {
+  .right-row1 {
+    display: flex;
+    align-items: center;
+    background-color: var(--chat-blue);
+    color: white;
+    font-weight: 700;
+  }
+
+  .iconContainer {
+    margin: 0 2rem 0 0;
+  }
+
+  .text-field-container {
+    margin: 2rem auto 0 auto;
+    width: 90%;
+  }
+
+  .MuiTextField-root {
+    width: 100%;
+  }
+}

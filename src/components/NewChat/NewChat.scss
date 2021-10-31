@@ -1,0 +1,71 @@
+.NewChat {
+  .right-row1 {
+    display: flex;
+    align-items: center;
+    background-color: var(--chat-blue);
+    color: white;
+    font-weight: 700;
+  }
+
+  .right-row1 .iconContainer {
+    margin: 0 2rem 0 0;
+  }
+
+  .create-new-group {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: solid rgb(186, 186, 186) 1px;
+  }
+
+  .create-new-group:hover {
+    background-color: var(--hover-grey);
+  }
+
+  .iconContainer.group {
+    background-color: rgb(231, 231, 231);
+    width: 3rem;
+    height: 3rem;
+    margin: 0 1rem 0 0;
+  }
+
+  .iconContainer.group .icon {
+    width: 2rem;
+    height: 3rem;
+  }
+
+  .suggested {
+    padding: 1rem 0 0.5rem 1rem;
+    border-bottom: solid rgb(186, 186, 186) 1px;
+  }
+
+  #next-button,
+  #create-button {
+    color: white;
+  }
+
+  #next-button.Mui-disabled,
+  #create-button.Mui-disabled {
+    color: rgba(255, 255, 255, 0.589);
+  }
+
+  .text-field-container {
+    margin: 2rem auto 0 auto;
+    width: 90%;
+  }
+
+  .MuiTextField-root {
+    width: 100%;
+  }
+}
+
+.NewChat.AddParticipants .right-row1,
+.NewChat.AddTitle .right-row1 {
+  justify-content: space-between;
+}
+
+.NewChat.AddParticipants .right-row1 div:nth-child(1),
+.NewChat.AddTitle .right-row1 div:nth-child(1) {
+  display: flex;
+  align-items: center;
+}

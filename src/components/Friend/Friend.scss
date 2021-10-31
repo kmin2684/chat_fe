@@ -1,0 +1,24 @@
+.friend {
+  padding: 1rem 1rem;
+  display: flex;
+  align-items: center;
+  border-bottom: solid rgb(186, 186, 186) 1px;
+
+  &.additional-field {
+    justify-content: space-between;
+  }
+
+  &.additional-field div:nth-child(1) {
+    display: flex;
+    align-items: center;
+  }
+
+  &.additional-field .MuiButton-root,
+  &.additional-field input[type="checkbox"] {
+    margin-right: 2rem;
+  }
+
+  &:hover {
+    background-color: rgb(240, 240, 240);
+  }
+}
