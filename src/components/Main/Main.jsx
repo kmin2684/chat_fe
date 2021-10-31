@@ -1,5 +1,5 @@
-import ChatPeopleList from "./ChatPeopleList";
-import ChatPeopleToggle from "./ChatPeopleToggle";
+import ChatPeopleList from "../ChatPeopleList/ChatPeopleList";
+import ChatPeopleToggle from "../ChatPeopleToggle/ChatPeopleToggle";
 import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
@@ -10,16 +10,16 @@ import {
   userHistory,
   useHistory,
 } from "react-router-dom";
-import { MobileViewSide, SaveUserInfo, StringToColor } from "../others/shared_functions";
+import { MobileViewSide, SaveUserInfo, StringToColor } from "../../others/shared_functions";
 // import { userInfo2 } from "../test_vars";
-import logoutIcon from "../icons/log-out.svg";
-import pencilIcon from "../icons/pencil-fill.svg";
-import personPlusIcon from "../icons/person-plus-fill.svg";
-import xIcon from "../icons/x-lg.svg";
-import { http_url, ws_url } from "../others/shared_vars";
+import logoutIcon from "../../icons/log-out.svg";
+import pencilIcon from "../../icons/pencil-fill.svg";
+import personPlusIcon from "../../icons/person-plus-fill.svg";
+import xIcon from "../../icons/x-lg.svg";
+import { http_url, ws_url } from "../../others/shared_vars";
 import { useSelector, useDispatch } from "react-redux";
-import { userInfoActions } from "../store/userInfo-slice";
-import { statusActionsActions } from "../store/status-slice";
+import { userInfoActions } from "../../store/userInfo-slice";
+import { statusActionsActions } from "../../store/status-slice";
 
 
 export default function Main ({setChatHistoryProp, rooms, onClickFriend}) {

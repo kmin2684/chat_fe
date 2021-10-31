@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 // import './Chat.css;'
-import {SaveUserInfo} from "../others/shared_functions";
-import Spinner from './Spinner';
+import {SaveUserInfo} from "../../others/shared_functions";
+import Spinner from '../Spinner/Spinner';
 import { useSelector, useDispatch } from "react-redux";
-import {userInfoActions} from "../store/userInfo-slice";
+import {userInfoActions} from "../../store/userInfo-slice";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
@@ -18,7 +18,7 @@ import {
     useHistory
   } from "react-router-dom";
 
-import { http_url, ws_url } from "../others/shared_vars";
+import { http_url, ws_url } from "../../others/shared_vars";
 
 export default function Login({loggedIn}) {
     let history = useHistory();

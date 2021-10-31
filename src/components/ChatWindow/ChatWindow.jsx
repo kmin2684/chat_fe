@@ -8,16 +8,16 @@ import {
     useHistory,
   } from "react-router-dom";
 import TimeAgo from 'timeago-react';
-import xIcon from "../icons/x-lg.svg";
-import infoIcon from "../icons/info.svg";
-import { MobileViewSide } from "../others/shared_functions";
-import { http_url, ws_url } from "../others/shared_vars";
+import xIcon from "../../icons/x-lg.svg";
+import infoIcon from "../../icons/info.svg";
+import { MobileViewSide } from "../../others/shared_functions";
+import { http_url, ws_url } from "../../others/shared_vars";
 import { useSelector, useDispatch } from "react-redux";
-import {statusActions} from "../store/status-slice";
+import {statusActions} from "../../store/status-slice";
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
-import ChatWindowModal from './ChatWindowModal';
-import {GetChatTitle} from '../others/shared_functions';
+import ChatWindowModal from '../ChatWindowModal/ChatWindowModal';
+import {GetChatTitle} from '../../others/shared_functions';
 
 
 

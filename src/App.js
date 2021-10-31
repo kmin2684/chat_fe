@@ -1,9 +1,9 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import Login from "./components/Login";
-import Registration from "./components/Registration";
-import NewChat from "./components/NewChat";
-import AddFriend from "./components/AddFriend";
+import Login from "./components/Login/Login";
+import Registration from "./components/Registration/Registration";
+import NewChat from "./components/NewChat/NewChat";
+import AddFriend from "./components/AddFriend/AddFriend";
 import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
@@ -15,8 +15,8 @@ import {
   useLocation,
   useHistory,
 } from "react-router-dom";
-import ChatWindow from "./components/ChatWindow";
-import Main from "./components/Main";
+import ChatWindow from "./components/ChatWindow/ChatWindow";
+import Main from "./components/Main/Main";
 // import { room1, room2, friend_list, room_list, userInfo2 } from "./test_vars";
 import { http_url, ws_url } from "./others/shared_vars";
 import { w3cwebsocket as W3CWebSocket } from "websocket";

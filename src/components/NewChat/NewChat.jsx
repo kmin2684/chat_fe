@@ -8,15 +8,15 @@ import {
   useHistory,
   useLocation
 } from "react-router-dom";
-import ChatWindow from "./ChatWindow";
-import Friend from "./Friend";
-import { MobileViewSide } from "../others/shared_functions";
+import ChatWindow from "../ChatWindow/ChatWindow";
+import Friend from "../Friend/Friend";
+import { MobileViewSide } from "../../others/shared_functions";
 import { useSelector, useDispatch } from "react-redux";
-import { statusActions } from "../store/status-slice";
-import xIcon from "../icons/x-lg.svg";
-import groupIcon from "../icons/group-icon.svg";
+import { statusActions } from "../../store/status-slice";
+import xIcon from "../../icons/x-lg.svg";
+import groupIcon from "../../icons/group-icon.svg";
 import  {Button, IconButton, TextField }  from '@mui/material';
-import arrowLeftIcon from "../icons/arrow-left.svg";
+import arrowLeftIcon from "../../icons/arrow-left.svg";
 
 export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
   

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {useDispatch} from "react-redux";
-import {SaveUserInfo} from "../others/shared_functions";
-import Spinner from './Spinner';
+import {SaveUserInfo} from "../../others/shared_functions";
+import Spinner from '../Spinner/Spinner';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
@@ -15,8 +15,8 @@ import {
     useHistory
   } from "react-router-dom";
 
-import { http_url, ws_url } from "../others/shared_vars";
-import { userInfoActions } from "../store/userInfo-slice";
+import { http_url, ws_url } from "../../others/shared_vars";
+import { userInfoActions } from "../../store/userInfo-slice";
 
 export default function Registration({userInfo, loggedIn, SetUserInfoProp}) {
     const history = useHistory();

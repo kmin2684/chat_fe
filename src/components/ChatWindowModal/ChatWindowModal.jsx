@@ -1,26 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    useParams,
-    useHistory,
-  } from "react-router-dom";
-import TimeAgo from 'timeago-react';
-import xIcon from "../icons/x-lg.svg";
-import infoIcon from "../icons/info.svg";
-import { MobileViewSide } from "../others/shared_functions";
-import { http_url, ws_url } from "../others/shared_vars";
+
+
 import { useSelector, useDispatch } from "react-redux";
-import {statusActions} from "../store/status-slice";
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Modal from '@mui/material/Modal';
+
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import { makeStyles } from "@material-ui/core/styles";
-import Friend from './Friend';
+import Friend from '../Friend/Friend';
 
 const useStyles = makeStyles({
     topScrollPaper: {

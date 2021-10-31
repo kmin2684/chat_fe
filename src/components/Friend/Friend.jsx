@@ -1,6 +1,6 @@
 import React from "react";
 import './Friend.css';
-import {StringToColor} from '../others/shared_functions';
+import {StringToColor} from '../../others/shared_functions';
 import { Button } from "@mui/material";
 
 export default function Friend ({friend, onClickFriend, checked, changeCheck, isFriend, addFriend}) {

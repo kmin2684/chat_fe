@@ -1,7 +1,7 @@
 import React from "react";
 import './ChatPeopleToggle.css'; 
-import chat_fill from '../icons/chat-fill.svg'
-import people_fill from '../icons/people-fill.svg'
+import chat_fill from '../../icons/chat-fill.svg'
+import people_fill from '../../icons/people-fill.svg'
 
 export default function ChatPeopleToggle({ChatPeopleSwitch}) {
 

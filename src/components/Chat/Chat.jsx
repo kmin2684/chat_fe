@@ -8,7 +8,7 @@ import {
     useHistory,
   } from "react-router-dom";
 
-import {StringToColor} from '../others/shared_functions';
+import {StringToColor} from '../../others/shared_functions';
 import { useSelector, useDispatch } from "react-redux";
 
 
@@ -39,7 +39,4 @@ export default function Chat({chat}) {
         {chatName}
       </div>
     </>
-    // return <Link to={path}>
-    //     <div>Chat name: {chat.name}</div>
-    // </Link>;
 }
