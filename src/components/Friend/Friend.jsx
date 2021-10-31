@@ -37,14 +37,5 @@ export default function Friend ({friend, onClickFriend, checked, changeCheck, is
             {friend}
         </div>
     </>    
-    
-    // return <>
-    //     <div className='friend' onClick = {() => onClickFriend(friend)}>
-    //         <div className='userIcon' style={style}>
-    //             {friend[0]}
-    //         </div>
-    //         {friend}
-    //     </div>
-    // </>
 }
 

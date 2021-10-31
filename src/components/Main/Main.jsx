@@ -11,7 +11,6 @@ import {
   useHistory,
 } from "react-router-dom";
 import { MobileViewSide, SaveUserInfo, StringToColor } from "../../others/shared_functions";
-// import { userInfo2 } from "../test_vars";
 import logoutIcon from "../../icons/log-out.svg";
 import pencilIcon from "../../icons/pencil-fill.svg";
 import personPlusIcon from "../../icons/person-plus-fill.svg";
@@ -31,7 +30,6 @@ export default function Main ({setChatHistoryProp, rooms, onClickFriend}) {
   function ChatPeopleSwitch(value) {
     setShowChat(value);
   }
-
 
   function logout(){
     SaveUserInfo();
@@ -92,7 +90,6 @@ export default function Main ({setChatHistoryProp, rooms, onClickFriend}) {
     else profile.style.display = 'none';
   }
 
-
   return (
     <div className = 'left'>
       {profilePage}
@@ -103,17 +100,8 @@ export default function Main ({setChatHistoryProp, rooms, onClickFriend}) {
                 {userInfo.username[0]}
             </div>
             {showChat? 'Chats' : 'People'}
-            {/* <div className='ask'>
-              ask
-            </div> */}
           </div>
-
           <div className='buttons'>
-            
-            {/* <button onClick={()=>history.push('/addfriend')}>add a new friend</button>
-            <button onClick={()=>history.push('/newchat')}>
-              new chat
-            </button> */}
             <div className='iconContainer' onClick={()=>history.push('/addfriend')}>
               <img src={personPlusIcon} className='icon' />
             </div>
@@ -122,14 +110,6 @@ export default function Main ({setChatHistoryProp, rooms, onClickFriend}) {
             </div>
           </div>
         </div>
-        
-        {/* <div>
-          Signed in as: {userInfo.username}
-          <div className='iconContainer'>
-            <img src={logoutIcon} className='icon' onClick={async () => await logout()}/>
-          </div>
-        </div> */}
-
       </div>
         <div className='left-row2'>
           <ChatPeopleList onClickFriend={onClickFriend} showChat={showChat} setChatHistoryProp={setChatHistoryProp} rooms={rooms}/> 

@@ -1,7 +1,7 @@
 import React from "react";
 // import './ChatPeopleList.css'
-import Friend from "../Friend/Friend.jsx"
-import Chat from "../Chat/Chat.jsx"
+import Friend from "../Friend/Friend"
+import Chat from "../Chat/Chat"
 import { useSelector, useDispatch } from "react-redux";
 
 
