@@ -152,7 +152,7 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
     const messages = chatHistory?.messages?.map(message => {
         if (userInfo.username===message.sender) {
             return (
-                <div className='message-block self'>
+                <div key={message.time} className='message-block self'>
                     <div className = 'container'>
                         <div className='content'>
                             {message.content}
@@ -166,7 +166,7 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
             );
         } else {
             return (
-                <div className='message-block other'>
+                <div key={message.time} className='message-block other'>
                     <div className='sender'>
                         {message.sender}
                     </div>
@@ -208,7 +208,7 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
             <div className = 'right-row3'>
                 {
                     (messages||inputOn)&& 
-                    <form onSubmit = {e => sendMessage(e)} autocomplete="off">
+                    <form onSubmit = {e => sendMessage(e)} autoComplete="off">
                         <div>
                            <TextField id="outlined-basic" variant="outlined" type="text" disabled={disabled} placeholder='Aa' value={content} onChange={e => onChange(e)} autoFocus={true}/>
                         </div>

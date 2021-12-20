@@ -29,11 +29,11 @@ export default function Chat({chat}) {
       <div className='chat' onClick={()=>history.push(path)}>      
         {otherMembers.length > 1 ? (
           <div className = 'userIcon group'> 
-          {otherMembers.map(member => <div className='userIcon small' style = {{backgroundColor: StringToColor(member)}}> {member[0]} </div>)}
+          {otherMembers.map(member => <div key={member} className='userIcon small' style = {{backgroundColor: StringToColor(member)}}> {member[0]} </div>)}
           </div>
           )
         : otherMembers.map(member => 
-        <div className='userIcon' style = {{backgroundColor: StringToColor(member)}}> 
+        <div key={member} className='userIcon' style = {{backgroundColor: StringToColor(member)}}> 
           {member[0]} 
         </div>)}
         {chatName}

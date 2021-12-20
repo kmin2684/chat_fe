@@ -39,7 +39,7 @@ export default function ChatWindowModal(prop) {
     >
         <DialogTitle>members</DialogTitle>
         
-        {members.map(member => <Friend friend={member} onClickFriend = {() => {return} }/>)}
+        {members.map(member => <Friend key={member} friend={member} onClickFriend = {() => {return} }/>)}
 
     </Dialog>
     </>

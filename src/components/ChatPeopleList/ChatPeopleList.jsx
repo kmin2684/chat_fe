@@ -16,7 +16,7 @@ export default function ChatPeopleList({showChat, setChatHistoryProp, rooms, onC
    if (showChat) {
       if (chats) {
          return chats.map(chat => {
-            return <Chat chat = {chat} setChatHistoryProp = {setChatHistoryProp}/>
+            return <Chat key={chat.id} chat = {chat} setChatHistoryProp = {setChatHistoryProp}/>
          });     
       } 
       return 'no chats';
@@ -24,7 +24,7 @@ export default function ChatPeopleList({showChat, setChatHistoryProp, rooms, onC
    
    if (friends) {
       return friends.map(friend => {
-         return <Friend friend = {friend} onClickFriend={onClickFriend}/>
+         return <Friend key={friend} friend = {friend} onClickFriend={onClickFriend}/>
       })
    }
    return 'no friends';

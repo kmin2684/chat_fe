@@ -45,7 +45,8 @@ export default function Main ({setChatHistoryProp, rooms, onClickFriend}) {
       console.log('logged out');
       console.log(data);
       // setUserInfoProp(undefined);
-      dispatch(userInfoActions.setUserInfo({username: null, token: null}));
+      // dispatch(userInfoActions.setUserInfo({username: null, token: null}));
+      window.location.reload();
     }).catch(error => console.error(error));
   }
   // async function logout(){
