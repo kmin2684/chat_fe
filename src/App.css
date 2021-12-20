@@ -88,12 +88,6 @@
   display: flex;
 } */
 
-.left-row1 > div {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .right-row3 {
   padding: auto;
 }
