@@ -169,6 +169,7 @@ export default function App() {
 
   return (
     <>
+      {/* <Spinner /> */}
       <Main mobileViewSide={"left"} onClickFriend={onClickFriend} />
       <Route exact path="/">
         {userInfo.token ? (
