@@ -4,6 +4,7 @@ import Login from "./components/Login/Login";
 import Registration from "./components/Registration/Registration";
 import NewChat from "./components/NewChat/NewChat";
 import AddFriend from "./components/AddFriend/AddFriend";
+import Spinner from "./components/Spinner/Spinner";
 import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
@@ -149,7 +150,7 @@ export default function App() {
   }
 
   if (userInfo.isLoading) {
-    return null;
+    return <Spinner />;
   } else if (!userInfo.token) {
     return (
       <>

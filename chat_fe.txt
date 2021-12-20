@@ -1,3 +1,7 @@
+reload after logout to clear redux data
+
+spinner when loading app
+
 
 
 
