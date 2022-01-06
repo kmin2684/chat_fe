@@ -1,3 +1,63 @@
+clean up redux store: 
+
+use context for socket: 
+
+login and signup:
+    use html <label> element
+    alert window
+    setlogout timeout
+
+new chat page routing :
+    array as query params:
+        https://blog.shalvah.me/posts/fun-stuff-representing-arrays-and-objects-in-query-strings
+
+    history replace
+
+    problem
+    newchat page overwritten
+
+    situations:
+
+    solution
+    "section" and 
+    "room name"
+    "members" as parameters
+
+    parse query string
+        case 0: query string does not exist || section empty || section doesnt exist
+            setSection("new_message")
+        case 1: trying to create a new room
+            ?section=new_message
+        case 2: click a friend for whom a room does not exist
+            ?section=add_participants
+        case 3: directly to creating a new group chat
+            ?section=add_title &members=[a,b,c]
+        case 4: 
+            ?section=send_message&members=a&member=b&group_name=room1
+
+    newChat:
+        set section after initial render based on search query, 
+
+    if no section from query string, section="new_message", ignore  
+
+    places to be fixed
+        location.state
+            also, in App.js (clicking friend prompting /newchat with {user: friend })
+            change to history.push("/newchat?member=friend")
+                does member include the logged in user? : no
+        in NewChat.jsx set states based on query string
+            initially render empty div with blue header 
+
+
+
+do not store chat info in chatHistory
+
+
+
+
+
+
+
 reload after logout to clear redux data
 
 spinner when loading app

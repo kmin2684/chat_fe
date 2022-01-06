@@ -27,6 +27,15 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
   const dispatch = useDispatch();
   const friends = useSelector(state => state.status.friends);
 
+  const queryParams = new URLSearchParams(location.search);
+  let queryParamsSection = queryParams.get('section');
+
+  if (! ['new_message','add_participants','add_title', 'send_message'].includes(queryParamsSection)) {
+    queryParamsSection = 'new_message'
+  }
+
+  console.log('\nsection is', queryParamsSection);
+
   const [section, setSection] = useState('new_message');
   const [fullyLoaded, setFullyLoaded] = useState(false);
   const [groupName, setGroupName] = useState('');

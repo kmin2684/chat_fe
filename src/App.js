@@ -51,6 +51,13 @@ export default function App() {
     if (userInfo.token) {
       setSocket(new W3CWebSocket(ws_url + "/ws/chat/?token=" + userInfo.token));
     }
+
+    return () => {
+      if ("close" in socket) {
+        console.log("closing socket");
+        socket.close();
+      }
+    };
   }, [userInfo.token]);
 
   useEffect(() => {
@@ -92,10 +99,10 @@ export default function App() {
   }, [currentChat, userInfo]);
 
   useEffect(() => {
-    let data;
-    console.log("socket is ", socket);
+    // let data;
+    // console.log("socket is ", socket);
     if (socket.url) {
-      console.log(socket);
+      // console.log(socket);
 
       socket.onopen = () => {
         console.log("connected to websocket");
@@ -103,13 +110,14 @@ export default function App() {
 
       socket.onmessage = (e) => {
         console.log("onmessage via websocket");
-        data = JSON.parse(e.data);
+        const data = JSON.parse(e.data);
         console.log(data);
 
         // if (Object.keys(data).find((key) => key === "newChat")) {
         // }
         if (data.newChat && data.room) {
           dispatch(statusActions.addChat(data.room));
+          console.log("new room added", data.room);
           if (data.sender === userInfo?.username)
             history.replace(`room/${data.room.id}`);
           // else console.log("the user is not the sender");
@@ -120,6 +128,7 @@ export default function App() {
               messages: [...chatHistory.messages, data.message],
             })
           );
+          console.log("new message appended");
         }
       };
     }
