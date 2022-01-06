@@ -22,31 +22,79 @@ import './NewChat.scss'
 
 export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
   
+  const sections = ['new_message','add_participants','add_title', 'send_message'];
   const location = useLocation();
   const history = useHistory();
   const dispatch = useDispatch();
   const friends = useSelector(state => state.status.friends);
 
-  const queryParams = new URLSearchParams(location.search);
-  let queryParamsSection = queryParams.get('section');
+  let queryParams = new URLSearchParams(location.search);
+  let queryParamsSection = queryParams.get('section')? queryParams.get('section').trim() : '';
+  let queryParamsMembers = queryParams.getAll('members');
+  let queryParamsGroupName = queryParams.get('group_name')? queryParams.get('group_name').trim() : '';
 
-  if (! ['new_message','add_participants','add_title', 'send_message'].includes(queryParamsSection)) {
+  if (!sections.includes(queryParamsSection)) {
     queryParamsSection = 'new_message'
+  }
+
+  switch(queryParamsSection) {
+    case 'new_message':
+      queryParamsMembers = [];
+      queryParamsGroupName = '';
+      break;
+    case 'send_message':
+      if (!queryParamsGroupName) {
+        queryParamsSection = 'new_message';
+        queryParamsMembers = [];
+      }
+      break;
+    default:
+      queryParamsMembers = queryParamsMembers.filter(member => friends.includes(member));  
   }
 
   console.log('\nsection is', queryParamsSection);
 
-  const [section, setSection] = useState('new_message');
+  const [section, setSection] = useState(queryParamsSection);
   const [fullyLoaded, setFullyLoaded] = useState(false);
-  const [groupName, setGroupName] = useState('');
+  const [groupName, setGroupName] = useState(queryParamsGroupName);
   const [inputOn, setInputOn] = useState(null);
-  const [checkedUsers, setCheckedUsers] = useState([]);
+  const [checkedUsers, setCheckedUsers] = useState(queryParamsMembers);
   const [newChatData, setNewChatData] = useState({
     newChat: true,
     groupName: null,
     members: null,
-  })
+  });
 
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    let queryParamsSection = queryParams.get('section')? queryParams.get('section').trim() : '';
+    let queryParamsMembers = queryParams.getAll('members');
+    let queryParamsGroupName = queryParams.get('group_name')? queryParams.get('group_name').trim() : '';
+  
+    if (!sections.includes(queryParamsSection)) {
+      queryParamsSection = 'new_message'
+    }
+  
+    switch(queryParamsSection) {
+      case 'new_message':
+        queryParamsMembers = [];
+        queryParamsGroupName = '';
+        break;
+      case 'send_message':
+        if (!queryParamsGroupName) {
+          queryParamsSection = 'new_message';
+          queryParamsMembers = [];
+        }
+        break;
+      default:
+        queryParamsMembers = queryParamsMembers.filter(member => friends.includes(member));  
+    }
+
+    setSection(queryParamsSection);
+    setGroupName(queryParamsGroupName);
+    setCheckedUsers(queryParamsMembers);
+  }, [location.search])
 
   useEffect(() => {
     setNewChatData({...newChatData, groupName, members: checkedUsers})
@@ -109,13 +157,13 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
   function onSubmit(e) {
     console.log('onSubmit');
     e.preventDefault(); 
-    if (!groupName.trim()) return ; 
+    if (!groupName?.trim()) return ; 
     setSection('send_message'); 
     setInputOn(true);
   }
 
   function handleClick() {
-    if (!groupName.trim()) return ; 
+    if (!groupName?.trim()) return ; 
     setSection('send_message'); 
     setInputOn(true);
   }
