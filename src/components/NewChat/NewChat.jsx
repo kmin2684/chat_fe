@@ -46,10 +46,14 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
     case 'send_message':
 
       queryParamsMembers = queryParamsMembers.filter(member => friends.includes(member));
+      console.log("filtered members are", queryParamsMembers, queryParamsGroupName, queryParamsMembers.length);
 
       if (!queryParamsGroupName && queryParamsMembers.length === 1) {
         // need to check if a chat room already exists for the member
         break; 
+      } else if (queryParamsGroupName && queryParamsMembers.length > 1) {
+        console.log('yes!!')
+        break
       } else {
         queryParamsSection = 'new_message';
         queryParamsMembers = [];
@@ -62,10 +66,15 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
   console.log('\nsection is', queryParamsSection);
 
   const [section, setSection] = useState(queryParamsSection);
-  const [fullyLoaded, setFullyLoaded] = useState(false);
   const [groupName, setGroupName] = useState(queryParamsGroupName);
-  const [inputOn, setInputOn] = useState(null);
   const [checkedUsers, setCheckedUsers] = useState(queryParamsMembers);
+
+  // const [section, setSection] = useState('new_message');
+  // const [groupName, setGroupName] = useState('');
+  // const [checkedUsers, setCheckedUsers] = useState([]);
+
+  const [fullyLoaded, setFullyLoaded] = useState(false);
+  const [inputOn, setInputOn] = useState(null);
   const [newChatData, setNewChatData] = useState({
     newChat: true,
     groupName: null,
@@ -74,6 +83,8 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
 
 
   useEffect(() => {
+    console.log('newchat rerendering because location.search changed');
+
     const queryParams = new URLSearchParams(location.search);
     let queryParamsSection = queryParams.get('section')? queryParams.get('section').trim() : '';
     let queryParamsMembers = queryParams.getAll('members');
@@ -93,7 +104,11 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
         queryParamsMembers = queryParamsMembers.filter(member => friends.includes(member));
 
         if (!queryParamsGroupName && queryParamsMembers.length === 1) {
+          // need to check if a chat room already exists for the member
           break; 
+        } else if (queryParamsGroupName && queryParamsMembers.length > 1) {
+          console.log('yes!!')
+          break
         } else {
           queryParamsSection = 'new_message';
           queryParamsMembers = [];
@@ -106,6 +121,16 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
     setSection(queryParamsSection);
     setGroupName(queryParamsGroupName);
     setCheckedUsers(queryParamsMembers);
+
+    // setSection((prevState) => {
+    //   if (prevState !== queryParamsSection) return queryParamsSection;
+    // });
+    // setGroupName(prevState => {
+    //   if (prevState !== queryParamsGroupName) return queryParamsGroupName;
+    //   });
+    // setCheckedUsers(prevState => {
+    //   if (prevState !== queryParamsMembers) return queryParamsMembers;
+    // });
   }, [location.search])
 
   useEffect(() => {
