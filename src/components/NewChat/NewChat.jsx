@@ -18,6 +18,7 @@ import groupIcon from "../../icons/group-icon.svg";
 import  {Button, IconButton, TextField }  from '@mui/material';
 import arrowLeftIcon from "../../icons/arrow-left.svg";
 import './NewChat.scss'
+import { QueryStringGenerator } from "../../utils/util_functions"; 
 
 
 export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
@@ -168,6 +169,8 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
     setInputOn(true);
   }
 
+
+
   // const newChatData = {
   //   newChat: true,
   //   groupName,
@@ -255,7 +258,7 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
           </div>
           Add Participants
         </div>
-        <Button id='next-button' onClick={()=>setSection('add_title')} disabled={checkedUsers.length < 2}>
+        <Button id='next-button' onClick={()=> history.push('/newchat?' + QueryStringGenerator('add_title', checkedUsers, null, friends))} disabled={checkedUsers.length < 2}>
           NEXT
         </Button>       
       </div>

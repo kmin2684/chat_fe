@@ -115,12 +115,9 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
         }
         setContent('');
     }
-    // const newChatData = {
-    //     newChat: true,
-    //     groupName,
-    //     members: checkedUsers,
-    //   };
 
+
+    // not used
     function onSubmit(e) {
         e.preventDefault();
         if (content.trim().length) {

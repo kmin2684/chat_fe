@@ -59,6 +59,10 @@ new chat page routing :
             handle clicking a friend for whom a chat room does not exist
                 temporary fix by new chat button sending to "?section=new_message"
 
+        if section is "send_message" and 
+            one member who is in the friend list
+            allow
+
 
 
 do not store chat info in chatHistory
