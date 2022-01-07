@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/chat_fe/static/css/main.2ba1e4b5.chunk.css",
-    "main.js": "/chat_fe/static/js/main.4a89a3cd.chunk.js",
-    "main.js.map": "/chat_fe/static/js/main.4a89a3cd.chunk.js.map",
-    "runtime-main.js": "/chat_fe/static/js/runtime-main.6189a85e.js",
-    "runtime-main.js.map": "/chat_fe/static/js/runtime-main.6189a85e.js.map",
+    "main.css": "/chat_fe/static/css/main.136e2eb7.chunk.css",
+    "main.js": "/chat_fe/static/js/main.ff26b09a.chunk.js",
+    "main.js.map": "/chat_fe/static/js/main.ff26b09a.chunk.js.map",
+    "runtime-main.js": "/chat_fe/static/js/runtime-main.75788178.js",
+    "runtime-main.js.map": "/chat_fe/static/js/runtime-main.75788178.js.map",
     "static/css/2.f2512455.chunk.css": "/chat_fe/static/css/2.f2512455.chunk.css",
-    "static/js/2.4f8e3520.chunk.js": "/chat_fe/static/js/2.4f8e3520.chunk.js",
-    "static/js/2.4f8e3520.chunk.js.map": "/chat_fe/static/js/2.4f8e3520.chunk.js.map",
-    "static/js/3.624d1d92.chunk.js": "/chat_fe/static/js/3.624d1d92.chunk.js",
-    "static/js/3.624d1d92.chunk.js.map": "/chat_fe/static/js/3.624d1d92.chunk.js.map",
+    "static/js/2.f03012a9.chunk.js": "/chat_fe/static/js/2.f03012a9.chunk.js",
+    "static/js/2.f03012a9.chunk.js.map": "/chat_fe/static/js/2.f03012a9.chunk.js.map",
+    "static/js/3.c1055144.chunk.js": "/chat_fe/static/js/3.c1055144.chunk.js",
+    "static/js/3.c1055144.chunk.js.map": "/chat_fe/static/js/3.c1055144.chunk.js.map",
     "index.html": "/chat_fe/index.html",
     "static/css/2.f2512455.chunk.css.map": "/chat_fe/static/css/2.f2512455.chunk.css.map",
-    "static/css/main.2ba1e4b5.chunk.css.map": "/chat_fe/static/css/main.2ba1e4b5.chunk.css.map",
-    "static/js/2.4f8e3520.chunk.js.LICENSE.txt": "/chat_fe/static/js/2.4f8e3520.chunk.js.LICENSE.txt",
+    "static/css/main.136e2eb7.chunk.css.map": "/chat_fe/static/css/main.136e2eb7.chunk.css.map",
+    "static/js/2.f03012a9.chunk.js.LICENSE.txt": "/chat_fe/static/js/2.f03012a9.chunk.js.LICENSE.txt",
     "static/media/arrow-left.83aa775a.svg": "/chat_fe/static/media/arrow-left.83aa775a.svg",
     "static/media/chat-fill.c06d5871.svg": "/chat_fe/static/media/chat-fill.c06d5871.svg",
     "static/media/group-icon.eb244b39.svg": "/chat_fe/static/media/group-icon.eb244b39.svg",
@@ -25,10 +25,10 @@
     "static/media/x-lg.db763ca8.svg": "/chat_fe/static/media/x-lg.db763ca8.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.6189a85e.js",
+    "static/js/runtime-main.75788178.js",
     "static/css/2.f2512455.chunk.css",
-    "static/js/2.4f8e3520.chunk.js",
-    "static/css/main.2ba1e4b5.chunk.css",
-    "static/js/main.4a89a3cd.chunk.js"
+    "static/js/2.f03012a9.chunk.js",
+    "static/css/main.136e2eb7.chunk.css",
+    "static/js/main.ff26b09a.chunk.js"
   ]
 }
