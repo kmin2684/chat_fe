@@ -224,7 +224,7 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
         </div> */}
       </div>
       <div className='right-row2'>
-        <div className = 'create-new-group' onClick={()=>setSection('add_participants')}>
+        <div className = 'create-new-group' onClick={()=>history.push('/newchat?section=add_participants')}>
           <div className='iconContainer group'> 
               <img src={groupIcon} className='icon' />
           </div>
@@ -250,7 +250,7 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
     <div className='NewChat AddParticipants right'>
       <div className='right-row1'>
         <div>
-          <div className='iconContainer' onClick={() => setSection('new_message')}> 
+          <div className='iconContainer' onClick={() => history.push('/newchat?section=new_message')}> 
               <img src={arrowLeftIcon} className='icon' />
           </div>
           Add Participants
@@ -310,7 +310,7 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
     <ChatWindow 
     // chatHistory = {chatHistory} 
     // setChatHistoryProp={setChatHistoryProp}
-    inputOn={inputOn} 
+    inputOn={true} 
     newChatData={newChatData}
     socket={socket}
     />

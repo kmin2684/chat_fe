@@ -48,6 +48,17 @@ new chat page routing :
         in NewChat.jsx set states based on query string
             initially render empty div with blue header 
 
+        initially decode seach parameters
+        set states based on search parameters
+        useEffect with queryString as dependency 
+            maybe useEffect not needed
+        
+        use history.push in back and forward arrow instead of changing sections directly
+
+        edge case:
+            handle clicking a friend for whom a chat room does not exist
+                temporary fix by new chat button sending to "?section=new_message"
+
 
 
 do not store chat info in chatHistory
