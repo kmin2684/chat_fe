@@ -106,7 +106,7 @@ export default function Main ({setChatHistoryProp, rooms, onClickFriend}) {
             <div className='iconContainer' onClick={()=>history.push('/addfriend')}>
               <img src={personPlusIcon} className='icon' />
             </div>
-            <div className='iconContainer' onClick={()=>history.replace('/newchat')}>
+            <div className='iconContainer' onClick={()=>history.push('/newchat?section=new_message')}>
               <img src={pencilIcon} className='icon' />
             </div>
           </div>

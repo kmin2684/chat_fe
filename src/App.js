@@ -151,10 +151,11 @@ export default function App() {
       history.push(`/room/${chat_id}`);
     } else {
       console.log("redirect", chat_id);
-      history.replace({
-        pathname: "/newchat",
-        state: { user },
-      });
+      history.push(`/newchat?section=send_message&members=${user}`);
+      // history.replace({
+      //   pathname: "/newchat",
+      //   state: { user },
+      // });
     }
   }
 

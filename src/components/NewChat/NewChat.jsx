@@ -18,7 +18,7 @@ import groupIcon from "../../icons/group-icon.svg";
 import  {Button, IconButton, TextField }  from '@mui/material';
 import arrowLeftIcon from "../../icons/arrow-left.svg";
 import './NewChat.scss'
-import { QueryStringGenerator } from "../../utils/util_functions"; 
+import { QueryStringGenerator } from "../../others/shared_functions"; 
 
 
 export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
@@ -44,7 +44,13 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
       queryParamsGroupName = '';
       break;
     case 'send_message':
-      if (!queryParamsGroupName) {
+
+      queryParamsMembers = queryParamsMembers.filter(member => friends.includes(member));
+
+      if (!queryParamsGroupName && queryParamsMembers.length === 1) {
+        // need to check if a chat room already exists for the member
+        break; 
+      } else {
         queryParamsSection = 'new_message';
         queryParamsMembers = [];
       }
@@ -83,7 +89,12 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
         queryParamsGroupName = '';
         break;
       case 'send_message':
-        if (!queryParamsGroupName) {
+        
+        queryParamsMembers = queryParamsMembers.filter(member => friends.includes(member));
+
+        if (!queryParamsGroupName && queryParamsMembers.length === 1) {
+          break; 
+        } else {
           queryParamsSection = 'new_message';
           queryParamsMembers = [];
         }
@@ -155,12 +166,19 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
     //   }
     // }
 
+  // not used anymore
   function onSubmit(e) {
     console.log('onSubmit');
     e.preventDefault(); 
     if (!groupName?.trim()) return ; 
     setSection('send_message'); 
     setInputOn(true);
+  }
+
+  function JumpToSendMessage(e) {
+    e.preventDefault();
+    if (!groupName?.trim()) return;
+    history.push("newchat?" + QueryStringGenerator('send_message', checkedUsers, groupName, friends));
   }
 
   function handleClick() {
@@ -189,11 +207,12 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
 
     if (location.state?.user) {
       console.log('location found', location.state.user);
-      if (section !== 'send_message') setSection('send_message');
+      // if (section !== 'send_message') setSection('send_message');
       if (!inputOn) setInputOn(true);
       if (checkedUsers.length < 2 && location.state.user !== checkedUsers[0]) 
       setCheckedUsers([location.state.user]);
       setGroupName('');
+      setSection('send_message');
     }
   }, [location]);  
 
@@ -285,12 +304,12 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
     <div className = 'NewChat AddTitle right'>
       <div className='right-row1'>
         <div>
-            <div className='iconContainer' onClick={() => setSection('add_participants')}> 
+            <div className='iconContainer' onClick={() => history.push("/newchat?section=add_participants")}> 
                 <img src={arrowLeftIcon} className='icon' />
             </div>
             Add Title
           </div>
-          <Button id='create-button' onClick={handleClick} disabled={!groupName.trim()}>
+          <Button id='create-button' onClick={()=> history.push('/newchat?' + QueryStringGenerator('send_message', checkedUsers, groupName, friends))} disabled={!groupName.trim()}>
             CREATE
           </Button> 
 
@@ -298,8 +317,8 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
         Add Title
         <button form='form1' disabled ={!groupName.trim()}> CREATE</button> */}
       </div>
-      <div className='right-row2' onSubmit={(e)=>{onSubmit(e)}}>
-        <form id="form1">
+      <div className='right-row2'>
+        <form id="form1"  onSubmit={(e)=>{JumpToSendMessage(e)}}>
           {/* <input type='text' placeholder='Group Name (Required)' required="required" value={groupName} onChange={e=>setGroupName(e.target.value)}></input> */}
           <div className='text-field-container'>
             <TextField variant="standard" type='text' placeholder='Group Name (Required)' required="required" value={groupName} onChange={e=>setGroupName(e.target.value)} />
