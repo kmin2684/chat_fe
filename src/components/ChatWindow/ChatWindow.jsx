@@ -1,9 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
     useParams,
     useHistory,
   } from "react-router-dom";
@@ -11,19 +7,15 @@ import TimeAgo from 'timeago-react';
 import xIcon from "../../icons/x-lg.svg";
 import infoIcon from "../../icons/info.svg";
 import { MobileViewSide } from "../../others/shared_functions";
-import { http_url, ws_url } from "../../others/shared_vars";
 import { useSelector, useDispatch } from "react-redux";
 import {statusActions} from "../../store/status-slice";
 import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
 import ChatWindowModal from '../ChatWindowModal/ChatWindowModal';
 import {GetChatTitle} from '../../others/shared_functions';
 import './ChatWindow.scss'
 
 
-
 export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide}) {
-
 
     const { room_id } = useParams();
     const dispatch = useDispatch();
@@ -54,7 +46,6 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
     useEffect(()=>{
     if (room_id) {
         dispatch(statusActions.setCurrentChat(room_id));
-        // setChatTitle(GetChatTitle(currentChat, chats, userInfo));
     }
     else dispatch(statusActions.setCurrentChat(null));
 
@@ -83,25 +74,6 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
         }
     }, [newChatData])
 
-
-
-    // if (room_id) setCurrentChatProp(room_id)
-    // else setCurrentChatProp(undefined)
-    
-    // if (room_id) dispatch(statusActions.setCurrentChat(room_id));
-    // else dispatch(statusActions.setCurrentChat(null));
-
-    // useEffect(() => {
-    //     console.log('newChatData', newChatData);
-    //     console.log('currentChat', currentChat);
-    //     if (newChatData?.members) {
-    //         console.log('changing chat history', newChatData);
-    //         dispatch(statusActions.setChatHistory({members: newChatData.members}));
-    //     }
-
-    // }, [newChatData])
-
-
     function sendMessage(e) {
         e.preventDefault();
         if(socket && room_id && content.trim().length) {
@@ -116,35 +88,9 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
         setContent('');
     }
 
-
-    // not used
-    function onSubmit(e) {
-        e.preventDefault();
-        if (content.trim().length) {
-            console.log(content);
-            fetch( http_url + '/chat_app/chat_update/' + room_id, {
-                method: 'POST',
-                headers: 
-                    {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'token '+ userInfo.token, 
-                    },
-                body: JSON.stringify({content}), 
-            })
-            .then(response => response.json())
-            .then((data) => {
-                console.log(data);
-                
-            }); 
-        }
-        setContent('');
-    }
-
     function onChange(e) {
         setContent(e.target.value);
     }
-
-    const localTZ = Intl.DateTimeFormat().resolvedOptions().timeZone; 
 
     const messages = chatHistory?.messages?.map(message => {
         if (userInfo.username===message.sender) {
@@ -156,7 +102,6 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
                         </div>
                     </div>
                     <div className='time'>
-                        {/* {convertTZ(message.time, localTZ).getHours()} */}
                         <TimeAgo datetime={message.time}/>
                     </div>
                 </div>
@@ -181,8 +126,6 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
     return (
         <div className = {`right chat-window`}>
             <div className = {`right-row1 chat-header`}>               
-                {/* {newChatData && <div onClick={()=>history.push('/')}> home</div>} */}
-                
                 {(chatHistory || newChatData) && <>
                     <div>
                         <div className={`iconContainer xIconContainer`} onClick={()=>history.push('/')}> 
