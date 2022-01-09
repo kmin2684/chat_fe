@@ -1,15 +1,10 @@
 import React from "react";
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    useParams,
     useHistory,
   } from "react-router-dom";
 
 import {StringToColor} from '../../others/shared_functions';
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 
 export default function Chat({chat}) {

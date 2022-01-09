@@ -52,7 +52,7 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
         return () =>{
             dispatch(statusActions.setCurrentChat(null));
         }
-    },[room_id])
+    },[room_id, dispatch])
 
     useEffect(()=>
     {
@@ -64,7 +64,7 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
             setChatTitle(GetChatTitle(currentChat, chats, userInfo));
         }
         
-    }, [currentChat, newChatData, chats]
+    }, [currentChat, newChatData, chats, userInfo]
     )
 
     useEffect(() => {
@@ -72,7 +72,7 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
             let newChatMembers = [...newChatData.members, userInfo.username];
             dispatch(statusActions.setCurrentChat({newChatMembers}));
         }
-    }, [newChatData])
+    }, [newChatData, userInfo.username, dispatch])
 
     function sendMessage(e) {
         e.preventDefault();
@@ -129,14 +129,14 @@ export default function ChatWindow({inputOn, socket, newChatData, mobileViewSide
                 {(chatHistory || newChatData) && <>
                     <div>
                         <div className={`iconContainer xIconContainer`} onClick={()=>history.push('/')}> 
-                            <img src={xIcon} className='icon' />
+                            <img src={xIcon} className='icon' alt='X icon'/>
                         </div>
                         <div className='chatTitle'>
                         {chatTitle}
                         </div>
                     </div>
                     <div className='iconContainer' onClick={()=>setModalOpen(true)}> 
-                        <img src={infoIcon} className='icon' />
+                        <img src={infoIcon} className='icon' alt='info icon'/>
                     </div>
                     </>}
             </div>

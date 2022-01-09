@@ -1,24 +1,16 @@
-import React, { useState, useEffect } from "react";
-// import './Chat.css;'
+import React, { useState} from "react";
 import {SaveUserInfo} from "../../others/shared_functions";
 import Spinner from '../Spinner/Spinner';
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import {userInfoActions} from "../../store/userInfo-slice";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-
-
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    useParams,
     Redirect,
     useHistory
   } from "react-router-dom";
 
-import { http_url, ws_url } from "../../others/shared_vars";
+import { http_url} from "../../others/shared_vars";
 
 export default function Login({loggedIn}) {
     let history = useHistory();
@@ -43,7 +35,6 @@ export default function Login({loggedIn}) {
             console.log(data);
             if (data?.token) {
                 SaveUserInfo({username: data.username, token: data.token});
-                // SetUserInfoProp({username: data.username, token: data.token});
                 dispatch(userInfoActions.setUserInfo({username: data.username, token: data.token}));
             } else if (data?.non_field_errors) {
                 console.log('error message', data.non_field_errors);
@@ -81,7 +72,6 @@ export default function Login({loggedIn}) {
             setIsLoading(false);
             if (data.token) {
                 SaveUserInfo({username: data.username, token: data.token});
-                // SetUserInfoProp({username: data.username, token: data.token});
                 dispatch(userInfoActions.setUserInfo({username: data.username, token: data.token}));
             } else if (data.non_field_errors) {
                 console.log('error message', data.non_field_errors);
@@ -105,10 +95,6 @@ export default function Login({loggedIn}) {
         {isLoading&&<Spinner />}
     </div>
     );
-        // <form onSubmit={onSubmit}>
-        //     <input type="text" placeholder="id" onChange={(event)=>onChange(event, 'username')} value={username} />
-        //     <input type="password" placeholder="password" onChange={(event)=>onChange(event, 'password')} value={password} />
-        //     <button type="submit">log in</button>
-        // </form>
+
 }
 

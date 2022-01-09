@@ -14,10 +14,10 @@ import arrowLeftIcon from "../../icons/arrow-left.svg";
 import './NewChat.scss'
 import { QueryStringGenerator } from "../../others/shared_functions"; 
 
+const sections = ['new_message','add_participants','add_title', 'send_message'];
 
 export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
-  
-  const sections = ['new_message','add_participants','add_title', 'send_message'];
+
   const location = useLocation();
   const history = useHistory();
   const friends = useSelector(state => state.status.friends);
@@ -105,10 +105,10 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
     setGroupName(queryParamsGroupName);
     setCheckedUsers(queryParamsMembers);
 
-  }, [location.search])
+  }, [location.search, friends, sections])
 
   useEffect(() => {
-    setNewChatData({...newChatData, groupName, members: checkedUsers})
+    setNewChatData( (prev) => {return {...prev, groupName, members: checkedUsers}})
   }, [checkedUsers, groupName])
 
 
@@ -142,7 +142,7 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
     <div className='NewChat right'>
       <div className='right-row1'>
         <div className='iconContainer xIconContainer' onClick={()=>history.push('/')}> 
-            <img src={xIcon} className='icon' />
+            <img src={xIcon} className='icon' alt="x icon"/>
         </div>
         <div >
           New message
@@ -151,7 +151,7 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
       <div className='right-row2'>
         <div className = 'create-new-group' onClick={()=>history.push('/newchat?section=add_participants')}>
           <div className='iconContainer group'> 
-              <img src={groupIcon} className='icon' />
+              <img src={groupIcon} className='icon' alt="group icon"/>
           </div>
           <div >
             Create a New Group
@@ -173,7 +173,7 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
       <div className='right-row1'>
         <div>
           <div className='iconContainer' onClick={() => history.push('/newchat?section=new_message')}> 
-              <img src={arrowLeftIcon} className='icon' />
+              <img src={arrowLeftIcon} className='icon' alt="left arrow"/>
           </div>
           Add Participants
         </div>
@@ -202,7 +202,7 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
       <div className='right-row1'>
         <div>
             <div className='iconContainer' onClick={() => history.push("/newchat?section=add_participants")}> 
-                <img src={arrowLeftIcon} className='icon' />
+                <img src={arrowLeftIcon} className='icon' alt='left arrow'/>
             </div>
             Add Title
           </div>
@@ -235,8 +235,6 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
   : section === 'add_title'? add_title
   : section === 'send_message'? send_message
   : null; 
-
-
 
   return page; 
   }

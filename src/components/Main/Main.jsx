@@ -1,29 +1,20 @@
 import ChatPeopleList from "../ChatPeopleList/ChatPeopleList";
 import ChatPeopleToggle from "../ChatPeopleToggle/ChatPeopleToggle";
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
-  userHistory,
   useHistory,
 } from "react-router-dom";
-import { MobileViewSide, SaveUserInfo, StringToColor } from "../../others/shared_functions";
+import { SaveUserInfo, StringToColor } from "../../others/shared_functions";
 import logoutIcon from "../../icons/log-out.svg";
 import pencilIcon from "../../icons/pencil-fill.svg";
 import personPlusIcon from "../../icons/person-plus-fill.svg";
 import xIcon from "../../icons/x-lg.svg";
-import { http_url, ws_url } from "../../others/shared_vars";
-import { useSelector, useDispatch } from "react-redux";
-import { userInfoActions } from "../../store/userInfo-slice";
-import { statusActionsActions } from "../../store/status-slice";
+import { http_url } from "../../others/shared_vars";
+import { useSelector} from "react-redux";
 import './Main.scss';
 
 export default function Main ({setChatHistoryProp, rooms, onClickFriend}) {
   const history = useHistory();
-  const dispatch = useDispatch();
   const userInfo = useSelector(state => state.userInfo);
   const [showChat, setShowChat] = useState(true);
 
@@ -44,36 +35,23 @@ export default function Main ({setChatHistoryProp, rooms, onClickFriend}) {
     .then(data => {
       console.log('logged out');
       console.log(data);
-      // setUserInfoProp(undefined);
-      // dispatch(userInfoActions.setUserInfo({username: null, token: null}));
       window.location.reload();
     }).catch(error => console.error(error));
   }
-  // async function logout(){
-  //   let response = await fetch( http_url + '/chat_app/logout', 
-  //   {
-  //     headers: {
-  //       'authorization': "token " + userInfo.token,
-  //       'Content-Type': 'application/json',
-  //     },
-  //   }); 
-  //   let response_json = await response.json();
-  //   console.log(response_json);
-  // }
 
   const profilePage = 
     <div className = 'profile-page'>
       <div className = 'profile-header'>
         <div className = 'profile-header-left'>
           <div className='iconContainer' onClick={()=>ProfileOn(false)}>
-            <img src={xIcon} className='icon' />
+            <img src={xIcon} className='icon' alt='X icon' />
           </div>
           <div>
             Me
           </div>
         </div>
         <div className='iconContainer' onClick={async () => await logout()}>
-          <img src={logoutIcon} className='icon' />
+          <img src={logoutIcon} className='icon' alt='log out'/>
         </div>
       </div>
       <div className='userIcon large' style={{backgroundColor: StringToColor(userInfo.username)}}>
@@ -104,10 +82,10 @@ export default function Main ({setChatHistoryProp, rooms, onClickFriend}) {
           </div>
           <div className='buttons'>
             <div className='iconContainer' onClick={()=>history.push('/addfriend')}>
-              <img src={personPlusIcon} className='icon' />
+              <img src={personPlusIcon} className='icon' alt='add friend icon' />
             </div>
             <div className='iconContainer' onClick={()=>history.push('/newchat?section=new_message')}>
-              <img src={pencilIcon} className='icon' />
+              <img src={pencilIcon} className='icon' alt='pencil icon'/>
             </div>
           </div>
         </div>
