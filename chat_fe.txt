@@ -1,3 +1,6 @@
+add message to loading message:
+it may take upto 20 seconds to load the page...
+
 pass socket as a dependency to run socket.close
 
 clean up redux store: 
