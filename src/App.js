@@ -47,15 +47,22 @@ export default function App() {
 
   const [socket, setSocket] = useState({});
 
+  // open and close socket
   useEffect(() => {
-    if (userInfo.token) {
-      setSocket(new W3CWebSocket(ws_url + "/ws/chat/?token=" + userInfo.token));
+    if (!userInfo.token) {
+      return;
     }
+    dispatch(GeneralUpdate());
+    const tempSocket = new W3CWebSocket(
+      ws_url + "/ws/chat/?token=" + userInfo.token
+    );
+    setSocket(tempSocket);
 
     return () => {
-      if ("close" in socket) {
-        console.log("closing socket");
-        socket.close();
+      if ("close" in tempSocket) {
+        console.log("closing socket", tempSocket);
+        tempSocket.close();
+        setSocket({});
       }
     };
   }, [userInfo.token]);
@@ -65,13 +72,13 @@ export default function App() {
     dispatch(fetchUserInfo());
   }, []);
 
-  useEffect(() => {
-    if (userInfo.token) dispatch(GeneralUpdate());
-    return () => {
-      // console.log("app unmounting");
-      setSocket({});
-    };
-  }, [userInfo.token]);
+  // useEffect(() => {
+  //   if (userInfo.token) dispatch(GeneralUpdate());
+  //   return () => {
+  //     // console.log("app unmounting");
+  //     setSocket({});
+  //   };
+  // }, [userInfo.token]);
 
   useEffect(() => {
     if (currentChat) {
@@ -137,8 +144,7 @@ export default function App() {
     //   socket.onopen = () => null;
     //   socket.onmessage = () => null;
     // };
-  }, [socket.url, currentChat, chatHistory, chats, userInfo]);
-  // [socket.url, currentChat, chatHistory, chats, userInfo]
+  }, [socket, currentChat, chatHistory, chats, userInfo, dispatch, history]);
 
   function onClickFriend(user) {
     let chat_id = chats?.find(

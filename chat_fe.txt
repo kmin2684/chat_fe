@@ -1,3 +1,5 @@
+pass socket as a dependency to run socket.close
+
 clean up redux store: 
 
 use context for socket: 
