@@ -124,7 +124,12 @@ export default function App() {
   }
 
   if (userInfo.isLoading) {
-    return <Spinner />;
+    return (
+      <>
+        <Spinner />
+        <div>it may take up to 20 seconds to load the app...</div>
+      </>
+    );
   } else if (!userInfo.token) {
     return (
       <>
