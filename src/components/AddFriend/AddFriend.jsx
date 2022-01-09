@@ -1,33 +1,27 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useState, useEffect} from "react";
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
   useHistory
 } from "react-router-dom";
 import Friend from "../Friend/Friend";
 import { MobileViewSide } from "../../others/shared_functions";
-import { http_url, ws_url } from "../../others/shared_vars";
+import { http_url} from "../../others/shared_vars";
 import { useSelector, useDispatch } from "react-redux";
 import { statusActions } from "../../store/status-slice";
 import xIcon from "../../icons/x-lg.svg"
-import  {Button, IconButton, TextField }  from '@mui/material';
+import  {TextField }  from '@mui/material';
 import './AddFriend.scss'
 
 
 export default function AddFriend () {
+
     const dispatch = useDispatch();
 
-
     dispatch(statusActions.setChatHistory(null));
+
     const [query, setQuery] = useState(undefined);
     const [suggestions, setSuggestions] = useState(undefined);
     const history = useHistory();
     const userInfo = useSelector(state => state.userInfo);
-    const friends = useSelector(state => state.friends);
-
 
     useEffect(()=>{
         MobileViewSide('right');
@@ -85,12 +79,10 @@ export default function AddFriend () {
                 return suggestion;
             })
             setSuggestions(new_suggestion);
-            // SetFriendsProp([...friends, username]); 
             dispatch(statusActions.addFriend(username));
         });
     } 
  
-
     const searchResult = <div className="right-row2>">
         {suggestions?.map(suggestion => <>
             <Friend 

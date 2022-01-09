@@ -44,11 +44,11 @@ export default function App() {
         setSocket({});
       }
     };
-  }, [userInfo.token]);
+  }, [userInfo.token, dispatch]);
 
   useEffect(() => {
     dispatch(fetchUserInfo());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (currentChat && userInfo.token) {
@@ -72,7 +72,7 @@ export default function App() {
         .then((data) => dispatch(statusActions.setChatHistory(data)))
         .catch((error) => console.error(error));
     } else dispatch(statusActions.setChatHistory(null));
-  }, [currentChat, userInfo]);
+  }, [currentChat, userInfo, dispatch, history]);
 
   useEffect(() => {
     if (socket.url) {
