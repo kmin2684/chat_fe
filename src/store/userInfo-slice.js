@@ -15,21 +15,6 @@ const userInfoSlice = createSlice({
         ? action.payload.isLoading
         : state.isLoading;
     },
-    setIsLoading(state, action) {
-      state.isLoading = action.payload;
-    },
-    increment(state) {
-      state.counter++;
-    },
-    decrement(state) {
-      state.counter--;
-    },
-    increase(state, action) {
-      state.counter = state.counter + action.payload;
-    },
-    toggleCounter(state) {
-      state.showCounter = !state.showCounter;
-    },
   },
 });
 
