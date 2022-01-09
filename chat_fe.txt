@@ -1,3 +1,8 @@
+login and signup:
+    use html <label> element
+    alert window
+    setlogout timeout
+
 add message to loading message:
 it may take upto 20 seconds to load the page...
 
@@ -7,10 +12,6 @@ clean up redux store:
 
 use context for socket: 
 
-login and signup:
-    use html <label> element
-    alert window
-    setlogout timeout
 
 new chat page routing :
     array as query params:
