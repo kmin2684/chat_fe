@@ -41,7 +41,7 @@ export default function AddFriend () {
             setSuggestions(data);
         });   
     }
-    ,[query])
+    ,[query, userInfo.token])
 
     function onChange(e) {
         setQuery(e.target.value);
@@ -99,7 +99,7 @@ export default function AddFriend () {
     <div className="right add-friend">
         <div className="right-row1">
             <div className='iconContainer xIconContainer' onClick={()=>history.push('/')}> 
-                <img src={xIcon} className='icon' />
+                <img src={xIcon} className='icon' alt='X'/>
             </div>
             <div >
                 Add friends
