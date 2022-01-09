@@ -105,7 +105,7 @@ export default function NewChat ({ socket, onClickFriend,  mobileViewSide}) {
     setGroupName(queryParamsGroupName);
     setCheckedUsers(queryParamsMembers);
 
-  }, [location.search, friends, sections])
+  }, [location.search, friends])
 
   useEffect(() => {
     setNewChatData( (prev) => {return {...prev, groupName, members: checkedUsers}})

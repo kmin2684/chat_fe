@@ -1,4 +1,4 @@
-function convertTZ(date, tzString) {
+export function convertTZ(date, tzString) {
   return new Date(
     (typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {
       timeZone: tzString,
@@ -82,7 +82,7 @@ export function SaveUserInfo(userInfo) {
   }
 }
 
-function getWindowDimensions() {
+export function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
   return {
     width,

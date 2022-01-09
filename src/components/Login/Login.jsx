@@ -15,8 +15,8 @@ import { http_url} from "../../others/shared_vars";
 export default function Login({loggedIn}) {
     let history = useHistory();
     const dispatch = useDispatch(); 
-    const [username, setUsername] = useState(null);
-    const [password, setPassword] = useState(null);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     
     function onSubmit(event) {
@@ -38,6 +38,7 @@ export default function Login({loggedIn}) {
                 dispatch(userInfoActions.setUserInfo({username: data.username, token: data.token}));
             } else if (data?.non_field_errors) {
                 console.log('error message', data.non_field_errors);
+                alert(data.non_field_errors);
             }
         });
     }
@@ -75,6 +76,7 @@ export default function Login({loggedIn}) {
                 dispatch(userInfoActions.setUserInfo({username: data.username, token: data.token}));
             } else if (data.non_field_errors) {
                 console.log('error message', data.non_field_errors);
+                alert(data.non_field_errors);
             }
         });
     }
@@ -83,8 +85,8 @@ export default function Login({loggedIn}) {
     :
     <div className='login'>
         <form onSubmit={onSubmit} className='login-form'>
-            <TextField id="outlined-basic" type="text" placeholder="id" onChange={(event)=>onChange(event, 'username')} value={username} />
-            <TextField id="outlined-password-input" type="password" placeholder="password" onChange={(event)=>onChange(event, 'password')} value={password} />
+            <TextField id="outlined-basic" type="text" placeholder="id" autoComplete="username" onChange={(event)=>onChange(event, 'username')} value={username} />
+            <TextField id="outlined-password-input" type="password" autoComplete="current-password"  placeholder="password" onChange={(event)=>onChange(event, 'password')} value={password} />
             <Button variant="contained" type="submit">log in</Button>
         </form>
         <div>do not have an account yet?</div>

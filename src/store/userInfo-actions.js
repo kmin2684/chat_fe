@@ -1,6 +1,6 @@
 import { userInfoActions } from "./userInfo-slice";
 import { statusActions } from "./status-slice";
-import { http_url, ws_url } from "../others/shared_vars";
+import { http_url } from "../others/shared_vars";
 import store from "./index";
 
 export const fetchUserInfo = () => {

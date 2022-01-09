@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {useDispatch} from "react-redux";
 import {SaveUserInfo} from "../../others/shared_functions";
 import Spinner from '../Spinner/Spinner';
@@ -6,30 +6,24 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    useParams,
     Redirect,
     useHistory
   } from "react-router-dom";
 
-import { http_url, ws_url } from "../../others/shared_vars";
+import { http_url } from "../../others/shared_vars";
 import { userInfoActions } from "../../store/userInfo-slice";
 
-export default function Registration({userInfo, loggedIn, SetUserInfoProp}) {
+export default function Registration({loggedIn}) {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const [username, setUsername] = useState(null);
-    const [password, setPassword] = useState(null);
-    const [password2, setPassword2] = useState(null);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [password2, setPassword2] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     
     function onSubmit(event) {
         event.preventDefault();
-        // let content = {id, pwd};]
         setIsLoading(true);
         fetch( http_url + '/chat_app/registration', {
             method: 'POST',
@@ -44,10 +38,10 @@ export default function Registration({userInfo, loggedIn, SetUserInfoProp}) {
             let keys = Object.keys(data)
             if (keys.find(key => key === "token")) {
                 SaveUserInfo({username: data.username, token: data.token});
-                // SetUserInfoProp({username: data.username, token: data.token});
                 dispatch(userInfoActions.setUserInfo({username: data.username, token: data.token}));
             } else if (keys.find(key => key === "error")) {
                 console.log('error message', data.error);
+                alert(data.error);
             }
         });
     }
@@ -67,9 +61,9 @@ export default function Registration({userInfo, loggedIn, SetUserInfoProp}) {
     <div className = "registration">
     {isLoading&&<Spinner/>}
         <form onSubmit={onSubmit}>
-            <TextField id="outlined-basic" placeholder="id" onChange={(event)=>onChange(event, 'username')} value={username} />
-            <TextField id="outlined-password-input" type="password" placeholder="password" onChange={(event)=>onChange(event, 'password')} value={password} />
-            <TextField id="outlined-password-input" type="password" placeholder="retype password" onChange={(event)=>onChange(event, 'password2')} value={password2} />
+            <TextField id="outlined-basic" autoComplete="username" placeholder="id" onChange={(event)=>onChange(event, 'username')} value={username} />
+            <TextField id="outlined-password-input" type="password" autoComplete="new-password" placeholder="password" onChange={(event)=>onChange(event, 'password')} value={password} />
+            <TextField id="outlined-password-input 2" type="password" autoComplete="new-password" placeholder="retype password" onChange={(event)=>onChange(event, 'password2')} value={password2} />
             <Button variant="contained" type="submit">register</Button>
         </form> 
     <div>Already registered? <Button variant="contained" onClick={()=>history.push('/login')}>Go to sign in page</Button></div>  

@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter as Router, Switch, HashRouter } from "react-router-dom";
+import { BrowserRouter as Switch, HashRouter } from "react-router-dom";
 import store from "./store/index.js";
 
 ReactDOM.render(
