@@ -1,5 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+function SortByTime(a, b) {
+  return (
+    new Date(b.last_message.time).getTime() -
+    new Date(a.last_message.time).getTime()
+  );
+}
+
 const initialState = {
   chats: [],
   friends: [],
@@ -12,7 +19,7 @@ const statusSlice = createSlice({
   initialState,
   reducers: {
     setChats(state, action) {
-      state.chats = action.payload.chats;
+      state.chats = action.payload.chats.sort(SortByTime);
     },
     addChat(state, action) {
       state.chats.push(action.payload);

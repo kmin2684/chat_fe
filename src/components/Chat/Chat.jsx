@@ -50,16 +50,15 @@ export default function Chat({chat}) {
         <div key={member} className='userIcon' style = {{backgroundColor: StringToColor(member)}}> 
           {member[0]} 
         </div>)}
-        <div style={{overflow:'hidden'}}>
+        <div style={{overflow: 'hidden'}}>
           <div>{chatName}</div>
-          <div style={{display: 'flex'}}>
+          <div className='detail'>
             <div className='content'>{chat.last_message?.content}</div>
-            <div className='time' >
-              {chat.last_message?.time && 
-              `· ${formatTime(chat.last_message.time)}`
-              }
-              
-              </div>
+            
+            {chat.last_message?.time && 
+              <div className='time'> &nbsp;{`· ${formatTime(chat.last_message.time)}`}</div>
+            }
+      
           </div> 
 
         </div>
