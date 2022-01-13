@@ -10,19 +10,19 @@ export default function ChatPeopleList({showChat, setChatHistoryProp, onClickFri
    const friends = useSelector(state => state.status.friends);
 
    if (showChat) {
-      if (chats) {
+      if (chats?.length) {
          return chats.map(chat => {
             return <Chat key={chat.id} chat = {chat} setChatHistoryProp = {setChatHistoryProp}/>
          });     
       } 
-      return 'no chats';
+      return 'no chats exist for the user yet';
    } 
    
-   if (friends) {
+   if (friends?.length) {
       return friends.map(friend => {
          return <Friend key={friend} friend = {friend} onClickFriend={onClickFriend}/>
       })
    }
-   return 'no friends';
+   return 'no friends exist for the user yet';
 }
 

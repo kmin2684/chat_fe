@@ -1,3 +1,9 @@
+update last message of chat when new chat received
+
+show most recent chat and date
+
+add debouncer to add friend
+
 login and signup:
     use html <label> element
     alert window

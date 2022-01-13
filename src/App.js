@@ -75,6 +75,7 @@ export default function App() {
   }, [currentChat, userInfo, dispatch, history]);
 
   useEffect(() => {
+    let updatedChats;
     if (socket.url) {
       socket.onopen = () => {
         console.log("connected to websocket");
@@ -97,7 +98,36 @@ export default function App() {
               messages: [...chatHistory.messages, data.message],
             })
           );
+          updatedChats = chats.map((e) => {
+            if (e.id == data.message.room_id) {
+              return {
+                ...e,
+                last_message: {
+                  time: data.message.time,
+                  content: data.message.content,
+                  checked: false,
+                },
+              };
+            }
+            return e;
+          });
+          dispatch(statusActions.setChats({ chats: updatedChats }));
           console.log("new message appended");
+        } else {
+          updatedChats = chats.map((e) => {
+            if (e.id == data.message.room_id) {
+              return {
+                ...e,
+                last_message: {
+                  time: data.message.time,
+                  content: data.message.content,
+                  checked: false,
+                },
+              };
+            }
+            return e;
+          });
+          dispatch(statusActions.setChats({ chats: updatedChats }));
         }
       };
     }

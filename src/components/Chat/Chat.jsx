@@ -31,7 +31,12 @@ export default function Chat({chat}) {
         <div key={member} className='userIcon' style = {{backgroundColor: StringToColor(member)}}> 
           {member[0]} 
         </div>)}
-        {chatName}
+        <div>
+          <div>{chatName}</div>
+          <div style={{display: "inline", marginRight: '1rem'}}>{chat.last_message?.content}</div>
+          <div style={{display: "inline-block"}}>{chat.last_message?.time}</div>
+        </div>
+        
       </div>
     </>
 }
