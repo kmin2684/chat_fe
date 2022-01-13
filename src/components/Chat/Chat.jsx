@@ -5,6 +5,7 @@ import {
 
 import {StringToColor} from '../../others/shared_functions';
 import { useSelector } from "react-redux";
+import './Chat.scss';
 
 
 export default function Chat({chat}) {
@@ -31,10 +32,13 @@ export default function Chat({chat}) {
         <div key={member} className='userIcon' style = {{backgroundColor: StringToColor(member)}}> 
           {member[0]} 
         </div>)}
-        <div>
+        <div style={{overflow:'hidden'}}>
           <div>{chatName}</div>
-          <div style={{display: "inline", marginRight: '1rem'}}>{chat.last_message?.content}</div>
-          <div style={{display: "inline-block"}}>{chat.last_message?.time}</div>
+          <div style={{display: 'flex'}}>
+            <div className='content'>{chat.last_message?.content}</div>
+            <div className='time' >{chat.last_message?.time}</div>
+          </div> 
+
         </div>
         
       </div>
