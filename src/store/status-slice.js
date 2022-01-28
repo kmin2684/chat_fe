@@ -22,7 +22,7 @@ const statusSlice = createSlice({
       state.chats = action.payload.chats.sort(SortByTime);
     },
     addChat(state, action) {
-      state.chats.push(action.payload);
+      state.chats = [action.payload, ...state.chats];
     },
     setFriends(state, action) {
       state.friends = action.payload.friends;
