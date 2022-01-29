@@ -5,6 +5,7 @@
 This is a real-time single-page chatting application similar to Facebook's Messenger App.
 
 Deployed at: https://kmin2684.github.io/chat_fe
+
 Backend portion at: https://github.com/kmin2684/chat_be
 
 ## Tech stack
