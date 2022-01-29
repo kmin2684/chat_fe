@@ -1,10 +1,81 @@
-The live version can be found at 
+# Chat App
 
-https://kmin2684.github.io/chat_fe
+## Introduction
 
-Backend portion of the app can be accessed via
+This is a real-time single-page chatting application similar to Facebook's Messenger App.
 
-https://github.com/kmin2684/chat_be
+Deployed at: https://kmin2684.github.io/chat_fe
+Backend portion at: https://github.com/kmin2684/chat_be
+
+## Tech stack
+
+### Front end
+
+ReactJS, Redux, Material UI
+
+### Back end
+
+Django, Django REST framework, Django Channels, PostgreSQL
+
+## Main features
+
+### Real time communication via WebSocket
+
+<p align='center'>
+  <img src="https://i.ibb.co/LnFz54V/regular-chat-cropped-2.gif"/>
+</p>
+
+### JWT based authentication
+
+<p align='center'>
+  <img src="https://i.ibb.co/FXmTjB9/login2-cropped.gif"/>
+</p>
+
+### Adding a new friend
+
+<p align='center'>
+	 <img src="https://i.ibb.co/ZLd3NhX/add-a-new-friend-cropped.gif"/>
+</p>
+
+### Creating a new chat room
+
+<p align='center'>
+	 <img src="https://i.ibb.co/RTswzBx/add-a-new-chat-cropped.gif"/>
+</p>
+
+### Displaying members in a chat room
+
+<p align='center'>
+	 <img src="https://i.ibb.co/pbV1ZWQ/view-members.jpg"/>
+</p>
+
+### Responsive layout
+
+<p align='center'>
+	Desktop view
+</p>
+<p align='center'>
+  <img src="https://i.ibb.co/M7fq0fW/Desktop-mode.png"/>
+</p>
+
+<p align='center'>
+Mobile view
+</p>
+<p align='center'>
+  <img src="https://i.ibb.co/FHTcySt/Mobile-mode.png"/>
+</p>
+
+### Etc
+
+- group communication
+- client side routing
+- single page application
+
+## Deployment
+
+<p align='center'>
+  <img src="https://i.ibb.co/Rbhp6h8/deployment-summary.png"/>
+</p>
 
 # Getting Started with Create React App
 
