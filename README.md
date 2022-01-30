@@ -59,7 +59,6 @@ Django, Django REST framework, Django Channels, PostgreSQL
 <p align='center'>
   <img src="https://i.ibb.co/M7fq0fW/Desktop-mode.png"/>
 </p>
-![source https://i.ibb.co/M7fq0fW/Desktop-mode.png](https://i.ibb.co/M7fq0fW/Desktop-mode.png)
 
 <p align='center'>
 Mobile view
@@ -77,7 +76,7 @@ Mobile view
 ## Deployment
 
 <p align='center'>
-  <img src="https://i.ibb.co/Rbhp6h8/deployment-summary.png"/>
+  <img src="https://i.ibb.co/Rbhp6h8/deployment-summary.png" alt="https://i.ibb.co/M7fq0fW/Desktop-mode.png"/>
 </p>
 
 # Getting Started with Create React App
