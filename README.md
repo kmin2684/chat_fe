@@ -31,7 +31,10 @@ Django, Django REST framework, Django Channels, PostgreSQL
 <p align='center'>
   <img src="https://i.ibb.co/FXmTjB9/login2-cropped.gif"/>
 </p>
-![alt text](http://url/to/img.png)
+
+<p align='center'>
+  <img src="https://i.ibb.co/FXmTjB9/login2-cropped.gif"/>
+</p>
 
 ### Adding a new friend
 
@@ -76,7 +79,11 @@ Mobile view
 ## Deployment
 
 <p align='center'>
-  <img src="https://i.ibb.co/Rbhp6h8/deployment-summary.png" alt="https://i.ibb.co/M7fq0fW/Desktop-mode.png"/>
+  <img src="https://i.ibb.co/Rbhp6h8/deployment-summary.png"/>
+</p>
+
+<p align='center'>
+  <img src="https://i.ibb.co/Rbhp6h8/deployment-summary.png"/>
 </p>
 
 # Getting Started with Create React App
