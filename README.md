@@ -58,7 +58,7 @@ Django, Django REST framework, Django Channels, PostgreSQL
 <p align='center'>
   <img src="https://i.ibb.co/M7fq0fW/Desktop-mode.png"/>
 </p>
-![source: https://i.ibb.co/M7fq0fW/Desktop-mode.png] https://i.ibb.co/M7fq0fW/Desktop-mode.png
+![source: https://i.ibb.co/M7fq0fW/Desktop-mode.png](https://i.ibb.co/M7fq0fW/Desktop-mode.png)
 
 <p align='center'>
 Mobile view
