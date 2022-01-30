@@ -31,6 +31,7 @@ Django, Django REST framework, Django Channels, PostgreSQL
 <p align='center'>
   <img src="https://i.ibb.co/FXmTjB9/login2-cropped.gif"/>
 </p>
+![alt text](http://url/to/img.png)
 
 ### Adding a new friend
 
