@@ -23,35 +23,31 @@ Django, Django REST framework, Django Channels, PostgreSQL
 ### Real time communication via WebSocket
 
 <p align='center'>
-  <img src="https://i.ibb.co/LnFz54V/regular-chat-cropped-2.gif"/>
+  <img src="https://github.com/kmin2684/mock-api/blob/main/chat%20app%20images/regular-chat%20cropped%202.gif?raw=true"/>
 </p>
 
 ### JWT based authentication
 
 <p align='center'>
-  <img src="https://i.ibb.co/FXmTjB9/login2-cropped.gif"/>
-</p>
-
-<p align='center'>
-  <img src="https://i.ibb.co/FXmTjB9/login2-cropped.gif"/>
+  <img src="https://github.com/kmin2684/mock-api/blob/main/chat%20app%20images/login2%20cropped.gif?raw=true"/>
 </p>
 
 ### Adding a new friend
 
 <p align='center'>
-	 <img src="https://i.ibb.co/ZLd3NhX/add-a-new-friend-cropped.gif"/>
+	 <img src="https://github.com/kmin2684/mock-api/blob/main/chat%20app%20images/add-a-new-friend%20cropped.gif?raw=true"/>
 </p>
 
 ### Creating a new chat room
 
 <p align='center'>
-	 <img src="https://i.ibb.co/RTswzBx/add-a-new-chat-cropped.gif"/>
+	 <img src="https://github.com/kmin2684/mock-api/blob/main/chat%20app%20images/add-a-new-chat%20cropped.gif?raw=true"/>
 </p>
 
 ### Displaying members in a chat room
 
 <p align='center'>
-	 <img src="https://i.ibb.co/pbV1ZWQ/view-members.jpg"/>
+	 <img src="https://github.com/kmin2684/mock-api/blob/main/chat%20app%20images/view%20members.jpeg?raw=true"/>
 </p>
 
 ### Responsive layout
@@ -60,14 +56,14 @@ Django, Django REST framework, Django Channels, PostgreSQL
 	Desktop view
 </p>
 <p align='center'>
-  <img src="https://i.ibb.co/M7fq0fW/Desktop-mode.png"/>
+  <img src="https://github.com/kmin2684/mock-api/blob/main/chat%20app%20images/Desktop%20mode.PNG?raw=true"/>
 </p>
 
 <p align='center'>
 Mobile view
 </p>
 <p align='center'>
-  <img src="https://i.ibb.co/FHTcySt/Mobile-mode.png"/>
+  <img src="https://github.com/kmin2684/mock-api/blob/main/chat%20app%20images/Mobile%20mode.PNG?raw=true"/>
 </p>
 
 ### Etc
@@ -79,11 +75,7 @@ Mobile view
 ## Deployment
 
 <p align='center'>
-  <img src="https://i.ibb.co/Rbhp6h8/deployment-summary.png"/>
-</p>
-
-<p align='center'>
-  <img src="https://i.ibb.co/Rbhp6h8/deployment-summary.png"/>
+  <img src="https://github.com/kmin2684/mock-api/blob/main/chat%20app%20images/deployment%20summary.PNG?raw=true"/>
 </p>
 
 # Getting Started with Create React App
